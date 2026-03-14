@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports Club | About Us</title>
+    {% include 'club_app/common_files/common_css.html' %}
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
+
+        /* ── Base ── */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: #0d0d0d;
+            font-family: 'Outfit', sans-serif;
+            color: #e8e0d5;
+        }
+
+        .main-body {
+            padding: 48px 40px 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* ── Page heading ── */
+        h1 {
+            font-size: clamp(28px, 4vw, 42px);
+            font-weight: 800;
+            text-align: center;
+            letter-spacing: -0.02em;
+            margin-bottom: 36px;
+            background: linear-gradient(135deg, #e8c98a 0%, #c8a96e 60%, #a07840 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ── About paragraph ── */
+        .main-body > p {
+            background: #161616;
+            border: 1px solid rgba(200, 169, 110, 0.2);
+            border-left: 3px solid #c8a96e;
+            color: #b8b0a5;
+            padding: 24px 28px;
+            border-radius: 12px;
+            line-height: 1.8;
+            font-size: 15px;
+            margin-bottom: 40px;
+        }
+
+        /* ── Section label ── */
+        .section-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            color: #c8a96e;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+
+        /* ── Image Gallery ── */
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-bottom: 48px;
+        }
+
+        .gallery-container img {
+            width: 100%;
+            height: 210px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 1px solid rgba(200, 169, 110, 0.15);
+            transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+            display: block;
+        }
+
+        .gallery-container img:hover {
+            transform: scale(1.04) translateY(-3px);
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(200,169,110,0.4);
+            border-color: rgba(200,169,110,0.5);
+        }
+
+        /* ── Carousel ── */
+        .carousel-wrapper {
+            max-width: 760px;
+            margin: 0 auto 20px;
+        }
+
+        .carousel {
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid rgba(200, 169, 110, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+        }
+
+        .carousel img {
+            height: 380px;
+            object-fit: cover;
+            display: block;
+            width: 100%;
+        }
+
+        .carousel-caption {
+            background: linear-gradient(0deg, rgba(0,0,0,0.82) 0%, transparent 100%);
+            border-radius: 0;
+            padding: 28px 24px 20px;
+            bottom: 0; left: 0; right: 0;
+            text-align: left;
+        }
+
+        .carousel-caption h4 {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #c8a96e;
+            margin-bottom: 6px;
+        }
+
+        .carousel-caption h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.3;
+        }
+
+        /* Custom carousel controls */
+        .carousel-control-prev,
+        .carousel-control-next {
+            width: 44px;
+            height: 44px;
+            background: rgba(200,169,110,0.15);
+            border: 1px solid rgba(200,169,110,0.3);
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 1;
+            transition: background 0.2s;
+        }
+
+        .carousel-control-prev { left: 14px; }
+        .carousel-control-next { right: 14px; }
+
+        .carousel-control-prev:hover,
+        .carousel-control-next:hover {
+            background: rgba(200,169,110,0.35);
+        }
+
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            width: 16px;
+            height: 16px;
+        }
+
+        .carousel-indicators [data-bs-target] {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: rgba(200,169,110,0.4);
+            border: none;
+            opacity: 1;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .carousel-indicators .active {
+            background-color: #c8a96e;
+            transform: scale(1.3);
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .main-body { padding: 32px 20px 48px; }
+            .gallery-container { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+            .carousel img { height: 240px; }
+        }
+    </style>
+</head>
+
+<body>
+    {% include 'club_app/common_files/common_header.html' %}
+
+    <div class="main-body">
+
+        <h1>Welcome to PlayForge Sports Club</h1>
+
+        <p>
+            With a passion for promoting health, fitness, and sportsmanship, Ramagya Sports Academy, in collaboration with White Canvas India, launched Noida's First and Biggest Sports League - NSL.
+            This spectacular event encouraged individuals of all ages, from 4 to 71 years old, to participate in 12 exciting indoor and outdoor sports.
+            The event, spanning 27 hours, created history with over 3,062 participants and earned a National Record as the largest family sports league in India.
+        </p>
+
+        <!-- Image Gallery -->
+        <div class="section-label">Our Sports</div>
+        <div class="gallery-container">
+            <img src="{% static 'club_app/images/cricket_image3.avif' %}" alt="Cricket">
+            <img src="{% static 'club_app/images/sports.jpg' %}" alt="Sports">
+            <img src="{% static 'club_app/images/stadium.jpg' %}" alt="Stadium">
+            <img src="{% static 'club_app/images/cricket_image1.avif' %}" alt="Football">
+            <img src="{% static 'club_app/images/football_image1.avif' %}" alt="More Football">
+        </div>
+
+        <!-- Carousel Section -->
+        <div class="section-label">Highlights</div>
+        <div class="carousel-wrapper">
+            <div id="aboutCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3500">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#aboutCarousel" data-bs-slide-to="0" class="active"></button>
+                    <button type="button" data-bs-target="#aboutCarousel" data-bs-slide-to="1"></button>
+                    <button type="button" data-bs-target="#aboutCarousel" data-bs-slide-to="2"></button>
+                </div>
+
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="{% static 'club_app/images/sports.jpg' %}" class="d-block w-100" alt="Sports">
+                        <div class="carousel-caption">
+                            <h4>Get</h4>
+                            <h2>Work Hard for the Best</h2>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <img src="{% static 'club_app/images/stadium.jpg' %}" class="d-block w-100" alt="Stadium">
+                        <div class="carousel-caption">
+                            <h4>Ready</h4>
+                            <h2>Maintain Your Discipline</h2>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <img src="{% static 'club_app/images/running.avif' %}" class="d-block w-100" alt="Football">
+                        <div class="carousel-caption">
+                            <h4>& GO</h4>
+                            <h2>Build Your Personality Like a Sports Disciple</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="carousel-control-prev" type="button" data-bs-target="#aboutCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#aboutCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <div style='position:relative; z-index:2;'>
+    {% include 'club_app/common_files/common_footer.html' %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var aboutCarousel = document.getElementById("aboutCarousel");
+        if (aboutCarousel) {
+            var carousel = new bootstrap.Carousel(aboutCarousel, {
+                interval: 3500,
+                ride: true,
+                wrap: true
+            });
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,339 @@
+<!-- 
+  REDESIGNED NAVBAR — Drop-in replacement for your existing navbar.
+  All functionality preserved: links, dropdown, search bar, Django URL tags.
+  Only styles changed.
+-->
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap');
+
+  :root {
+    --nav-bg: #0d0d0d;
+    --nav-accent: #c8a96e;
+    --nav-accent-light: #e8c98a;
+    --nav-text: #e8e0d5;
+    --nav-muted: #888880;
+    --nav-hover-bg: rgba(200, 169, 110, 0.12);
+    --nav-dropdown-bg: #181818;
+    --nav-border: rgba(200, 169, 110, 0.25);
+    --nav-height: 62px;
+  }
+
+  .navbar-pro {
+    background: var(--nav-bg);
+    height: var(--nav-height);
+    padding: 0 28px;
+    border-bottom: 1px solid var(--nav-border);
+    font-family: 'Outfit', sans-serif;
+    position: relative;
+  }
+
+  .navbar-pro .container-fluid {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+
+  /* BRAND / HOME ICON */
+  .navbar-pro .navbar-brand-pro {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--nav-accent), #a07840);
+    color: #0d0d0d;
+    font-size: 17px;
+    text-decoration: none;
+    margin-right: 24px;
+    flex-shrink: 0;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 12px rgba(200,169,110,0.25);
+  }
+
+  .navbar-pro .navbar-brand-pro:hover {
+    transform: translateY(-1px) scale(1.06);
+    box-shadow: 0 4px 20px rgba(200,169,110,0.4);
+  }
+
+  /* COLLAPSE WRAPPER */
+  .navbar-pro .collapse.navbar-collapse {
+    display: flex !important;
+    align-items: center;
+    flex: 1;
+    justify-content: flex-end;
+    gap: 2px;
+  }
+
+  /* NAV LINKS */
+  .navbar-pro .nav-link-pro {
+    color: var(--nav-muted);
+    font-size: 13.5px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    padding: 6px 13px;
+    border-radius: 7px;
+    text-decoration: none;
+    transition: color 0.2s, background 0.2s;
+    white-space: nowrap;
+    position: relative;
+  }
+
+  .navbar-pro .nav-link-pro:hover {
+    color: var(--nav-accent-light);
+    background: var(--nav-hover-bg);
+  }
+
+  /* DROPDOWN */
+  .navbar-pro .nav-item-dropdown {
+    position: relative;
+  }
+
+  .navbar-pro .dropdown-toggle-pro {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+  }
+
+  .navbar-pro .dropdown-toggle-pro::after {
+    content: '';
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: rotate(45deg) translateY(-2px);
+    transition: transform 0.2s;
+  }
+
+  .navbar-pro .nav-item-dropdown:hover .dropdown-toggle-pro::after,
+  .navbar-pro .nav-item-dropdown.open .dropdown-toggle-pro::after {
+    transform: rotate(-135deg) translateY(-2px);
+  }
+
+  .navbar-pro .dropdown-menu-pro {
+    display: none;
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    background: var(--nav-dropdown-bg);
+    border: 1px solid var(--nav-border);
+    border-radius: 10px;
+    padding: 6px;
+    min-width: 160px;
+    z-index: 9999;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.6);
+    animation: dropIn 0.18s ease;
+    list-style: none;
+    margin: 0;
+  }
+
+  .navbar-pro .dropdown-menu-pro li {
+    list-style: none;
+  }
+
+  @keyframes dropIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .navbar-pro .nav-item-dropdown:hover .dropdown-menu-pro,
+  .navbar-pro .nav-item-dropdown.open .dropdown-menu-pro {
+    display: block;
+  }
+
+  .navbar-pro .dropdown-item-pro {
+    display: block;
+    padding: 8px 14px;
+    color: var(--nav-muted);
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .navbar-pro .dropdown-item-pro:hover {
+    background: var(--nav-hover-bg);
+    color: var(--nav-accent-light);
+  }
+
+  /* SEARCH BAR */
+  .navbar-pro .search-wrap {
+    display: flex;
+    align-items: center;
+    background: #1a1a1a;
+    border: 1px solid rgba(200,169,110,0.2);
+    border-radius: 24px;
+    padding: 0 6px 0 14px;
+    margin-left: 12px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    height: 36px;
+    flex-shrink: 0;
+  }
+
+  .navbar-pro .search-wrap:focus-within {
+    border-color: var(--nav-accent);
+    box-shadow: 0 0 0 3px rgba(200,169,110,0.12);
+  }
+
+  .navbar-pro .search-input-pro {
+    background: none;
+    border: none;
+    outline: none;
+    color: var(--nav-text);
+    font-family: 'Outfit', sans-serif;
+    font-size: 13px;
+    width: 180px;
+    transition: width 0.3s;
+    padding: 0;
+  }
+
+  .navbar-pro .search-input-pro::placeholder {
+    color: var(--nav-muted);
+  }
+
+  .navbar-pro .search-wrap:focus-within .search-input-pro {
+    width: 210px;
+  }
+
+  .navbar-pro .btn-search-pro {
+    background: var(--nav-accent);
+    border: none;
+    color: #0d0d0d;
+    border-radius: 18px;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 11px;
+    flex-shrink: 0;
+    transition: background 0.2s;
+  }
+
+  .navbar-pro .btn-search-pro:hover {
+    background: var(--nav-accent-light);
+  }
+
+  /* DIVIDER */
+  .navbar-pro .nav-divider {
+    width: 1px;
+    height: 16px;
+    background: var(--nav-border);
+    margin: 0 8px;
+    flex-shrink: 0;
+  }
+
+  /* LOGIN pill */
+  .navbar-pro .nav-link-pill {
+    background: rgba(200,169,110,0.1);
+    border: 1px solid var(--nav-border);
+    color: var(--nav-accent);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 5px 14px;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+    white-space: nowrap;
+  }
+
+  .navbar-pro .nav-link-pill:hover {
+    background: var(--nav-accent);
+    color: #0d0d0d;
+    border-color: var(--nav-accent);
+  }
+
+  /* MOBILE TOGGLER */
+  .navbar-pro .navbar-toggler-pro {
+    display: none;
+    background: none;
+    border: 1px solid var(--nav-border);
+    border-radius: 8px;
+    padding: 7px 10px;
+    cursor: pointer;
+    color: var(--nav-accent);
+    margin-left: auto;
+  }
+
+  @media (max-width: 991px) {
+    .navbar-pro .navbar-toggler-pro { display: flex; align-items: center; }
+    .navbar-pro .collapse.navbar-collapse {
+      position: absolute;
+      top: var(--nav-height);
+      left: 0; right: 0;
+      background: var(--nav-dropdown-bg);
+      border-bottom: 1px solid var(--nav-border);
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 12px 20px 18px;
+      gap: 4px;
+      display: none !important;
+      z-index: 9000;
+    }
+    .navbar-pro .collapse.navbar-collapse.show {
+      display: flex !important;
+    }
+    .navbar-pro .search-wrap {
+      margin-left: 0;
+      margin-top: 8px;
+      width: 100%;
+    }
+    .navbar-pro .search-input-pro { width: 100%; }
+  }
+</style>
+
+<!-- NAVBAR START -->
+<nav class="navbar-pro">
+  <div class="container-fluid">
+
+    <!-- Home Icon -->
+    <a class="navbar-brand-pro" href="/">
+      <i class="fas fa-home"></i>
+    </a>
+
+    <!-- Mobile toggle -->
+    <button class="navbar-toggler-pro" onclick="this.closest('nav').querySelector('.navbar-collapse').classList.toggle('show')">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Nav items -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+      <a class="nav-link-pro" href="/about/">About</a>
+      <a class="nav-link-pro" href="/gallery/">Gallery</a>
+      <a class="nav-link-pro" href="/coach/">Coach</a>
+      <a class="nav-link-pro" href="/reviews/">Reviews</a>
+      <a class="nav-link-pro" href="/member_registration/">Registration</a>
+      <a class="nav-link-pro" href="/career/">Join</a>
+
+      <div class="nav-divider"></div>
+
+      <a class="nav-link-pill" href="/member_login/">Login</a>
+
+      <!-- Sports Dropdown -->
+      <div class="nav-item-dropdown">
+        <a class="nav-link-pro dropdown-toggle-pro" href="#" onclick="return false;">Sports</a>
+        <ul class="dropdown-menu-pro">
+          <li><a class="dropdown-item-pro" href="/cricket/">Cricket</a></li>
+          <li><a class="dropdown-item-pro" href="/football/">Football</a></li>
+          <li><a class="dropdown-item-pro" href="/badminton/">Badminton</a></li>
+          <li><a class="dropdown-item-pro" href="/basketball/">Basketball</a></li>
+        </ul>
+      </div>
+
+      <!-- Search Bar -->
+      <form class="search-wrap" role="search" action="{% url 'search_results' %}" method="GET">
+        <input class="search-input-pro" type="search" name="q" placeholder="Search..." required>
+        <button class="btn-search-pro" type="submit"><i class="fas fa-search"></i></button>
+      </form>
+
+    </div>
+  </div>
+</nav>
+<!-- NAVBAR END -->

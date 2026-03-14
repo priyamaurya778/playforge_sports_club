@@ -1,0 +1,127 @@
+<style>
+  /* ── Footer Pro — matches navbar dark-luxury theme ── */
+  .footer-pro {
+    background: #0d0d0d;
+    border-top: 1px solid rgba(200, 169, 110, 0.25);
+    position: relative;
+    z-index: 2;
+    font-family: 'Outfit', sans-serif;
+    padding: 28px 28px 0;
+  }
+
+  .footer-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding-bottom: 22px;
+  }
+
+  .footer-created {
+    font-size: 13.5px;
+    color: #e8e0d5;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    margin: 0;
+  }
+
+  .footer-created .heart {
+    color: #c8a96e;
+    margin: 0 3px;
+  }
+
+  .footer-created .names {
+    color: #c8a96e;
+    font-weight: 600;
+  }
+
+  .footer-copy {
+    font-size: 12.5px;
+    color: #888880;
+    margin: 0;
+  }
+
+  .footer-socials {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .social-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+    border: 1px solid rgba(200, 169, 110, 0.25);
+    background: rgba(200, 169, 110, 0.06);
+    color: #888880;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s;
+  }
+
+  .social-btn:hover {
+    background: #c8a96e;
+    color: #0d0d0d;
+    border-color: #c8a96e;
+    transform: translateY(-2px);
+  }
+
+  .footer-shimmer {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #14d2aa 40%, #00e5c0 60%, transparent);
+    opacity: 0.7;
+  }
+
+  .footer-bottom {
+    background: linear-gradient(90deg, #0d0d0d 0%, #0f1a18 50%, #0d0d0d 100%);
+    border-top: 1px solid rgba(20, 210, 170, 0.15);
+    padding: 11px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 12px;
+    color: #888880;
+    letter-spacing: 0.04em;
+    font-family: 'Outfit', sans-serif;
+  }
+
+  .footer-bottom .passion-heart {
+    color: #e05555;
+    font-size: 13px;
+  }
+</style>
+
+<!-- FOOTER START -->
+<footer class="footer-pro" style="position:relative; z-index:2;">
+  <div class="footer-main">
+
+    <p class="footer-created">
+      <span class="heart">♥</span>
+      Created by <span class="names">Anshu, Neha Kumari and Priya Maurya</span>
+      <span class="heart">♥</span>
+    </p>
+
+    <p class="footer-copy">© 2026 PlayForge Sports Club. All Rights Reserved.</p>
+
+    <div class="footer-socials">
+      <a class="social-btn" href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a class="social-btn" href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a class="social-btn" href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+      <a class="social-btn" href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+
+  </div>
+
+  <!-- Teal shimmer line (matches original gradient bar) -->
+  <div class="footer-shimmer"></div>
+
+  <div class="footer-bottom">
+    Designed with Passion &amp; Dedication
+    <span class="passion-heart">♥</span>
+  </div>
+</footer>
+<!-- FOOTER END -->

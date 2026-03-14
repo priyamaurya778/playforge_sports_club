@@ -1,0 +1,369 @@
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
+
+    /* ── Member Navbar ── */
+    .member-navbar {
+        background: #0d0d0d !important;
+        border-bottom: 1px solid rgba(200, 169, 110, 0.25);
+        padding: 10px 20px;
+        font-family: 'Outfit', sans-serif;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1050;
+    }
+
+    /* hamburger button */
+    .member-navbar .navbar-toggler {
+        border: 1px solid rgba(200, 169, 110, 0.35);
+        border-radius: 8px;
+        padding: 6px 10px;
+        color: #c8a96e;
+        transition: background 0.2s;
+    }
+
+    .member-navbar .navbar-toggler:hover {
+        background: rgba(200,169,110,0.08);
+    }
+
+    .member-navbar .navbar-toggler-icon {
+        filter: invert(72%) sepia(30%) saturate(500%) hue-rotate(5deg) brightness(95%);
+    }
+
+    /* brand area in the navbar */
+    .member-navbar .navbar-brand-pro {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, #c8a96e, #a07840);
+        color: #0d0d0d;
+        font-size: 15px;
+        text-decoration: none;
+        box-shadow: 0 2px 12px rgba(200,169,110,0.25);
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .member-navbar .navbar-brand-pro:hover {
+        transform: translateY(-1px) scale(1.06);
+        box-shadow: 0 4px 20px rgba(200,169,110,0.4);
+    }
+
+    /* ── Offcanvas panel ── */
+    #memberOffcanvas {
+        background: #111 !important;
+        border-left: 1px solid rgba(200,169,110,0.2) !important;
+        width: 280px !important;
+        font-family: 'Outfit', sans-serif;
+    }
+
+    .offcanvas-header {
+        border-bottom: 1px solid rgba(200,169,110,0.15);
+        padding: 18px 20px;
+    }
+
+    /* greeting */
+    .offcanvas-title {
+        font-size: 13px !important;
+        font-weight: 600 !important;
+        color: #888880 !important;
+        letter-spacing: 0.04em;
+    }
+
+    .offcanvas-title span {
+        color: #c8a96e;
+        font-weight: 700;
+    }
+
+    .btn-close-white {
+        filter: invert(1) brightness(0.6);
+        transition: filter 0.2s;
+    }
+
+    .btn-close-white:hover { filter: invert(1) brightness(1); }
+
+    .offcanvas-body { padding: 12px 12px 24px; }
+
+    /* ── Nav links ── */
+    .member-nav-link {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #888880;
+        font-size: 13.5px;
+        font-weight: 500;
+        padding: 10px 14px;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: color 0.2s, background 0.2s;
+        margin-bottom: 2px;
+    }
+
+    .member-nav-link .nav-icon {
+        width: 28px;
+        height: 28px;
+        border-radius: 7px;
+        background: rgba(200,169,110,0.08);
+        border: 1px solid rgba(200,169,110,0.15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        color: #c8a96e;
+        flex-shrink: 0;
+        transition: background 0.2s;
+    }
+
+    .member-nav-link:hover {
+        color: #e8e0d5;
+        background: rgba(200,169,110,0.08);
+    }
+
+    .member-nav-link:hover .nav-icon {
+        background: rgba(200,169,110,0.15);
+    }
+
+    /* logout link — red tint */
+    .member-nav-link.logout {
+        color: #7a3a3a;
+        margin-top: 8px;
+    }
+
+    .member-nav-link.logout .nav-icon {
+        background: rgba(224,85,85,0.08);
+        border-color: rgba(224,85,85,0.2);
+        color: #e05555;
+    }
+
+    .member-nav-link.logout:hover {
+        color: #e05555;
+        background: rgba(224,85,85,0.08);
+    }
+
+    /* nav section divider */
+    .nav-section-label {
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        color: rgba(200,169,110,0.4);
+        text-transform: uppercase;
+        padding: 14px 14px 6px;
+    }
+
+    .nav-divider {
+        height: 1px;
+        background: rgba(200,169,110,0.1);
+        margin: 8px 14px;
+    }
+
+    /* ── Dropdown inside offcanvas ── */
+    .member-dropdown-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #888880;
+        font-family: 'Outfit', sans-serif;
+        font-size: 13.5px;
+        font-weight: 500;
+        padding: 10px 14px;
+        border-radius: 8px;
+        transition: color 0.2s, background 0.2s;
+        margin-bottom: 2px;
+        text-align: left;
+    }
+
+    .member-dropdown-toggle:hover {
+        color: #e8e0d5;
+        background: rgba(200,169,110,0.08);
+    }
+
+    .member-dropdown-toggle .chevron {
+        font-size: 10px;
+        transition: transform 0.2s;
+        color: rgba(200,169,110,0.5);
+    }
+
+    .member-dropdown-toggle.open .chevron { transform: rotate(180deg); }
+
+    .member-dropdown-menu {
+        display: none;
+        padding-left: 14px;
+        border-left: 1px solid rgba(200,169,110,0.15);
+        margin: 2px 14px 4px;
+    }
+
+    .member-dropdown-menu.show { display: block; }
+
+    .member-dropdown-item {
+        display: block;
+        color: #666;
+        font-size: 13px;
+        font-weight: 400;
+        padding: 8px 12px;
+        border-radius: 6px;
+        text-decoration: none;
+        transition: color 0.2s, background 0.2s;
+    }
+
+    .member-dropdown-item:hover {
+        color: #c8a96e;
+        background: rgba(200,169,110,0.06);
+    }
+
+    .dropdown-group-label {
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        color: rgba(200,169,110,0.35);
+        text-transform: uppercase;
+        padding: 10px 12px 4px;
+    }
+
+    .dropdown-sub-divider {
+        height: 1px;
+        background: rgba(200,169,110,0.08);
+        margin: 6px 12px;
+    }
+
+    .dropdown-item-icon {
+        width: 14px;
+        text-align: center;
+        color: rgba(200,169,110,0.5);
+        font-size: 11px;
+        margin-right: 4px;
+    }
+
+    /* offset page content so fixed navbar doesn't overlap */
+    body { padding-top: 62px; }
+</style>
+
+<nav class="member-navbar navbar navbar-dark">
+    <div class="container-fluid">
+
+        <!-- Home icon brand -->
+        <a class="navbar-brand-pro" href="/member_home/"><i class="fas fa-home"></i></a>
+
+        <!-- Hamburger -->
+        <button class="navbar-toggler" type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#memberOffcanvas"
+            aria-controls="memberOffcanvas">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</nav>
+
+<!-- Offcanvas panel -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="memberOffcanvas" aria-labelledby="memberOffcanvasLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="memberOffcanvasLabel">
+            Hello, <span>{{ request.session.role }}</span>
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+
+    <div class="offcanvas-body">
+
+        <div class="nav-section-label">Navigation</div>
+
+        <a class="member-nav-link" href="/member_home/">
+            <span class="nav-icon"><i class="fas fa-home"></i></span> Home
+        </a>
+        <a class="member-nav-link" href="/member_edit_profile/">
+            <span class="nav-icon"><i class="fas fa-user-edit"></i></span> Edit Profile
+        </a>
+        <a class="member-nav-link" href="/feedback/">
+            <span class="nav-icon"><i class="fas fa-star"></i></span> Feedback
+        </a>
+        <a class="member-nav-link" href="/query_doubt/">
+            <span class="nav-icon"><i class="fas fa-question-circle"></i></span> Ask
+        </a>
+        <a class="member-nav-link" href="/view_answer/">
+            <span class="nav-icon"><i class="fas fa-eye"></i></span> View Answers
+        </a>
+
+        <div class="nav-divider"></div>
+        <div class="nav-section-label">More</div>
+
+        <!-- Dropdown -->
+        <button class="member-dropdown-toggle" onclick="toggleDropdown(this)">
+            <span style="display:flex;align-items:center;gap:10px;">
+                <span class="nav-icon" style="width:28px;height:28px;border-radius:7px;background:rgba(200,169,110,0.08);border:1px solid rgba(200,169,110,0.15);display:flex;align-items:center;justify-content:center;font-size:12px;color:#c8a96e;">
+                    <i class="fas fa-th"></i>
+                </span>
+                Explore
+            </span>
+            <span class="chevron"><i class="fas fa-chevron-down"></i></span>
+        </button>
+        <div class="member-dropdown-menu">
+
+            <!-- Quick Links -->
+            <div class="dropdown-group-label">Quick Links</div>
+            <a class="member-dropdown-item" href="/feedback/">
+                <i class="fas fa-star dropdown-item-icon"></i> Feedback
+            </a>
+            <a class="member-dropdown-item" href="/query_doubt/">
+                <i class="fas fa-question-circle dropdown-item-icon"></i> Ask a Query
+            </a>
+            <a class="member-dropdown-item" href="/view_answer/">
+                <i class="fas fa-eye dropdown-item-icon"></i> View Answers
+            </a>
+
+            <div class="dropdown-sub-divider"></div>
+
+            <!-- Public pages -->
+            <div class="dropdown-group-label">Club</div>
+            <a class="member-dropdown-item" href="/about/">
+                <i class="fas fa-info-circle dropdown-item-icon"></i> About Club
+            </a>
+            <a class="member-dropdown-item" href="/coach/">
+                <i class="fas fa-user-tie dropdown-item-icon"></i> Our Coaches
+            </a>
+            <a class="member-dropdown-item" href="/reviews/">
+                <i class="fas fa-comments dropdown-item-icon"></i> Reviews
+            </a>
+            <a class="member-dropdown-item" href="/gallery/">
+                <i class="fas fa-photo-video dropdown-item-icon"></i> Gallery
+            </a>
+
+            <div class="dropdown-sub-divider"></div>
+
+            <!-- Sports -->
+            <div class="dropdown-group-label">Sports</div>
+            <a class="member-dropdown-item" href="/cricket/">
+                <i class="fas fa-baseball-ball dropdown-item-icon"></i> Cricket
+            </a>
+            <a class="member-dropdown-item" href="/football/">
+                <i class="fas fa-futbol dropdown-item-icon"></i> Football
+            </a>
+            <a class="member-dropdown-item" href="/badminton/">
+                <i class="fas fa-table-tennis dropdown-item-icon"></i> Badminton
+            </a>
+            <a class="member-dropdown-item" href="/basketball/">
+                <i class="fas fa-basketball-ball dropdown-item-icon"></i> Basketball
+            </a>
+
+        </div>
+
+        <div class="nav-divider"></div>
+
+        <a class="member-nav-link logout" href="/member_logout/">
+            <span class="nav-icon"><i class="fas fa-sign-out-alt"></i></span> Log Out
+        </a>
+
+    </div>
+</div>
+
+<script>
+function toggleDropdown(btn) {
+    btn.classList.toggle('open');
+    btn.nextElementSibling.classList.toggle('show');
+}
+</script>

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Registration</title>
+    {% include 'club_app/common_files/common_css.html' %}
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #0d0d0d;
+            background-image: url({% static 'club_app/images/stadium.jpg' %});
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #e8e0d5;
+            min-height: 100vh;
+        }
+
+        /* dark overlay so text stays readable over image */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: rgba(8, 6, 4, 0.82);
+            z-index: 0;
+        }
+
+        /* ── Alerts ── */
+        .alert {
+            width: 50%;
+            margin: 20px auto;
+            position: relative;
+            z-index: 2;
+            border-radius: 10px;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* ── Form card ── */
+        .container {
+            position: relative;
+            z-index: 1;
+            width: 52%;
+            max-width: 680px;
+            background: #111;
+            border: 1px solid rgba(200, 169, 110, 0.22);
+            border-top: 3px solid #c8a96e;
+            padding: 40px 44px 44px;
+            border-radius: 18px;
+            box-shadow: 0 32px 80px rgba(0, 0, 0, 0.7);
+            margin: 48px auto 60px;
+        }
+
+        /* ── Form heading ── */
+        h2 {
+            font-size: 22px;
+            font-weight: 800;
+            text-align: center;
+            letter-spacing: -0.01em;
+            background: linear-gradient(135deg, #e8c98a 0%, #c8a96e 60%, #a07840 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 4px;
+        }
+
+        h6 {
+            text-align: center;
+            font-size: 12px;
+            font-weight: 400;
+            color: #666;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin-bottom: 32px;
+        }
+
+        /* ── Form divider ── */
+        .form-divider {
+            height: 1px;
+            background: rgba(200, 169, 110, 0.12);
+            margin: 16px 0;
+        }
+
+        /* ── Labels ── */
+        label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #c8a96e;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 7px;
+            display: block;
+        }
+
+        /* ── Inputs ── */
+        .form-control {
+            background: #0d0d0d !important;
+            border: 1px solid rgba(200, 169, 110, 0.2) !important;
+            border-radius: 9px !important;
+            color: #e8e0d5 !important;
+            font-family: 'Outfit', sans-serif;
+            font-size: 14px;
+            padding: 9px 14px !important;
+            height: auto !important;
+            min-height: unset !important;
+            line-height: 1.5 !important;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .mb-3 {
+            margin-bottom: 14px !important;
+        }
+
+        .form-control::placeholder {
+            color: #444 !important;
+        }
+
+        .form-control:focus {
+            border-color: #c8a96e !important;
+            box-shadow: 0 0 0 3px rgba(200, 169, 110, 0.12) !important;
+            outline: none;
+            background: #0f0f0f !important;
+        }
+
+        select.form-control option {
+            background: #161616;
+            color: #e8e0d5;
+        }
+
+        textarea.form-control {
+            resize: vertical;
+        }
+
+        /* ── Gender radio ── */
+        .radio-group {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #0d0d0d;
+            border: 1px solid rgba(200,169,110,0.2);
+            border-radius: 8px;
+            padding: 9px 18px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            color: #888880;
+            letter-spacing: 0.04em;
+            text-transform: none;
+            transition: border-color 0.2s, color 0.2s, background 0.2s;
+            margin-bottom: 0;
+        }
+
+        .radio-group label:hover {
+            border-color: rgba(200,169,110,0.5);
+            color: #c8a96e;
+        }
+
+        .radio {
+            display: none;
+        }
+
+        .radio:checked ~ span {
+            font-weight: 700;
+            color: #c8a96e;
+        }
+
+        .radio-group label:has(.radio:checked) {
+            border-color: #c8a96e;
+            background: rgba(200,169,110,0.08);
+            color: #c8a96e;
+        }
+
+        /* ── Profile preview ── */
+        #profile_preview {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            margin: 14px auto 0;
+            border: 2px solid #c8a96e;
+            box-shadow: 0 0 16px rgba(200,169,110,0.25);
+        }
+
+        /* ── Buttons ── */
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 32px;
+        }
+
+        .btn-reset {
+            background: transparent;
+            border: 1px solid rgba(200,169,110,0.3);
+            color: #888880;
+            font-family: 'Outfit', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 10px 32px;
+            border-radius: 25px;
+            cursor: pointer;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            transition: border-color 0.2s, color 0.2s, background 0.2s;
+        }
+
+        .btn-reset:hover {
+            border-color: rgba(200,169,110,0.6);
+            color: #c8a96e;
+            background: rgba(200,169,110,0.06);
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #c8a96e, #a07840);
+            border: none;
+            color: #0d0d0d;
+            font-family: 'Outfit', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 10px 40px;
+            border-radius: 25px;
+            cursor: pointer;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 18px rgba(200,169,110,0.3);
+        }
+
+        .btn-submit:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 24px rgba(200,169,110,0.45);
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .container { width: 92%; padding: 28px 22px 32px; }
+            .alert { width: 92%; }
+        }
+    </style>
+</head>
+
+<body>
+    {% include 'club_app/common_files/common_header.html' %}
+
+    {% if messages %}
+        {% for m in messages %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert" style="width:50%; margin:20px auto; position:relative; z-index:2;">
+                <strong>{{ m }}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="container">
+        <h2>Member Registration Form</h2>
+        <h6>Provide your Details here</h6>
+
+        <form method="post" action="/member_registration/" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label for="id">ID</label>
+                <input type="text" name="id" class="form-control" id="id" placeholder="Enter your ID" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="password">Password</label>
+                <input type="password" name="password" class="form-control" id="password" placeholder="Enter Password" required minlength="6">
+            </div>
+
+            <div class="form-divider"></div>
+
+            <div class="mb-3">
+                <label for="name">Name</label>
+                <input type="text" name="name" class="form-control" id="name" placeholder="Enter Name" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="phone">Phone Number</label>
+                <input type="tel" name="phone" class="form-control" id="phone" placeholder="Enter your 10-digit number" required pattern="[0-9]{10}" title="Enter a 10-digit phone number">
+            </div>
+
+            <div class="mb-3">
+                <label for="email">Email</label>
+                <input type="email" name="email" class="form-control" id="email" placeholder="Enter Email" required>
+            </div>
+
+            <div class="form-divider"></div>
+
+            <div class="mb-3">
+                <label>Your Gender</label>
+                <div class="radio-group">
+                    <label for="male">
+                        <input class="radio" type="radio" name="gender" id="male" value="male" required>
+                        <span>Male</span>
+                    </label>
+                    <label for="female">
+                        <input class="radio" type="radio" name="gender" id="female" value="female">
+                        <span>Female</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="city">Choose a City</label>
+                <select id="city" name="city" class="form-control" required>
+                    <option value="">Select a City</option>
+                    <option value="Lucknow">Lucknow</option>
+                    <option value="Gorakhpur">Gorakhpur</option>
+                    <option value="Kanpur">Kanpur</option>
+                    <option value="Hardoi">Hardoi</option>
+                    <option value="Varanasi">Varanasi</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="address">Your Address</label>
+                <textarea class="form-control" id="address" rows="3" name="address" placeholder="Your Address" required></textarea>
+            </div>
+
+            <div class="form-divider"></div>
+
+            <div class="mb-3">
+                <label for="profile_picture">Profile Photo</label>
+                <input type="file" name="profile_picture" class="form-control" id="profile_picture" required accept="image/*" onchange="previewImage(event)">
+                <img id="profile_preview" src="" alt="Profile Picture Preview" style="display:none;">
+            </div>
+
+            <div class="btn-group">
+                <button type="reset" class="btn-reset">Reset</button>
+                <button type="submit" class="btn-submit">Submit</button>
+            </div>
+
+        </form>
+    </div>
+
+    <script>
+        function previewImage(event) {
+            const input = event.target;
+            const preview = document.getElementById("profile_preview");
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                    preview.style.display = "block";
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+{% comment %} Use {% url 'gym_locator' %}, as it automatically handles URL changes and provides better maintainability in the long run.
+So, to answer your question: Yes, you can use action="/gym_locator/", but it's better to use {% url 'gym_locator' %} to ensure flexibility and avoid issues when URLs are modified. {% endcomment %}

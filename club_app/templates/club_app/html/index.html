@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SportsClub</title>
+    {% include 'club_app/common_files/common_css.html' %}
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #0d0d0d;
+            background-image: url("{% static 'club_app/images/badminton.jpg' %}");
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: #e8e0d5;
+        }
+
+        /* dark overlay so content stays readable */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: rgba(6, 5, 3, 0.88);
+            z-index: 0;
+        }
+
+        .main-body {
+            position: relative;
+            z-index: 1;
+            padding: 36px 32px 64px;
+        }
+
+        /* ── Site title ── */
+        .site-title {
+            font-size: clamp(22px, 4vw, 36px);
+            font-weight: 800;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 32px;
+            background: linear-gradient(135deg, #e8c98a 0%, #c8a96e 60%, #a07840 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ── Top two-column layout ── */
+        .top-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 40px;
+            align-items: stretch;
+        }
+
+        /* ── Carousel (left 60%) ── */
+        .carousel-col {
+            width: 60%;
+            flex-shrink: 0;
+        }
+
+        .carousel {
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid rgba(200,169,110,0.2);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+        }
+
+        .carousel img {
+            height: 380px;
+            object-fit: cover;
+            display: block;
+            width: 100%;
+        }
+
+        .carousel-caption {
+            background: linear-gradient(0deg, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.4) 60%, transparent 100%);
+            border-radius: 0;
+            padding: 40px 28px 24px;
+            bottom: 0; left: 0; right: 0;
+            text-align: left;
+        }
+
+        .carousel-caption h4 {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: #c8a96e;
+            margin-bottom: 10px;
+            text-decoration: none !important;
+            display: inline-block;
+            background: rgba(200,169,110,0.12);
+            border: 1px solid rgba(200,169,110,0.3);
+            border-radius: 20px;
+            padding: 3px 12px;
+        }
+
+        .carousel-caption h2 {
+            font-size: clamp(20px, 3vw, 30px);
+            font-weight: 800;
+            color: #ffffff;
+            line-height: 1.25;
+            letter-spacing: -0.01em;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.8);
+        }
+
+        .carousel-control-prev,
+        .carousel-control-next {
+            width: 40px;
+            height: 40px;
+            background: rgba(200,169,110,0.15);
+            border: 1px solid rgba(200,169,110,0.3);
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 1;
+            transition: background 0.2s;
+        }
+
+        .carousel-control-prev { left: 12px; }
+        .carousel-control-next { right: 12px; }
+
+        .carousel-control-prev:hover,
+        .carousel-control-next:hover { background: rgba(200,169,110,0.35); }
+
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon { width: 16px; height: 16px; }
+
+        .carousel-indicators [data-bs-target] {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: rgba(200,169,110,0.4);
+            border: none; opacity: 1;
+        }
+
+        .carousel-indicators .active {
+            background: #c8a96e;
+            transform: scale(1.3);
+        }
+
+        /* ── Notices panel (right 40%) ── */
+        .notice-col {
+            flex: 1;
+            background: #111;
+            border: 1px solid rgba(200,169,110,0.2);
+            border-top: 3px solid #c8a96e;
+            border-radius: 14px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .notice-header {
+            padding: 14px 20px;
+            background: #161616;
+            border-bottom: 1px solid rgba(200,169,110,0.15);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .notice-header-dot {
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: #c8a96e;
+            animation: pulse 1.8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .notice-header h3 {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: #c8a96e;
+            margin: 0;
+        }
+
+        .notice-scroll {
+            flex: 1;
+            padding: 8px 0;
+            overflow: hidden;
+        }
+
+        .notice-scroll marquee {
+            height: 100%;
+        }
+
+        .notice-scroll ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .notice-scroll li {
+            padding: 12px 20px;
+            font-size: 13px;
+            color: #b8b0a5;
+            border-bottom: 1px solid rgba(200,169,110,0.08);
+            line-height: 1.6;
+            position: relative;
+            padding-left: 32px;
+        }
+
+        .notice-scroll li::before {
+            content: '';
+            position: absolute;
+            left: 16px;
+            top: 18px;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: rgba(200,169,110,0.4);
+        }
+
+        /* ── Section label ── */
+        .section-label {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            color: #c8a96e;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        /* ── Event cards ── */
+        .events-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 48px;
+        }
+
+        .card {
+            background: #111 !important;
+            border: 1px solid rgba(200,169,110,0.15) !important;
+            border-radius: 14px !important;
+            overflow: hidden;
+            transition: transform 0.32s ease, box-shadow 0.32s ease, border-color 0.32s ease;
+            flex: 1 1 220px;
+            max-width: 280px;
+        }
+
+        .card::before {
+            content: '';
+            display: block;
+            height: 3px;
+            background: linear-gradient(90deg, #c8a96e, #a07840);
+        }
+
+        .card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 20px 48px rgba(0,0,0,0.55), 0 0 0 1px rgba(200,169,110,0.4);
+            border-color: rgba(200,169,110,0.4) !important;
+        }
+
+        .card-body { padding: 16px 18px 20px; }
+
+        .card-title {
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #c8a96e;
+            margin-bottom: 10px;
+        }
+
+        .card-text {
+            font-size: 12.5px;
+            color: #888880;
+            margin-bottom: 6px;
+            display: flex;
+            gap: 6px;
+            background: none !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+        }
+
+        .card-text::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: rgba(200,169,110,0.4);
+            flex-shrink: 0;
+            margin-top: 5px;
+        }
+
+        /* ── Contact form ── */
+        .contact-wrap {
+            max-width: 560px;
+            margin: 0 auto;
+        }
+
+        .contact-heading {
+            font-size: clamp(18px, 2.5vw, 24px);
+            font-weight: 800;
+            text-align: center;
+            letter-spacing: -0.01em;
+            background: linear-gradient(135deg, #e8c98a 0%, #c8a96e 60%, #a07840 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 24px;
+        }
+
+        .form-card {
+            background: #111;
+            border: 1px solid rgba(200,169,110,0.22);
+            border-top: 3px solid #c8a96e;
+            border-radius: 18px;
+            padding: 32px 36px 36px;
+            box-shadow: 0 32px 80px rgba(0,0,0,0.5);
+        }
+
+        .input-group { margin-bottom: 14px; }
+
+        .input-group-text {
+            background: rgba(200,169,110,0.1) !important;
+            border: 1px solid rgba(200,169,110,0.2) !important;
+            border-right: none !important;
+            color: #c8a96e !important;
+            border-radius: 9px 0 0 9px !important;
+        }
+
+        .form-control {
+            background: #0d0d0d !important;
+            border: 1px solid rgba(200,169,110,0.2) !important;
+            border-left: none !important;
+            border-radius: 0 9px 9px 0 !important;
+            color: #e8e0d5 !important;
+            font-family: 'Outfit', sans-serif !important;
+            font-size: 14px !important;
+            padding: 9px 14px !important;
+            height: auto !important;
+            min-height: unset !important;
+            line-height: 1.5 !important;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-control::placeholder { color: #3a3a3a !important; }
+
+        .form-control:focus {
+            border-color: #c8a96e !important;
+            box-shadow: 0 0 0 3px rgba(200,169,110,0.12) !important;
+            background: #0f0f0f !important;
+            outline: none;
+            z-index: 1;
+        }
+
+        /* textarea — no icon prefix */
+        textarea.form-control {
+            border-left: 1px solid rgba(200,169,110,0.2) !important;
+            border-radius: 9px !important;
+            resize: vertical;
+            min-height: 110px;
+        }
+
+        .submit-wrap {
+            text-align: center;
+            margin-top: 22px;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #c8a96e, #a07840);
+            border: none;
+            color: #0d0d0d;
+            font-family: 'Outfit', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 11px 0;
+            width: 55%;
+            border-radius: 25px;
+            cursor: pointer;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            box-shadow: 0 4px 18px rgba(200,169,110,0.3);
+            transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-submit:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(200,169,110,0.45);
+        }
+
+        /* ── Messages ── */
+        .msg-banner {
+            background: rgba(200,169,110,0.1);
+            border: 1px solid rgba(200,169,110,0.3);
+            border-radius: 10px;
+            padding: 12px 18px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #c8a96e;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .top-row { flex-direction: column; }
+            .carousel-col { width: 100%; }
+            .main-body { padding: 24px 16px 48px; }
+            .form-card { padding: 24px 20px 28px; }
+        }
+    </style>
+</head>
+
+<body>
+    <div style="position:relative; z-index:2;">
+        {% include 'club_app/common_files/common_header.html' %}
+    </div>
+
+    <div class="main-body">
+
+        <!-- Site Title -->
+        <div class="container-fluid text-center mt-2">
+            <h1 class="site-title">PlayForge Sports Club</h1>
+        </div>
+
+        <!-- Carousel + Notices -->
+        <div class="top-row">
+
+            <!-- Carousel -->
+            <div class="carousel-col">
+                <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3500">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="{% static 'club_app/images/sports.jpg' %}" class="d-block w-100" alt="Sports">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h4>Get</h4>
+                                <h2>Work Hard for the Best</h2>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{% static 'club_app/images/stadium.jpg' %}" class="d-block w-100" alt="Stadium">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h4>Ready</h4>
+                                <h2>Maintain Your Discipline</h2>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{% static 'club_app/images/running.avif' %}" class="d-block w-100" alt="Football">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h4>& GO</h4>
+                                <h2>Build Your Personality Like a Sports Disciple</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Notices -->
+            <div class="notice-col">
+                <div class="notice-header">
+                    <div class="notice-header-dot"></div>
+                    <h3>Important Notices</h3>
+                </div>
+                <div class="notice-scroll">
+                    <marquee direction="up" scrollamount="2" onmouseover="this.stop()" onmouseout="this.start()">
+                        <ul>
+                            {% for n in notice_key %}
+                            <li>{{ n.notice_description }} &nbsp;—&nbsp; {{ n.notice_time }}</li>
+                            {% endfor %}
+                        </ul>
+                    </marquee>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Events -->
+        {% if event_key %}
+        <div class="section-label">Upcoming Events</div>
+        <div class="events-row">
+            {% for e in event_key %}
+            <div class="card mx-0">
+                <div class="card-body">
+                    <h5 class="card-title">{{ e.event_name }}</h5>
+                    <p class="card-text">{{ e.event_venue }}</p>
+                    <p class="card-text">{{ e.event_organizer }}</p>
+                    <p class="card-text">{{ e.event_time }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- Messages -->
+        {% if messages %}
+            {% for m in messages %}
+            <div class="msg-banner">{{ m }}</div>
+            {% endfor %}
+        {% endif %}
+
+        <!-- Contact Form -->
+        <div class="contact-wrap">
+            <h2 class="contact-heading">Feel Free to Contact Us</h2>
+            <div class="form-card">
+                <section id="contact_us">
+                    <form method="post" action="/contact/">
+                        {% csrf_token %}
+
+                        <div class="input-group mt-2">
+                            <label for="name" class="input-group-text"><i class="fas fa-address-book"></i></label>
+                            <input type="text" placeholder="Enter your Name" class="form-control" name="name">
+                        </div>
+
+                        <div class="input-group mt-2">
+                            <label for="Email" class="input-group-text"><i class="fa fa-envelope-open"></i></label>
+                            <input type="email" placeholder="Enter your Email" class="form-control" name="email">
+                        </div>
+
+                        <div class="mt-2">
+                            <textarea placeholder="Your Query" class="form-control" rows="4" name="question"></textarea>
+                        </div>
+
+                        <div class="submit-wrap">
+                            <button type="submit" class="btn-submit">Submit</button>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+
+    </div>
+
+    <div style='position:relative; z-index:2;'>
+    {% include 'club_app/common_files/common_footer.html' %}
+</div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

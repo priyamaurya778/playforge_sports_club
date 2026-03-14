@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports Gallery</title>
+    {% include 'club_app/common_files/common_css.html' %}
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #0d0d0d;
+            color: #e8e0d5;
+        }
+
+        .main-body {
+            padding: 48px 40px 64px;
+        }
+
+        /* ── Heading ── */
+        h1 {
+            font-size: clamp(26px, 4vw, 40px);
+            font-weight: 800;
+            text-align: center;
+            letter-spacing: -0.02em;
+            margin-bottom: 32px;
+            background: linear-gradient(135deg, #e8c98a 0%, #c8a96e 60%, #a07840 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            /* remove old double-underline */
+            text-decoration: none;
+        }
+
+        /* ── Intro card ── */
+        .intro-text {
+            background: #161616;
+            border: 1px solid rgba(200, 169, 110, 0.2);
+            border-left: 3px solid #c8a96e;
+            border-radius: 12px;
+            padding: 22px 28px;
+            width: 90%;
+            margin: 0 auto 48px;
+        }
+
+        .intro-text p {
+            font-size: 14.5px;
+            color: #b8b0a5;
+            line-height: 1.8;
+            text-align: center;
+            /* reset any inherited p styles */
+            background: none;
+            box-shadow: none;
+            padding: 0;
+            border-radius: 0;
+        }
+
+        /* ── Section label ── */
+        .section-label {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            color: #c8a96e;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        /* ── Video grid ── */
+        .flex-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin: 0;
+        }
+
+        .video-container {
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid rgba(200, 169, 110, 0.15);
+            background: #111;
+            transition: transform 0.32s ease, box-shadow 0.32s ease, border-color 0.32s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .video-container:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(200,169,110,0.4);
+            border-color: rgba(200, 169, 110, 0.45);
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .video-container p {
+            /* reset */
+            background: none;
+            box-shadow: none;
+            border-radius: 0;
+            padding: 0;
+            /* style */
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 13px 16px;
+            background: #161616;
+            border-top: 1px solid rgba(200, 169, 110, 0.15);
+            font-size: 13px;
+            font-weight: 500;
+            color: #c8a96e;
+            line-height: 1.4;
+        }
+
+        .video-container p::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #c8a96e;
+            flex-shrink: 0;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .main-body { padding: 32px 20px 48px; }
+            .flex-container { grid-template-columns: 1fr; }
+            .video-container video { height: 200px; }
+        }
+    </style>
+</head>
+
+<body>
+
+    {% include 'club_app/common_files/common_header.html' %}
+
+    <div class="main-body">
+
+        <h1>PlayForge Video Gallery</h1>
+
+        <div class="intro-text">
+            <p>Welcome to the Fighters Sports Club Gallery! Here, we showcase the excitement, energy, and passion of various sports. Dive into our collection of thrilling moments captured in videos and experience the adrenaline rush that comes with every sport. From football to athletics, we have it all!</p>
+        </div>
+
+        <div class="section-label">Featured Videos</div>
+
+        <div class="flex-container">
+
+            <div class="video-container">
+                <video src="{% static 'club_app/video_audio/vd1.mp4' %}" controls></video>
+                <p>Cricket: A game of strategy and skill</p>
+            </div>
+
+            <div class="video-container">
+                <video src="{% static 'club_app/video_audio/video3.mp4' %}" controls></video>
+                <p>Football: The beautiful game of teamwork</p>
+            </div>
+
+            <div class="video-container">
+                <video src="https://videos.pexels.com/video-files/12460907/12460907-hd_1080_1920_60fps.mp4" controls></video>
+                <p>Basketball: Fast-paced and full of action</p>
+            </div>
+
+            <div class="video-container">
+                <video src="https://videos.pexels.com/video-files/2932301/2932301-uhd_2732_1440_24fps.mp4" controls></video>
+                <p>Tennis: Precision and power on the court</p>
+            </div>
+
+        </div>
+    </div>
+
+    {% include 'club_app/common_files/common_footer.html' %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search|Result</title>
+    {% include 'club_app/common_files/common_css.html' %}
+</head>
+<body>
+    <div class="main-body">
+        {% include 'club_app/common_files/common_header.html' %}
+    <h2>Search Results for "{{ query }}"</h2>
+
+    {% if results %}
+        {% if results.coach %}
+            <h3>Coach</h3>
+            <ul>
+                {% for coach in results.coach %}
+                    <li>{{ coach.name }} - {{ coach.city }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    
+        {% if results.members %}
+            <h3>Members</h3>
+            <ul>
+                {% for member in results.members %}
+                    <li>{{ member.name }} ({{ member.email }}) - {{member.city}}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    
+        {% if results.events %}
+            <h3>Events</h3>
+            <ul>
+                {% for event in results.events %}
+                    <li>{{event.event_name}} - {{event.event_description}} - {{event.event_venue}}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {% if results.feedbacks %}
+            <h3>Feedback</h3>
+            <ul>
+                {% for feedback in results.feedbacks %}
+                    <li>{{ feedback.review }} - {{ feedback.rating }} - {{feedback.name}}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        
+    {% else %}
+        <p>No results found.</p>
+    {% endif %}
+   </div>
+</body>
+</html>

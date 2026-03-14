@@ -1,0 +1,172 @@
+{% extends 'club_app/member/member_base.html' %}
+{% load static %}
+
+{% block title %}
+  Answers
+{% endblock %}
+
+{% block style %}
+    /* ── Page heading ── */
+    h2 {
+        font-size: clamp(20px, 3vw, 30px);
+        font-weight: 800;
+        text-align: center;
+        letter-spacing: -0.02em;
+        margin: 48px 0 32px;
+        background: linear-gradient(135deg, #e8c98a 0%, #c8a96e 60%, #a07840 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    /* ── Table wrapper ── */
+    .table-wrap {
+        width: 80%;
+        margin: 0 auto 64px;
+        border-radius: 14px;
+        overflow: hidden;
+        border: 1px solid rgba(200, 169, 110, 0.2);
+        box-shadow: 0 20px 52px rgba(0,0,0,0.4);
+    }
+
+    /* ── Table ── */
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: 'Outfit', sans-serif;
+        margin: 0 !important;
+    }
+
+    /* Header row */
+    .table thead tr {
+        background: #161616;
+        border-bottom: 1px solid rgba(200, 169, 110, 0.25);
+    }
+
+    .table thead th {
+        font-size: 10px !important;
+        font-weight: 600 !important;
+        color: #c8a96e !important;
+        letter-spacing: 0.14em !important;
+        text-transform: uppercase !important;
+        padding: 14px 18px !important;
+        background: #161616 !important;
+        border: none !important;
+        white-space: nowrap;
+    }
+
+    /* Body rows */
+    .table tbody tr {
+        border-bottom: 1px solid rgba(200, 169, 110, 0.08);
+        transition: background 0.15s;
+    }
+
+    .table tbody tr:last-child { border-bottom: none; }
+
+    .table tbody tr:nth-child(odd)  { background: #111 !important; }
+    .table tbody tr:nth-child(even) { background: #131313 !important; }
+    .table tbody tr:hover           { background: rgba(200,169,110,0.05) !important; }
+
+    .table tbody td,
+    .table tbody th {
+        font-size: 13.5px !important;
+        font-weight: 400 !important;
+        color: #b8b0a5 !important;
+        padding: 14px 18px !important;
+        border: none !important;
+        vertical-align: middle;
+    }
+
+    /* Question column — slightly brighter */
+    .table tbody td:first-child {
+        color: #e8e0d5 !important;
+        font-weight: 500 !important;
+    }
+
+    /* Date columns — muted */
+    .col-date {
+        color: #555 !important;
+        font-size: 12.5px !important;
+        white-space: nowrap;
+    }
+
+    /* Answer — pending state */
+    .answer-pending {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px !important;
+        font-weight: 600 !important;
+        color: #a06030 !important;
+        background: rgba(200,100,30,0.1);
+        border: 1px solid rgba(200,100,30,0.2);
+        border-radius: 20px;
+        padding: 3px 10px;
+    }
+
+    .answer-pending::before {
+        content: '';
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #c87840;
+        flex-shrink: 0;
+    }
+
+    /* Answer — answered state */
+    .answer-text {
+        color: #e8e0d5 !important;
+    }
+
+    /* Empty state */
+    .empty-row td {
+        text-align: center;
+        padding: 40px !important;
+        color: #444 !important;
+        font-size: 13px !important;
+    }
+
+    @media (max-width: 768px) {
+        .table-wrap { width: 95%; border-radius: 10px; }
+        .table thead th,
+        .table tbody td,
+        .table tbody th { padding: 10px 12px !important; font-size: 12px !important; }
+    }
+{% endblock %}
+
+{% block content %}
+
+<h2>Status of Your Queries</h2>
+
+<div class="table-wrap">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Question</th>
+                <th>Question Date</th>
+                <th>Answer</th>
+                <th>Answer Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for obj in answer_key %}
+            <tr>
+                <td>{{ obj.question }}</td>
+                <td class="col-date">{{ obj.question_date }}</td>
+                {% if obj.answer %}
+                    <td class="answer-text">{{ obj.answer }}</td>
+                {% else %}
+                    <td><span class="answer-pending">Yet to be answered</span></td>
+                {% endif %}
+                <td class="col-date">{{ obj.answer_date }}</td>
+            </tr>
+            {% empty %}
+            <tr class="empty-row">
+                <td colspan="4">No queries submitted yet.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
