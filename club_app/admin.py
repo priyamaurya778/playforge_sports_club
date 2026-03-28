@@ -1,8 +1,5 @@
 from django.contrib import admin
-from .models import Event , Notice , Contact ,User_detail ,Member,Feedback,Coach,Query_Doubt   # .models -> same directory (event and notice are two models)
-
-
-# Register your models here.
+from .models import Event, Notice, Contact, User_detail, Member, Feedback, Coach, Query_Doubt
 
 
 class Feedback_admin(admin.ModelAdmin):
@@ -21,21 +18,26 @@ class Coach_admin(admin.ModelAdmin):
     search_fields=('city','experience')
     list_filter=('experience',)
 
+# ── Payment verification action ──
+def verify_payment(modeladmin, request, queryset):
+    queryset.update(payment=True)
+verify_payment.short_description = "✅ Mark payment as verified"
 
-admin.site.register(Event,Event_admin) #to show/register the admin model in admin interface
-admin.site.register(Notice) # new model to show admin
-admin.site.register(Coach,Coach_admin)
+class MemberAdmin(admin.ModelAdmin):
+    list_display = ['name', 'email', 'phone', 'transaction_id', 'payment']
+    list_filter = ['payment']
+    actions = [verify_payment]
+
+admin.site.register(Event, Event_admin)
+admin.site.register(Notice)
+admin.site.register(Coach, Coach_admin)
 admin.site.register(User_detail)
-admin.site.register(Contact,Contact_admin)
-admin.site.register(Feedback,Feedback_admin)
-admin.site.register(Member) 
+admin.site.register(Contact, Contact_admin)
+admin.site.register(Feedback, Feedback_admin)
+admin.site.register(Member, MemberAdmin)
 admin.site.register(Query_Doubt)
-# admin.site.register(Edit_Profile)
 
-
-# Admin site customizations
+# ── Admin site customizations ──
 admin.site.site_header = "Sports Club Admin Dashboard"
 admin.site.site_title = "Sports Club Management"
 admin.site.index_title = "Manage Events, Coaches & Members Efficiently"
-
-

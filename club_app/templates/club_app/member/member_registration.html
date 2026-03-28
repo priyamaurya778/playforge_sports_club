@@ -245,6 +245,74 @@
             box-shadow: 0 6px 24px rgba(200,169,110,0.45);
         }
 
+        /* ── Sports checkboxes ── */
+        .sports-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .sport-check-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #0d0d0d;
+            border: 1px solid rgba(200,169,110,0.2);
+            border-radius: 9px;
+            padding: 10px 14px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            color: #888880;
+            transition: border-color 0.2s, color 0.2s, background 0.2s;
+            margin-bottom: 0;
+            text-transform: none;
+            letter-spacing: 0.02em;
+        }
+
+        .sport-check-label:hover {
+            border-color: rgba(200,169,110,0.5);
+            color: #c8a96e;
+        }
+
+        .sport-checkbox {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+            border: 2px solid rgba(200,169,110,0.3);
+            background: transparent;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .sport-checkbox:checked {
+            background: #c8a96e;
+            border-color: #c8a96e;
+        }
+
+        .sport-checkbox:checked::after {
+            content: '';
+            position: absolute;
+            left: 3px;
+            top: 0px;
+            width: 5px;
+            height: 9px;
+            border: 2px solid #0d0d0d;
+            border-top: none;
+            border-left: none;
+            transform: rotate(45deg);
+        }
+
+        .sport-check-label:has(.sport-checkbox:checked) {
+            border-color: #c8a96e;
+            background: rgba(200,169,110,0.08);
+            color: #c8a96e;
+        }
+
         /* ── Responsive ── */
         @media (max-width: 768px) {
             .container { width: 92%; padding: 28px 22px 32px; }
@@ -335,11 +403,62 @@
             <div class="form-divider"></div>
 
             <div class="mb-3">
+                <label>Select Your Sport(s)</label>
+                <div class="sports-grid">
+                    <label class="sport-check-label">
+                        <input type="checkbox" name="sports" value="Cricket" class="sport-checkbox">
+                        <span class="sport-check-text">🏏 Cricket</span>
+                    </label>
+                    <label class="sport-check-label">
+                        <input type="checkbox" name="sports" value="Football" class="sport-checkbox">
+                        <span class="sport-check-text">⚽ Football</span>
+                    </label>
+                    <label class="sport-check-label">
+                        <input type="checkbox" name="sports" value="Badminton" class="sport-checkbox">
+                        <span class="sport-check-text">🏸 Badminton</span>
+                    </label>
+                    <label class="sport-check-label">
+                        <input type="checkbox" name="sports" value="Basketball" class="sport-checkbox">
+                        <span class="sport-check-text">🏀 Basketball</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-divider"></div>
+
+            <div class="mb-3">
                 <label for="profile_picture">Profile Photo</label>
                 <input type="file" name="profile_picture" class="form-control" id="profile_picture" required accept="image/*" onchange="previewImage(event)">
                 <img id="profile_preview" src="" alt="Profile Picture Preview" style="display:none;">
             </div>
+<div class="form-divider"></div>
 
+<div class="mb-3">
+    <label>Membership Fee Payment</label>
+    <div style="background:#0d0d0d; border:1px solid rgba(200,169,110,0.2); border-radius:12px; padding:20px; text-align:center;">
+        
+        <!-- UPI QR Code — replace with your actual UPI QR image -->
+        <img src="{% static 'club_app/images/GooglePay_QR.png' %}" 
+             alt="UPI QR Code" 
+             style="width:180px; height:180px; border-radius:10px; margin-bottom:12px;">
+        
+        <p style="font-size:12px; color:#c8a96e; font-weight:600; margin:0 0 4px;">
+            Scan & Pay ₹500 Membership Fee
+        </p>
+        <p style="font-size:11px; color:#555; margin:0;">
+            UPI ID: priyamaurya7781@oksbi
+        </p>
+
+        <!-- Transaction ID input -->
+        <div style="margin-top:16px; text-align:left;">
+            <label for="transaction_id">Transaction ID</label>
+            <input type="text" name="transaction_id" id="transaction_id"
+                class="form-control" 
+                placeholder="Enter UPI Transaction ID after payment" 
+                required>
+        </div>
+    </div>
+</div>
             <div class="btn-group">
                 <button type="reset" class="btn-reset">Reset</button>
                 <button type="submit" class="btn-submit">Submit</button>

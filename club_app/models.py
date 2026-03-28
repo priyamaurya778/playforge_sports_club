@@ -81,7 +81,10 @@ class Member(models.Model):
     address = models.TextField(max_length=100)
     date = models.DateField(default=timezone.now)
     payment=models.BooleanField(default=False)
+    sports=models.CharField(max_length=200,blank=True,null=True)
     profile_picture=models.ImageField(upload_to="club_app/member_pictures",blank=True,null=True)
+    transaction_id = models.CharField(max_length=100, blank=True, null=True)
+    payment = models.BooleanField(default=False)
     
     def __str__(self):
         return self.name
