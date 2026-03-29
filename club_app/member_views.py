@@ -150,12 +150,11 @@ def member_registration(request):
          user_city=request.POST["city"]
          user_address=request.POST["address"]
          user_sports=request.POST.getlist('sports')       # ['Cricket', 'Football']
-         user_transaction=request.POST["transaction_id"]
          user_sports_str=', '.join(user_sports)  
         
          user_pic=request.FILES["profile_picture"]
         
-         member_reg_obj=Member(member_id=user_id,password=user_password,name=user_name,phone=user_phone,email=user_email,gender=user_gender,city=user_city,address=user_address,sports=user_sports_str,profile_picture=user_pic,transaction_id=user_transaction,payment=False)#creating Member class object
+         member_reg_obj=Member(member_id=user_id,password=user_password,name=user_name,phone=user_phone,email=user_email,gender=user_gender,city=user_city,address=user_address,sports=user_sports_str,profile_picture=user_pic)#creating Member class object
          member_reg_obj.save()#ORM map with Member table fields
          messages.success(request,"Thanku for Registration now you are our member😎😎")
          #return render(request,'club_app/html/member_registration.html')
