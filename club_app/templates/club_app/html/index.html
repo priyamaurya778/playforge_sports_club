@@ -23,7 +23,6 @@
             color: #e8e0d5;
         }
 
-        /* dark overlay so content stays readable */
         body::before {
             content: '';
             position: fixed;
@@ -45,11 +44,20 @@
             text-align: center;
             text-transform: uppercase;
             letter-spacing: 0.12em;
-            margin-bottom: 32px;
+            margin-bottom: 6px;
             background: linear-gradient(135deg, #e8c98a 0%, #c8a96e 60%, #a07840 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+        }
+
+        .site-tagline {
+            text-align: center;
+            font-size: 13px;
+            color: #555;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            margin-bottom: 32px;
         }
 
         /* ── Top two-column layout ── */
@@ -60,11 +68,7 @@
             align-items: stretch;
         }
 
-        /* ── Carousel (left 60%) ── */
-        .carousel-col {
-            width: 60%;
-            flex-shrink: 0;
-        }
+        .carousel-col { width: 60%; flex-shrink: 0; }
 
         .carousel {
             border-radius: 14px;
@@ -95,7 +99,6 @@
             text-transform: uppercase;
             color: #c8a96e;
             margin-bottom: 10px;
-            text-decoration: none !important;
             display: inline-block;
             background: rgba(200,169,110,0.12);
             border: 1px solid rgba(200,169,110,0.3);
@@ -114,39 +117,27 @@
 
         .carousel-control-prev,
         .carousel-control-next {
-            width: 40px;
-            height: 40px;
+            width: 40px; height: 40px;
             background: rgba(200,169,110,0.15);
             border: 1px solid rgba(200,169,110,0.3);
             border-radius: 50%;
-            top: 50%;
-            transform: translateY(-50%);
-            opacity: 1;
-            transition: background 0.2s;
+            top: 50%; transform: translateY(-50%);
+            opacity: 1; transition: background 0.2s;
         }
 
         .carousel-control-prev { left: 12px; }
         .carousel-control-next { right: 12px; }
-
         .carousel-control-prev:hover,
         .carousel-control-next:hover { background: rgba(200,169,110,0.35); }
-
         .carousel-control-prev-icon,
         .carousel-control-next-icon { width: 16px; height: 16px; }
-
         .carousel-indicators [data-bs-target] {
-            width: 6px; height: 6px;
-            border-radius: 50%;
-            background: rgba(200,169,110,0.4);
-            border: none; opacity: 1;
+            width: 6px; height: 6px; border-radius: 50%;
+            background: rgba(200,169,110,0.4); border: none; opacity: 1;
         }
+        .carousel-indicators .active { background: #c8a96e; transform: scale(1.3); }
 
-        .carousel-indicators .active {
-            background: #c8a96e;
-            transform: scale(1.3);
-        }
-
-        /* ── Notices panel (right 40%) ── */
+        /* ── Notices ── */
         .notice-col {
             flex: 1;
             background: #111;
@@ -169,8 +160,7 @@
 
         .notice-header-dot {
             width: 7px; height: 7px;
-            border-radius: 50%;
-            background: #c8a96e;
+            border-radius: 50%; background: #c8a96e;
             animation: pulse 1.8s ease-in-out infinite;
         }
 
@@ -180,67 +170,120 @@
         }
 
         .notice-header h3 {
+            font-size: 11px; font-weight: 600;
+            letter-spacing: 0.14em; text-transform: uppercase;
+            color: #c8a96e; margin: 0;
+        }
+
+        .notice-scroll { flex: 1; padding: 8px 0; overflow: hidden; }
+        .notice-scroll marquee { height: 100%; }
+        .notice-scroll ul { list-style: none; padding: 0; margin: 0; }
+        .notice-scroll li {
+            padding: 12px 20px 12px 32px;
+            font-size: 13px; color: #b8b0a5;
+            border-bottom: 1px solid rgba(200,169,110,0.08);
+            line-height: 1.6; position: relative;
+        }
+        .notice-scroll li::before {
+            content: ''; position: absolute;
+            left: 16px; top: 18px;
+            width: 5px; height: 5px;
+            border-radius: 50%; background: rgba(200,169,110,0.4);
+        }
+
+        /* ── Stats counter strip ── */
+        .stats-strip {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 44px;
+        }
+
+        .stat-card {
+            background: #111;
+            border: 1px solid rgba(200,169,110,0.15);
+            border-top: 3px solid #c8a96e;
+            border-radius: 14px;
+            padding: 24px 16px;
+            text-align: center;
+            transition: transform 0.28s, box-shadow 0.28s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(200,169,110,0.3);
+        }
+
+        .stat-number {
+            font-size: 38px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #e8c98a, #c8a96e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+
+        .stat-label {
             font-size: 11px;
             font-weight: 600;
-            letter-spacing: 0.14em;
+            color: #555;
+            letter-spacing: 0.12em;
             text-transform: uppercase;
-            color: #c8a96e;
-            margin: 0;
-        }
-
-        .notice-scroll {
-            flex: 1;
-            padding: 8px 0;
-            overflow: hidden;
-        }
-
-        .notice-scroll marquee {
-            height: 100%;
-        }
-
-        .notice-scroll ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .notice-scroll li {
-            padding: 12px 20px;
-            font-size: 13px;
-            color: #b8b0a5;
-            border-bottom: 1px solid rgba(200,169,110,0.08);
-            line-height: 1.6;
-            position: relative;
-            padding-left: 32px;
-        }
-
-        .notice-scroll li::before {
-            content: '';
-            position: absolute;
-            left: 16px;
-            top: 18px;
-            width: 5px;
-            height: 5px;
-            border-radius: 50%;
-            background: rgba(200,169,110,0.4);
         }
 
         /* ── Section label ── */
         .section-label {
-            font-size: 10px;
-            font-weight: 600;
-            letter-spacing: 0.18em;
-            color: #c8a96e;
-            text-transform: uppercase;
-            margin-bottom: 16px;
+            font-size: 10px; font-weight: 600;
+            letter-spacing: 0.18em; color: #c8a96e;
+            text-transform: uppercase; margin-bottom: 16px;
         }
+
+        /* ── Sports showcase ── */
+        .sports-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 12px;
+            margin-bottom: 48px;
+        }
+
+        .sport-tile {
+            background: #111;
+            border: 1px solid rgba(200,169,110,0.15);
+            border-radius: 12px;
+            padding: 20px 12px;
+            text-align: center;
+            text-decoration: none;
+            transition: transform 0.25s, border-color 0.25s, background 0.25s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .sport-tile:hover {
+            transform: translateY(-4px) scale(1.04);
+            border-color: rgba(200,169,110,0.5);
+            background: rgba(200,169,110,0.07);
+        }
+
+        .sport-tile .sport-emoji { font-size: 28px; }
+
+        .sport-tile .sport-name {
+            font-size: 11px;
+            font-weight: 600;
+            color: #888880;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .sport-tile:hover .sport-name { color: #c8a96e; }
 
         /* ── Event cards ── */
         .events-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-            margin-bottom: 48px;
+            display: flex; flex-wrap: wrap;
+            gap: 16px; margin-bottom: 48px;
         }
 
         .card {
@@ -249,14 +292,11 @@
             border-radius: 14px !important;
             overflow: hidden;
             transition: transform 0.32s ease, box-shadow 0.32s ease, border-color 0.32s ease;
-            flex: 1 1 220px;
-            max-width: 280px;
+            flex: 1 1 220px; max-width: 280px;
         }
 
         .card::before {
-            content: '';
-            display: block;
-            height: 3px;
+            content: ''; display: block; height: 3px;
             background: linear-gradient(90deg, #c8a96e, #a07840);
         }
 
@@ -269,44 +309,186 @@
         .card-body { padding: 16px 18px 20px; }
 
         .card-title {
-            font-size: 13.5px;
-            font-weight: 700;
-            color: #c8a96e;
-            margin-bottom: 10px;
+            font-size: 13.5px; font-weight: 700;
+            color: #c8a96e; margin-bottom: 10px;
         }
 
         .card-text {
-            font-size: 12.5px;
-            color: #888880;
-            margin-bottom: 6px;
-            display: flex;
-            gap: 6px;
-            background: none !important;
-            box-shadow: none !important;
-            padding: 0 !important;
+            font-size: 12.5px; color: #888880;
+            margin-bottom: 6px; display: flex; gap: 6px;
+            background: none !important; box-shadow: none !important; padding: 0 !important;
         }
 
         .card-text::before {
-            content: '';
-            display: inline-block;
-            width: 4px;
-            height: 4px;
-            border-radius: 50%;
+            content: ''; display: inline-block;
+            width: 4px; height: 4px; border-radius: 50%;
             background: rgba(200,169,110,0.4);
-            flex-shrink: 0;
-            margin-top: 5px;
+            flex-shrink: 0; margin-top: 5px;
+        }
+
+        /* ── Why Choose Us ── */
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 48px;
+        }
+
+        .why-card {
+            background: #111;
+            border: 1px solid rgba(200,169,110,0.12);
+            border-radius: 14px;
+            padding: 28px 22px;
+            text-align: center;
+            transition: transform 0.28s, border-color 0.28s;
+        }
+
+        .why-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(200,169,110,0.35);
+        }
+
+        .why-icon {
+            font-size: 32px;
+            margin-bottom: 14px;
+            display: block;
+        }
+
+        .why-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #c8a96e;
+            margin-bottom: 8px;
+        }
+
+        .why-desc {
+            font-size: 12.5px;
+            color: #555;
+            line-height: 1.7;
+        }
+
+        /* ── Testimonial strip ── */
+        .testimonial-strip {
+            background: #111;
+            border: 1px solid rgba(200,169,110,0.15);
+            border-left: 4px solid #c8a96e;
+            border-radius: 14px;
+            padding: 28px 32px;
+            margin-bottom: 48px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-strip::before {
+            content: '"';
+            position: absolute;
+            top: -10px; left: 20px;
+            font-size: 120px;
+            color: rgba(200,169,110,0.06);
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+
+        .testimonial-track {
+            display: flex;
+            gap: 24px;
+            overflow: hidden;
+        }
+
+        .testimonial-item {
+            flex: 0 0 calc(33.33% - 16px);
+            min-width: 0;
+        }
+
+        .testimonial-text {
+            font-size: 13px;
+            color: #b8b0a5;
+            line-height: 1.7;
+            font-style: italic;
+            margin-bottom: 12px;
+        }
+
+        .testimonial-author {
+            font-size: 11px;
+            font-weight: 700;
+            color: #c8a96e;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        /* ── CTA banner ── */
+        .cta-banner {
+            background: linear-gradient(135deg, rgba(200,169,110,0.12), rgba(200,169,110,0.04));
+            border: 1px solid rgba(200,169,110,0.25);
+            border-radius: 18px;
+            padding: 40px 32px;
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .cta-banner h2 {
+            font-size: clamp(20px, 3vw, 28px);
+            font-weight: 800;
+            background: linear-gradient(135deg, #e8c98a, #c8a96e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .cta-banner p {
+            font-size: 13px;
+            color: #555;
+            margin-bottom: 24px;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #c8a96e, #a07840);
+            color: #0d0d0d;
+            font-family: 'Outfit', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 12px 36px;
+            border-radius: 25px;
+            text-decoration: none;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            box-shadow: 0 4px 18px rgba(200,169,110,0.3);
+            transition: opacity 0.2s, transform 0.2s;
+            margin: 0 6px;
+        }
+
+        .cta-btn:hover { opacity: 0.88; transform: translateY(-2px); }
+
+        .cta-btn-outline {
+            display: inline-block;
+            background: transparent;
+            color: #c8a96e;
+            font-family: 'Outfit', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 11px 36px;
+            border-radius: 25px;
+            text-decoration: none;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            border: 1px solid rgba(200,169,110,0.4);
+            transition: background 0.2s, color 0.2s;
+            margin: 0 6px;
+        }
+
+        .cta-btn-outline:hover {
+            background: rgba(200,169,110,0.1);
+            color: #e8c98a;
         }
 
         /* ── Contact form ── */
-        .contact-wrap {
-            max-width: 560px;
-            margin: 0 auto;
-        }
+        .contact-wrap { max-width: 560px; margin: 0 auto; }
 
         .contact-heading {
             font-size: clamp(18px, 2.5vw, 24px);
-            font-weight: 800;
-            text-align: center;
+            font-weight: 800; text-align: center;
             letter-spacing: -0.01em;
             background: linear-gradient(135deg, #e8c98a 0%, #c8a96e 60%, #a07840 100%);
             -webkit-background-clip: text;
@@ -355,65 +537,51 @@
             border-color: #c8a96e !important;
             box-shadow: 0 0 0 3px rgba(200,169,110,0.12) !important;
             background: #0f0f0f !important;
-            outline: none;
-            z-index: 1;
+            outline: none; z-index: 1;
         }
 
-        /* textarea — no icon prefix */
         textarea.form-control {
             border-left: 1px solid rgba(200,169,110,0.2) !important;
             border-radius: 9px !important;
-            resize: vertical;
-            min-height: 110px;
+            resize: vertical; min-height: 110px;
         }
 
-        .submit-wrap {
-            text-align: center;
-            margin-top: 22px;
-        }
+        .submit-wrap { text-align: center; margin-top: 22px; }
 
         .btn-submit {
             background: linear-gradient(135deg, #c8a96e, #a07840);
-            border: none;
-            color: #0d0d0d;
+            border: none; color: #0d0d0d;
             font-family: 'Outfit', sans-serif;
-            font-size: 13px;
-            font-weight: 700;
-            padding: 11px 0;
-            width: 55%;
-            border-radius: 25px;
-            cursor: pointer;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
+            font-size: 13px; font-weight: 700;
+            padding: 11px 0; width: 55%;
+            border-radius: 25px; cursor: pointer;
+            letter-spacing: 0.08em; text-transform: uppercase;
             box-shadow: 0 4px 18px rgba(200,169,110,0.3);
             transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
         }
 
         .btn-submit:hover {
-            opacity: 0.9;
-            transform: translateY(-2px);
+            opacity: 0.9; transform: translateY(-2px);
             box-shadow: 0 8px 28px rgba(200,169,110,0.45);
         }
 
-        /* ── Messages ── */
         .msg-banner {
             background: rgba(200,169,110,0.1);
             border: 1px solid rgba(200,169,110,0.3);
-            border-radius: 10px;
-            padding: 12px 18px;
-            font-size: 14px;
-            font-weight: 600;
-            color: #c8a96e;
-            text-align: center;
-            margin-bottom: 20px;
+            border-radius: 10px; padding: 12px 18px;
+            font-size: 14px; font-weight: 600;
+            color: #c8a96e; text-align: center; margin-bottom: 20px;
         }
 
-        /* ── Responsive ── */
         @media (max-width: 768px) {
             .top-row { flex-direction: column; }
             .carousel-col { width: 100%; }
             .main-body { padding: 24px 16px 48px; }
             .form-card { padding: 24px 20px 28px; }
+            .stats-strip { grid-template-columns: repeat(2, 1fr); }
+            .why-grid { grid-template-columns: 1fr; }
+            .testimonial-item { flex: 0 0 100%; }
+            .sports-showcase { grid-template-columns: repeat(3, 1fr); }
         }
     </style>
 </head>
@@ -428,18 +596,17 @@
         <!-- Site Title -->
         <div class="container-fluid text-center mt-2">
             <h1 class="site-title">PlayForge Sports Club</h1>
+            <p class="site-tagline">Train Hard · Play Smart · Win Together</p>
         </div>
 
         <!-- Carousel + Notices -->
         <div class="top-row">
-
-            <!-- Carousel -->
             <div class="carousel-col">
                 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3500">
                     <div class="carousel-indicators">
-                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"></button>
+                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"></button>
+                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"></button>
                     </div>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
@@ -457,7 +624,7 @@
                             </div>
                         </div>
                         <div class="carousel-item">
-                            <img src="{% static 'club_app/images/running.avif' %}" class="d-block w-100" alt="Football">
+                            <img src="{% static 'club_app/images/running.avif' %}" class="d-block w-100" alt="Running">
                             <div class="carousel-caption d-none d-md-block">
                                 <h4>& GO</h4>
                                 <h2>Build Your Personality Like a Sports Disciple</h2>
@@ -465,11 +632,11 @@
                         </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="carousel-control-prev-icon"></span>
                         <span class="visually-hidden">Previous</span>
                     </button>
                     <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="carousel-control-next-icon"></span>
                         <span class="visually-hidden">Next</span>
                     </button>
                 </div>
@@ -491,10 +658,47 @@
                     </marquee>
                 </div>
             </div>
-
         </div>
 
-        <!-- Events -->
+        <!-- ── Stats Counter Strip ── -->
+        <div class="section-label">Club at a Glance</div>
+        <div class="stats-strip">
+            <div class="stat-card">
+                <div class="stat-number" data-target="500">0</div>
+                <div class="stat-label">Members</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-target="15">0</div>
+                <div class="stat-label">Expert Coaches</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-target="12">0</div>
+                <div class="stat-label">Sports Offered</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-target="8">0</div>
+                <div class="stat-label">Years of Excellence</div>
+            </div>
+        </div>
+
+        <!-- ── Sports Showcase ── -->
+        <div class="section-label">Our Sports</div>
+        <div class="sports-showcase">
+            <a href="/cricket/"      class="sport-tile"><span class="sport-emoji">🏏</span><span class="sport-name">Cricket</span></a>
+            <a href="/football/"     class="sport-tile"><span class="sport-emoji">⚽</span><span class="sport-name">Football</span></a>
+            <a href="/badminton/"    class="sport-tile"><span class="sport-emoji">🏸</span><span class="sport-name">Badminton</span></a>
+            <a href="/basketball/"   class="sport-tile"><span class="sport-emoji">🏀</span><span class="sport-name">Basketball</span></a>
+            <a href="/tennis/"       class="sport-tile"><span class="sport-emoji">🎾</span><span class="sport-name">Tennis</span></a>
+            <a href="/table_tennis/" class="sport-tile"><span class="sport-emoji">🏓</span><span class="sport-name">Table Tennis</span></a>
+            <a href="/volleyball/"   class="sport-tile"><span class="sport-emoji">🏐</span><span class="sport-name">Volleyball</span></a>
+            <a href="/swimming/"     class="sport-tile"><span class="sport-emoji">🏊</span><span class="sport-name">Swimming</span></a>
+            <a href="/athletics/"    class="sport-tile"><span class="sport-emoji">🏃</span><span class="sport-name">Athletics</span></a>
+            <a href="/kabaddi/"      class="sport-tile"><span class="sport-emoji">🤼</span><span class="sport-name">Kabaddi</span></a>
+            <a href="/hockey/"       class="sport-tile"><span class="sport-emoji">🏑</span><span class="sport-name">Hockey</span></a>
+            <a href="/boxing/"       class="sport-tile"><span class="sport-emoji">🥊</span><span class="sport-name">Boxing</span></a>
+        </div>
+
+        <!-- ── Events ── -->
         {% if event_key %}
         <div class="section-label">Upcoming Events</div>
         <div class="events-row">
@@ -511,6 +715,53 @@
         </div>
         {% endif %}
 
+        <!-- ── Why Choose Us ── -->
+        <div class="section-label">Why Choose Us</div>
+        <div class="why-grid">
+            <div class="why-card">
+                <span class="why-icon">🏆</span>
+                <div class="why-title">Championship Coaches</div>
+                <div class="why-desc">Train under certified professionals with national and international experience in their respective sports.</div>
+            </div>
+            <div class="why-card">
+                <span class="why-icon">🏟️</span>
+                <div class="why-title">World-Class Facilities</div>
+                <div class="why-desc">State-of-the-art grounds, courts, pools and gyms built to international standards for peak performance.</div>
+            </div>
+            <div class="why-card">
+                <span class="why-icon">🤝</span>
+                <div class="why-title">Community & Brotherhood</div>
+                <div class="why-desc">Join a thriving community of athletes who push each other to grow, compete, and celebrate together.</div>
+            </div>
+        </div>
+
+        <!-- ── Testimonials ── -->
+        <div class="section-label">What Our Members Say</div>
+        <div class="testimonial-strip">
+            <div class="testimonial-track">
+                <div class="testimonial-item">
+                    <div class="testimonial-text">"PlayForge completely transformed my game. The coaching is world-class and the community here is incredibly supportive."</div>
+                    <div class="testimonial-author">— Rahul M., Cricket Member</div>
+                </div>
+                <div class="testimonial-item">
+                    <div class="testimonial-text">"I joined for badminton and ended up discovering a second home. The facilities and the coaches are simply the best."</div>
+                    <div class="testimonial-author">— Sneha P., Badminton Member</div>
+                </div>
+                <div class="testimonial-item">
+                    <div class="testimonial-text">"From a complete beginner to competing at district level in just 8 months. PlayForge makes champions."</div>
+                    <div class="testimonial-author">— Aryan K., Athletics Member</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── CTA Banner ── -->
+        <div class="cta-banner">
+            <h2>Ready to Start Your Journey?</h2>
+            <p>Join hundreds of athletes who train, compete and win with PlayForge Sports Club</p>
+            <a href="/member_registration/" class="cta-btn">Join Now</a>
+            <a href="/coach/" class="cta-btn-outline">Meet Our Coaches</a>
+        </div>
+
         <!-- Messages -->
         {% if messages %}
             {% for m in messages %}
@@ -522,37 +773,62 @@
         <div class="contact-wrap">
             <h2 class="contact-heading">Feel Free to Contact Us</h2>
             <div class="form-card">
-                <section id="contact_us">
-                    <form method="post" action="/contact/">
-                        {% csrf_token %}
-
-                        <div class="input-group mt-2">
-                            <label for="name" class="input-group-text"><i class="fas fa-address-book"></i></label>
-                            <input type="text" placeholder="Enter your Name" class="form-control" name="name">
-                        </div>
-
-                        <div class="input-group mt-2">
-                            <label for="Email" class="input-group-text"><i class="fa fa-envelope-open"></i></label>
-                            <input type="email" placeholder="Enter your Email" class="form-control" name="email">
-                        </div>
-
-                        <div class="mt-2">
-                            <textarea placeholder="Your Query" class="form-control" rows="4" name="question"></textarea>
-                        </div>
-
-                        <div class="submit-wrap">
-                            <button type="submit" class="btn-submit">Submit</button>
-                        </div>
-                    </form>
-                </section>
+                <form method="post" action="/contact/">
+                    {% csrf_token %}
+                    <div class="input-group mt-2">
+                        <label for="name" class="input-group-text"><i class="fas fa-address-book"></i></label>
+                        <input type="text" placeholder="Enter your Name" class="form-control" name="name">
+                    </div>
+                    <div class="input-group mt-2">
+                        <label for="Email" class="input-group-text"><i class="fa fa-envelope-open"></i></label>
+                        <input type="email" placeholder="Enter your Email" class="form-control" name="email">
+                    </div>
+                    <div class="mt-2">
+                        <textarea placeholder="Your Query" class="form-control" rows="4" name="question"></textarea>
+                    </div>
+                    <div class="submit-wrap">
+                        <button type="submit" class="btn-submit">Submit</button>
+                    </div>
+                </form>
             </div>
         </div>
 
     </div>
 
-    <div style='position:relative; z-index:2;'>
-    {% include 'club_app/common_files/common_footer.html' %}
-</div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <div style="position:relative; z-index:2;">
+        {% include 'club_app/common_files/common_footer.html' %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // ── Animated counter ──
+        function animateCounter(el) {
+            const target = parseInt(el.getAttribute('data-target'));
+            const duration = 1800;
+            const step = target / (duration / 16);
+            let current = 0;
+            const timer = setInterval(() => {
+                current += step;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                el.textContent = Math.floor(current) + (target >= 100 ? '+' : '');
+            }, 16);
+        }
+
+        // ── Trigger counters when section scrolls into view ──
+        const counters = document.querySelectorAll('.stat-number');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounter(entry.target);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        counters.forEach(c => observer.observe(c));
+    </script>
 </body>
 </html>

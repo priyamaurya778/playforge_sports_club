@@ -18,21 +18,79 @@
             color: #e8e0d5;
         }
 
-        .main-body {
-            padding: 48px 40px 64px;
-        }
+        .main-body { padding: 48px 40px 64px; }
 
-        /* ── Heading ── */
         h1 {
             font-size: clamp(26px, 4vw, 40px);
             font-weight: 800;
             text-align: center;
             letter-spacing: -0.02em;
-            margin-bottom: 40px;
+            margin-bottom: 12px;
             background: linear-gradient(135deg, #e8c98a 0%, #c8a96e 60%, #a07840 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+        }
+
+        .section-label {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            color: #c8a96e;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* ── Instruction banner ── */
+        .instruction {
+            text-align: center;
+            font-size: 13px;
+            color: #888880;
+            margin-bottom: 28px;
+            padding: 12px 20px;
+            background: rgba(200,169,110,0.06);
+            border: 1px dashed rgba(200,169,110,0.25);
+            border-radius: 10px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .instruction span {
+            color: #c8a96e;
+            font-weight: 600;
+        }
+
+        /* ── Filter tags ── */
+        .filter-bar {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+
+        .filter-tag {
+            background: rgba(200, 169, 110, 0.12);
+            color: #c8a96e;
+            border: 1px solid rgba(200, 169, 110, 0.35);
+            padding: 5px 18px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+        }
+
+        .filter-tag::before { content: '🎯 '; }
+
+        .showing-all {
+            text-align: center;
+            font-size: 12px;
+            color: #555;
+            margin-bottom: 32px;
+            letter-spacing: 0.05em;
         }
 
         /* ── Grid ── */
@@ -43,41 +101,44 @@
             width: 100%;
         }
 
-        /* ── Coach Card ── */
+        /* ── Card ── */
         .card {
             background: #111;
             border: 1px solid rgba(200, 169, 110, 0.15) !important;
             border-radius: 16px !important;
             overflow: hidden;
             transition: transform 0.32s ease, box-shadow 0.32s ease, border-color 0.32s ease;
-            height: auto;
             display: flex;
             flex-direction: column;
         }
 
         .card:hover {
             transform: translateY(-6px) scale(1.02);
-            box-shadow: 0 20px 52px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(200, 169, 110, 0.45);
+            box-shadow: 0 20px 52px rgba(0,0,0,0.6), 0 0 0 1px rgba(200,169,110,0.45);
             border-color: rgba(200, 169, 110, 0.45) !important;
         }
 
-        /* ── Card image ── */
+        /* selected card highlight */
+        .card.selected {
+            border-color: #c8a96e !important;
+            box-shadow: 0 0 0 2px #c8a96e, 0 20px 52px rgba(0,0,0,0.6);
+        }
+
         .card-img-top {
             width: 100%;
             height: 210px;
             object-fit: cover;
-            border-radius: 0 !important;
             display: block;
             border-bottom: 1px solid rgba(200, 169, 110, 0.15);
         }
 
-        /* ── Card body ── */
         .card-body {
             padding: 18px 18px 20px;
             display: flex;
             flex-direction: column;
             gap: 8px;
             background: #111;
+            flex: 1;
         }
 
         .card-title {
@@ -87,7 +148,6 @@
             margin: 0;
         }
 
-        /* strip "Name:" label and show value only via styling */
         .card-text {
             font-size: 13px;
             color: #888880;
@@ -98,7 +158,6 @@
             line-height: 1.5;
         }
 
-        /* gold dot before each detail row */
         .card-text::before {
             content: '';
             display: inline-block;
@@ -110,18 +169,79 @@
             margin-top: 1px;
         }
 
-        /* ── Section label ── */
-        .section-label {
-            font-size: 10px;
+        .badge {
+            display: inline-block;
+            font-size: 11px;
             font-weight: 600;
-            letter-spacing: 0.18em;
+            padding: 4px 12px;
+            border-radius: 20px;
+            background: rgba(200, 169, 110, 0.12);
             color: #c8a96e;
+            border: 1px solid rgba(200, 169, 110, 0.25);
+            letter-spacing: 0.05em;
             text-transform: uppercase;
-            text-align: center;
-            margin-bottom: 24px;
+            margin-top: 4px;
+            align-self: flex-start;
         }
 
-        /* ── Responsive ── */
+        /* ── Select Coach button ── */
+        .btn-select {
+            margin-top: auto;
+            padding-top: 12px;
+            background: linear-gradient(135deg, #c8a96e, #a07840);
+            border: none;
+            color: #0d0d0d;
+            font-family: 'Outfit', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 10px 0;
+            border-radius: 20px;
+            cursor: pointer;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            width: 100%;
+            transition: opacity 0.2s, transform 0.2s;
+            box-shadow: 0 4px 14px rgba(200,169,110,0.25);
+        }
+
+        .btn-select:hover {
+            opacity: 0.88;
+            transform: translateY(-1px);
+        }
+
+        /* ── Empty state ── */
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+            color: #555;
+        }
+
+        .empty-state .emoji {
+            font-size: 48px;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .empty-state p { font-size: 15px; line-height: 1.7; }
+
+        .empty-state a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 28px;
+            border-radius: 25px;
+            background: rgba(200,169,110,0.1);
+            border: 1px solid rgba(200,169,110,0.3);
+            color: #c8a96e;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            letter-spacing: 0.06em;
+            transition: background 0.2s;
+        }
+
+        .empty-state a:hover { background: rgba(200,169,110,0.2); }
+
         @media (max-width: 768px) {
             .main-body { padding: 32px 20px 48px; }
             .flex-container { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
@@ -138,25 +258,80 @@
         <h1>Our Mentors</h1>
         <div class="section-label">Meet the Coaches</div>
 
-        <div class="flex-container">
-            {% for c in coach_key %}
-            <div class="card">
-                <img src="/media/{{c.coach_pic}}" class="card-img-top" alt="Coach photo">
-                <div class="card-body">
-                    <h5 class="card-title">{{c.name}}</h5>
-                    <p class="card-text">Email: {{c.email}}</p>
-                    <p class="card-text">City: {{c.city}}</p>
-                    <p class="card-text">Experience: {{c.experience}}</p>
-                    <p class="card-text">Expertise: {{c.area_of_intrest}}</p>
-                </div>
+        {% if messages %}
+            {% for m in messages %}
+            <div class="alert alert-success alert-dismissible fade show"
+                 style="max-width:500px; margin:0 auto 24px; border-radius:10px;" role="alert">
+                <strong>{{ m }}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
             {% endfor %}
-        </div>
+        {% endif %}
+
+        <!-- Sport filter tags -->
+        {% if member_sports %}
+            <div class="filter-bar">
+                {% for sport in member_sports %}
+                    <span class="filter-tag">{{ sport }}</span>
+                {% endfor %}
+            </div>
+            <div class="instruction">
+                👇 Choose a <span>coach</span> from the list below to get assigned
+            </div>
+        {% else %}
+            <p class="showing-all">Showing all coaches</p>
+        {% endif %}
+
+        <!-- ✅ One form wraps all cards — each button submits the coach name -->
+        <form method="post" action="{% url 'coach_details' %}">
+            {% csrf_token %}
+            <div class="flex-container">
+                {% for c in coach_key %}
+                <div class="card" id="card-{{ forloop.counter }}">
+                    <img src="{{ c.pic }}" class="card-img-top" alt="{{ c.name }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ c.name }}</h5>
+                        <p class="card-text">{{ c.email }}</p>
+                        <p class="card-text">{{ c.city }}</p>
+                        <p class="card-text">{{ c.experience }}</p>
+                        <span class="badge">{{ c.sport }}</span>
+
+                        <!-- ✅ Submit button sends this coach's name -->
+                        <button
+                            type="submit"
+                            name="selected_coach"
+                            value="{{ c.name }}"
+                            class="btn-select"
+                            onclick="highlightCard('card-{{ forloop.counter }}')"
+                        >
+                            ✓ Select Coach
+                        </button>
+                    </div>
+                </div>
+
+                {% empty %}
+                <div class="empty-state">
+                    <span class="emoji">🏅</span>
+                    <p>No coaches found for your selected sport(s).<br>
+                       Please contact the club admin or try registering again.</p>
+                    <a href="{% url 'member_registration' %}">← Back to Registration</a>
+                </div>
+                {% endfor %}
+            </div>
+        </form>
 
     </div>
 
     {% include 'club_app/common_files/common_footer.html' %}
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function highlightCard(cardId) {
+            // Remove selected from all cards first
+            document.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
+            // Highlight clicked card
+            document.getElementById(cardId).classList.add('selected');
+        }
+    </script>
 </body>
 </html>

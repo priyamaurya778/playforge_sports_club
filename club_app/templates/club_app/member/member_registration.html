@@ -23,7 +23,6 @@
             min-height: 100vh;
         }
 
-        /* dark overlay so text stays readable over image */
         body::before {
             content: '';
             position: fixed;
@@ -32,7 +31,6 @@
             z-index: 0;
         }
 
-        /* ── Alerts ── */
         .alert {
             width: 50%;
             margin: 20px auto;
@@ -42,7 +40,6 @@
             font-family: 'Outfit', sans-serif;
         }
 
-        /* ── Form card ── */
         .container {
             position: relative;
             z-index: 1;
@@ -57,7 +54,6 @@
             margin: 48px auto 60px;
         }
 
-        /* ── Form heading ── */
         h2 {
             font-size: 22px;
             font-weight: 800;
@@ -80,14 +76,12 @@
             margin-bottom: 32px;
         }
 
-        /* ── Form divider ── */
         .form-divider {
             height: 1px;
             background: rgba(200, 169, 110, 0.12);
             margin: 16px 0;
         }
 
-        /* ── Labels ── */
         label {
             font-size: 11px;
             font-weight: 600;
@@ -98,7 +92,6 @@
             display: block;
         }
 
-        /* ── Inputs ── */
         .form-control {
             background: #0d0d0d !important;
             border: 1px solid rgba(200, 169, 110, 0.2) !important;
@@ -113,13 +106,9 @@
             transition: border-color 0.2s, box-shadow 0.2s;
         }
 
-        .mb-3 {
-            margin-bottom: 14px !important;
-        }
+        .mb-3 { margin-bottom: 14px !important; }
 
-        .form-control::placeholder {
-            color: #444 !important;
-        }
+        .form-control::placeholder { color: #444 !important; }
 
         .form-control:focus {
             border-color: #c8a96e !important;
@@ -128,21 +117,10 @@
             background: #0f0f0f !important;
         }
 
-        select.form-control option {
-            background: #161616;
-            color: #e8e0d5;
-        }
+        select.form-control option { background: #161616; color: #e8e0d5; }
+        textarea.form-control { resize: vertical; }
 
-        textarea.form-control {
-            resize: vertical;
-        }
-
-        /* ── Gender radio ── */
-        .radio-group {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
+        .radio-group { display: flex; gap: 12px; align-items: center; }
 
         .radio-group label {
             display: flex;
@@ -162,27 +140,15 @@
             margin-bottom: 0;
         }
 
-        .radio-group label:hover {
-            border-color: rgba(200,169,110,0.5);
-            color: #c8a96e;
-        }
-
-        .radio {
-            display: none;
-        }
-
-        .radio:checked ~ span {
-            font-weight: 700;
-            color: #c8a96e;
-        }
-
+        .radio-group label:hover { border-color: rgba(200,169,110,0.5); color: #c8a96e; }
+        .radio { display: none; }
+        .radio:checked ~ span { font-weight: 700; color: #c8a96e; }
         .radio-group label:has(.radio:checked) {
             border-color: #c8a96e;
             background: rgba(200,169,110,0.08);
             color: #c8a96e;
         }
 
-        /* ── Profile preview ── */
         #profile_preview {
             width: 100px;
             height: 100px;
@@ -194,7 +160,6 @@
             box-shadow: 0 0 16px rgba(200,169,110,0.25);
         }
 
-        /* ── Buttons ── */
         .btn-group {
             display: flex;
             justify-content: center;
@@ -245,7 +210,6 @@
             box-shadow: 0 6px 24px rgba(200,169,110,0.45);
         }
 
-        /* ── Sports checkboxes ── */
         .sports-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -270,10 +234,7 @@
             letter-spacing: 0.02em;
         }
 
-        .sport-check-label:hover {
-            border-color: rgba(200,169,110,0.5);
-            color: #c8a96e;
-        }
+        .sport-check-label:hover { border-color: rgba(200,169,110,0.5); color: #c8a96e; }
 
         .sport-checkbox {
             appearance: none;
@@ -289,10 +250,7 @@
             position: relative;
         }
 
-        .sport-checkbox:checked {
-            background: #c8a96e;
-            border-color: #c8a96e;
-        }
+        .sport-checkbox:checked { background: #c8a96e; border-color: #c8a96e; }
 
         .sport-checkbox:checked::after {
             content: '';
@@ -313,7 +271,35 @@
             color: #c8a96e;
         }
 
-        /* ── Responsive ── */
+        /* ── Coach pills ── */
+        #coach-list {
+            display: none;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 4px;
+        }
+
+        .coach-pill {
+            background: rgba(200,169,110,0.07);
+            border: 1px solid rgba(200,169,110,0.25);
+            border-radius: 10px;
+            padding: 8px 14px;
+        }
+
+        .coach-pill-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: #c8a96e;
+        }
+
+        .coach-pill-sport {
+            font-size: 11px;
+            color: #555;
+            margin-top: 2px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
         @media (max-width: 768px) {
             .container { width: 92%; padding: 28px 22px 32px; }
             .alert { width: 92%; }
@@ -326,7 +312,7 @@
 
     {% if messages %}
         {% for m in messages %}
-            <div class="alert alert-success alert-dismissible fade show" role="alert" style="width:50%; margin:20px auto; position:relative; z-index:2;">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <strong>{{ m }}</strong>
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
@@ -402,6 +388,7 @@
 
             <div class="form-divider"></div>
 
+            <!-- ── Sports ── -->
             <div class="mb-3">
                 <label>Select Your Sport(s)</label>
                 <div class="sports-grid">
@@ -421,28 +408,90 @@
                         <input type="checkbox" name="sports" value="Basketball" class="sport-checkbox">
                         <span class="sport-check-text">🏀 Basketball</span>
                     </label>
+                    <label class="sport-check-label">
+                        <input type="checkbox" name="sports" value="Tennis" class="sport-checkbox">
+                        <span class="sport-check-text">🎾 Tennis</span>
+                    </label>
+                    <label class="sport-check-label">
+                        <input type="checkbox" name="sports" value="Table Tennis" class="sport-checkbox">
+                        <span class="sport-check-text">🏓 Table Tennis</span>
+                    </label>
+                    <label class="sport-check-label">
+                        <input type="checkbox" name="sports" value="Volleyball" class="sport-checkbox">
+                        <span class="sport-check-text">🏐 Volleyball</span>
+                    </label>
+                    <label class="sport-check-label">
+                        <input type="checkbox" name="sports" value="Swimming" class="sport-checkbox">
+                        <span class="sport-check-text">🏊 Swimming</span>
+                    </label>
+                    <label class="sport-check-label">
+                        <input type="checkbox" name="sports" value="Athletics" class="sport-checkbox">
+                        <span class="sport-check-text">🏃 Athletics</span>
+                    </label>
+                    <label class="sport-check-label">
+                        <input type="checkbox" name="sports" value="Kabaddi" class="sport-checkbox">
+                        <span class="sport-check-text">🤼 Kabaddi</span>
+                    </label>
+                    <label class="sport-check-label">
+                        <input type="checkbox" name="sports" value="Hockey" class="sport-checkbox">
+                        <span class="sport-check-text">🏑 Hockey</span>
+                    </label>
+                    <label class="sport-check-label">
+                        <input type="checkbox" name="sports" value="Boxing" class="sport-checkbox">
+                        <span class="sport-check-text">🥊 Boxing</span>
+                    </label>
                 </div>
             </div>
 
             <div class="form-divider"></div>
 
+            <!-- ── Coach Filter Section ── -->
+            <div class="mb-3">
+                <label>Coaches for Your Sport(s)</label>
+
+                <div id="coach-placeholder" style="
+                    font-size: 13px;
+                    color: #444;
+                    background: #0d0d0d;
+                    border: 1px dashed rgba(200,169,110,0.2);
+                    border-radius: 9px;
+                    padding: 14px;
+                    text-align: center;">
+                    Select a sport above to see available coaches
+                </div>
+
+                <div id="coach-list"></div>
+
+                <div id="coach-empty" style="
+                    display: none;
+                    font-size: 13px;
+                    color: #555;
+                    background: #0d0d0d;
+                    border: 1px dashed rgba(200,169,110,0.15);
+                    border-radius: 9px;
+                    padding: 14px;
+                    text-align: center;">
+                    No coach assigned for selected sport(s) yet
+                </div>
+            </div>
+
+            <div class="form-divider"></div>
+
+            <!-- ── Profile Photo ── -->
             <div class="mb-3">
                 <label for="profile_picture">Profile Photo</label>
                 <input type="file" name="profile_picture" class="form-control" id="profile_picture" required accept="image/*" onchange="previewImage(event)">
                 <img id="profile_preview" src="" alt="Profile Picture Preview" style="display:none;">
             </div>
 
+            <!-- ── Transaction ID ── -->
+            <div class="mb-3">
+                <label for="transaction_id">Transaction ID</label>
+                <input type="text" name="transaction_id" id="transaction_id" class="form-control"
+                    placeholder="Enter UPI Transaction ID after payment" required>
+            </div>
 
-        <!-- Transaction ID input -->
-        <div style="margin-top:16px; text-align:left;">
-            <label for="transaction_id">Transaction ID</label>
-            <input type="text" name="transaction_id" id="transaction_id"
-                class="form-control" 
-                placeholder="Enter UPI Transaction ID after payment" 
-                required>
-        </div>
-    </div>
-</div>
+            <!-- ── Buttons ── -->
             <div class="btn-group">
                 <button type="reset" class="btn-reset">Reset</button>
                 <button type="submit" class="btn-submit">Submit</button>
@@ -451,24 +500,73 @@
         </form>
     </div>
 
+    {{ coaches|json_script:"coaches-data" }}
+
     <script>
+        // ── Image preview ──
         function previewImage(event) {
             const input = event.target;
             const preview = document.getElementById("profile_preview");
             if (input.files && input.files[0]) {
                 const reader = new FileReader();
-                reader.onload = function (e) {
+                reader.onload = function(e) {
                     preview.src = e.target.result;
                     preview.style.display = "block";
                 };
                 reader.readAsDataURL(input.files[0]);
             }
         }
+
+        // ── Coach filter ──
+        const coachDataEl = document.getElementById('coaches-data');
+        const allCoaches  = coachDataEl ? JSON.parse(coachDataEl.textContent) : [];
+
+        function updateCoaches() {
+            const checked = Array.from(
+                document.querySelectorAll('input[name="sports"]:checked')
+            ).map(el => el.value);
+
+            const placeholder = document.getElementById('coach-placeholder');
+            const coachList   = document.getElementById('coach-list');
+            const coachEmpty  = document.getElementById('coach-empty');
+
+            if (checked.length === 0) {
+                placeholder.style.display = 'block';
+                coachList.style.display   = 'none';
+                coachEmpty.style.display  = 'none';
+                coachList.innerHTML       = '';
+                return;
+            }
+
+            const matched = allCoaches.filter(c => checked.includes(c.sport));
+            placeholder.style.display = 'none';
+
+            if (matched.length === 0) {
+                coachList.style.display  = 'none';
+                coachEmpty.style.display = 'block';
+                coachList.innerHTML      = '';
+                return;
+            }
+
+            coachEmpty.style.display = 'none';
+            coachList.style.display  = 'flex';
+            coachList.style.flexWrap = 'wrap';
+            coachList.style.gap      = '10px';
+            coachList.style.marginTop = '8px';
+
+            coachList.innerHTML = matched.map(c => `
+                <div class="coach-pill">
+                    <div class="coach-pill-name">👤 ${c.name}</div>
+                    <div class="coach-pill-sport">${c.sport}</div>
+                </div>
+            `).join('');
+        }
+
+        document.querySelectorAll('input[name="sports"]').forEach(cb => {
+            cb.addEventListener('change', updateCoaches);
+        });
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
-{% comment %} Use {% url 'gym_locator' %}, as it automatically handles URL changes and provides better maintainability in the long run.
-So, to answer your question: Yes, you can use action="/gym_locator/", but it's better to use {% url 'gym_locator' %} to ensure flexibility and avoid issues when URLs are modified. {% endcomment %}

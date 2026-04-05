@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tennis</title>
+    {% include 'club_app/common_files/common_css.html' %}
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Outfit', sans-serif; background-color: #0d0d0d; color: #e8e0d5; }
+        .main-body { padding: 48px 40px 64px; }
+        h1 { font-size: clamp(26px, 4vw, 40px); font-weight: 800; text-align: center; letter-spacing: -0.02em; margin-bottom: 36px; background: linear-gradient(135deg, #e8c98a 0%, #c8a96e 60%, #a07840 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .description-card { background: #161616; border: 1px solid rgba(200,169,110,0.2); border-left: 3px solid #c8a96e; border-radius: 12px; padding: 24px 28px; margin-bottom: 48px; }
+        .description-card p { font-size: 15px; color: #b8b0a5; line-height: 1.85; font-style: italic; background: none !important; box-shadow: none !important; padding: 0 !important; border-radius: 0 !important; margin: 0 !important; }
+        .section-label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; color: #c8a96e; text-transform: uppercase; margin-bottom: 20px; }
+        .img-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        .img-wrap { border-radius: 12px; overflow: hidden; border: 1px solid rgba(200,169,110,0.15); background: #111; transition: transform 0.32s ease, box-shadow 0.32s ease, border-color 0.32s ease; }
+        .img-wrap:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 16px 48px rgba(0,0,0,0.6), 0 0 0 1px rgba(200,169,110,0.4); border-color: rgba(200,169,110,0.45); }
+        .img-wrap img { width: 100%; height: 240px; object-fit: cover; display: block; }
+        @media (max-width: 768px) { .main-body { padding: 32px 20px 48px; } .img-row { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    {% include 'club_app/common_files/common_header.html' %}
+    <div class="main-body">
+        <h1> Tennis Page Welcomes You</h1>
+        <div class="description-card">
+            <p>Tennis is a racket sport that can be played individually against a single opponent or between two teams of two players each. Each player uses a tennis racket strung with cord to strike a hollow rubber ball covered with felt over or around a net and into the opponent's court. Tennis is an Olympic sport and is played at all levels of society and at all ages. The sport can be played by anyone who can hold a racket, including wheelchair users.</p>
+        </div>
+        <div class="section-label">Gallery</div>
+        <div class="img-row">
+            <div class="img-wrap"><img src="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=600" alt="Tennis"></div>
+            <div class="img-wrap"><img src="https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?w=600" alt="Tennis"></div>
+            <div class="img-wrap"><img src="https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?w=600" alt="Tennis"></div>
+        </div>
+    </div>
+    {% include 'club_app/common_files/common_footer.html' %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

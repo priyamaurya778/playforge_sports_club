@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Career</title>
+    <title>Coach Registration</title>
     {% include 'club_app/common_files/common_css.html' %}
 
     <style>
@@ -18,11 +19,6 @@
             min-height: 100vh;
         }
 
-        .main-body {
-            padding-bottom: 0;
-        }
-
-        /* ── Alert ── */
         .alert {
             width: 50%;
             margin: 20px auto;
@@ -63,13 +59,25 @@
 
         .form-card {
             width: 100%;
-            max-width: 560px;
+            max-width: 580px;
             background: #111;
             border: 1px solid rgba(200, 169, 110, 0.22);
             border-top: 3px solid #c8a96e;
             border-radius: 18px;
             padding: 36px 40px 40px;
-            box-shadow: 0 32px 80px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 32px 80px rgba(0,0,0,0.5);
+        }
+
+        /* ── Section divider ── */
+        .form-section-title {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            color: #c8a96e;
+            text-transform: uppercase;
+            margin: 24px 0 14px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(200,169,110,0.12);
         }
 
         /* ── Django form.as_p overrides ── */
@@ -93,7 +101,6 @@
             margin-bottom: 7px !important;
         }
 
-        /* All inputs, selects, textareas rendered by form.as_p */
         .form-card input[type="text"],
         .form-card input[type="email"],
         .form-card input[type="tel"],
@@ -104,7 +111,7 @@
         .form-card textarea {
             width: 100%;
             background: #0d0d0d !important;
-            border: 1px solid rgba(200, 169, 110, 0.2) !important;
+            border: 1px solid rgba(200,169,110,0.2) !important;
             border-radius: 9px !important;
             color: #e8e0d5 !important;
             font-family: 'Outfit', sans-serif !important;
@@ -127,21 +134,13 @@
         .form-card select:focus,
         .form-card textarea:focus {
             border-color: #c8a96e !important;
-            box-shadow: 0 0 0 3px rgba(200, 169, 110, 0.12) !important;
+            box-shadow: 0 0 0 3px rgba(200,169,110,0.12) !important;
             background: #0f0f0f !important;
         }
 
-        .form-card select option {
-            background: #161616;
-            color: #e8e0d5;
-        }
+        .form-card select option { background: #161616; color: #e8e0d5; }
+        .form-card textarea { resize: vertical; min-height: 90px; }
 
-        .form-card textarea {
-            resize: vertical;
-            min-height: 110px;
-        }
-
-        /* file input */
         .form-card input[type="file"] {
             cursor: pointer;
             color: #888880 !important;
@@ -165,11 +164,32 @@
             background: rgba(200,169,110,0.22);
         }
 
-        /* ── Submit button ── */
-        .submit-wrap {
-            text-align: center;
-            margin-top: 28px;
+        /* ── Django error list ── */
+        .form-card ul.errorlist {
+            list-style: none;
+            padding: 0;
+            margin: 4px 0 0;
         }
+
+        .form-card ul.errorlist li {
+            font-size: 11.5px;
+            color: #e05555;
+        }
+
+        /* ── Photo preview ── */
+        #coach-preview {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: none;
+            margin: 12px auto 0;
+            border: 2px solid #c8a96e;
+            box-shadow: 0 0 16px rgba(200,169,110,0.25);
+        }
+
+        /* ── Submit button ── */
+        .submit-wrap { text-align: center; margin-top: 32px; }
 
         .btn-submit {
             background: linear-gradient(135deg, #c8a96e, #a07840);
@@ -183,17 +203,16 @@
             cursor: pointer;
             letter-spacing: 0.08em;
             text-transform: uppercase;
-            box-shadow: 0 4px 18px rgba(200, 169, 110, 0.3);
+            box-shadow: 0 4px 18px rgba(200,169,110,0.3);
             transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
         }
 
         .btn-submit:hover {
             opacity: 0.9;
             transform: translateY(-2px);
-            box-shadow: 0 8px 28px rgba(200, 169, 110, 0.45);
+            box-shadow: 0 8px 28px rgba(200,169,110,0.45);
         }
 
-        /* ── Responsive ── */
         @media (max-width: 768px) {
             .form-card { padding: 28px 22px 32px; }
             .alert { width: 92%; }
@@ -202,38 +221,134 @@
 </head>
 <body>
 
-    <div class="main-body">
-        {% include 'club_app/common_files/common_header.html' %}
+    {% include 'club_app/common_files/common_header.html' %}
 
-        {% if messages %}
-            {% for m in messages %}
-            <div class="alert alert-success alert-dismissible fade show" role="alert" style="width:50%; margin:20px auto;">
-                <strong>{{ m }}</strong>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            {% endfor %}
-        {% endif %}
-
-        <div class="page-heading">
-            <h1>Choose your career with us</h1>
-            <p>Join the PlayForge Sports Club team</p>
+    {% if messages %}
+        {% for m in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{ m }}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
+        {% endfor %}
+    {% endif %}
 
-        <div class="form-wrapper">
-            <div class="form-card">
-                <form enctype="multipart/form-data" method="post">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <div class="submit-wrap">
-                        <button type="submit" class="btn-submit">Submit</button>
-                    </div>
-                </form>
-            </div>
+    <div class="page-heading">
+        <h1>Coach Registration</h1>
+        <p>Join PlayForge as a Coach — inspire the next generation</p>
+    </div>
+
+    <div class="form-wrapper">
+        <div class="form-card">
+
+            <form enctype="multipart/form-data" method="post" action="{% url 'coach_career' %}">
+                {% csrf_token %}
+
+                <div class="form-section-title">Account Details</div>
+                <p>
+                    <label>Coach ID</label>
+                    <input type="text" name="coach_id" placeholder="Enter a unique Coach ID" required>
+                </p>
+                <p>
+                    <label>Password</label>
+                    <input type="password" name="password" placeholder="Enter Password" required minlength="6">
+                </p>
+
+                <div class="form-section-title"> Personal Details</div>
+                <p>
+                    <label>Full Name</label>
+                    <input type="text" name="name" placeholder="Enter your full name" required>
+                </p>
+                <p>
+                    <label>Phone Number</label>
+                    <input type="text" name="phone" placeholder="10-digit phone number" required pattern="[0-9]{10}" title="Enter a valid 10-digit number">
+                </p>
+                <p>
+                    <label>Email Address</label>
+                    <input type="email" name="email" placeholder="Enter your email" required>
+                </p>
+                <p>
+                    <label>Gender</label>
+                    <select name="gender" required>
+                        <option value="">Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </p>
+                <p>
+                    <label>City</label>
+                    <select name="city" required>
+                        <option value="">Select City</option>
+                        <option value="Lucknow">Lucknow</option>
+                        <option value="Kanpur">Kanpur</option>
+                        <option value="Varanasi">Varanasi</option>
+                        <option value="Gorakhpur">Gorakhpur</option>
+                        <option value="Hardoi">Hardoi</option>
+                    </select>
+                </p>
+                <p>
+                    <label>Address</label>
+                    <textarea name="address" rows="3" placeholder="Enter your full address" required></textarea>
+                </p>
+
+                <div class="form-section-title">Professional Details</div>
+                <p>
+                    <label>Sport / Area of Expertise</label>
+                    <select name="area_of_intrest" required>
+                        <option value="">Select Sport</option>
+                        <option value="Cricket">🏏 Cricket</option>
+                        <option value="Football">⚽ Football</option>
+                        <option value="Badminton">🏸 Badminton</option>
+                        <option value="Basketball">🏀 Basketball</option>
+                        <option value="Tennis">🎾 Tennis</option>
+                        <option value="Table Tennis">🏓 Table Tennis</option>
+                        <option value="Volleyball">🏐 Volleyball</option>
+                        <option value="Swimming">🏊 Swimming</option>
+                        <option value="Athletics">🏃 Athletics</option>
+                        <option value="Kabaddi">🤼 Kabaddi</option>
+                        <option value="Hockey">🏑 Hockey</option>
+                        <option value="Boxing">🥊 Boxing</option>
+                    </select>
+                </p>
+                <p>
+                    <label>Years of Experience</label>
+                    <input type="text" name="experience" placeholder="e.g. 5 Years" required>
+                </p>
+                <p>
+                    <label>About You</label>
+                    <textarea name="about_coach" rows="3" placeholder="Tell us about your coaching background..."></textarea>
+                </p>
+
+                <div class="form-section-title">Profile Photo</div>
+                <p>
+                    <label>Upload Photo</label>
+                    <input type="file" name="coach_pic" accept="image/*" required onchange="previewPhoto(event)">
+                </p>
+                <img id="coach-preview" src="" alt="Photo Preview">
+
+                <div class="submit-wrap">
+                    <button type="submit" class="btn-submit">Register as Coach</button>
+                </div>
+
+            </form>
         </div>
-
     </div>
 
     {% include 'club_app/common_files/common_footer.html' %}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function previewPhoto(event) {
+            const preview = document.getElementById('coach-preview');
+            const file    = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = e => {
+                    preview.src          = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
 </body>
 </html>

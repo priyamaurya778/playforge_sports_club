@@ -182,6 +182,16 @@
             <span class="info-label">Sports</span>
             <span class="info-value">{{ member_key.sports }}</span>
         </div>
+         <div class="info-row">
+            <span class="info-label">Coach</span>
+            <span class="info-value">
+                {% if member_key.coach %}
+                    {{ member_key.coach }}
+                {% else %}
+                    <span style="color:#444; font-style:italic;">Not assigned yet</span>
+                {% endif %}
+            </span>
+        </div>
     </div>
 
 </div>

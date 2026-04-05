@@ -129,37 +129,64 @@ def member_login(request):
        
           
 
-
-
-
-
-
 def member_registration(request):
-        if request.method=="GET":#http protocol sends user data using POST method
-         return render(request,'club_app/member/member_registration.html')
-     
-        if request.method=="POST":
-        #  store data in feedback table and send message to member_registration.html
-     
-         user_id=request.POST["id"]#request.POST[]built-in dictionary 
-         user_password=request.POST["password"]#password is name of control which defines in html page
-         user_name=request.POST["name"]
-         user_phone=request.POST["phone"]
-         user_email=request.POST["email"]
-         user_gender=request.POST["gender"]
-         user_city=request.POST["city"]
-         user_address=request.POST["address"]
-         user_sports=request.POST.getlist('sports')       # ['Cricket', 'Football']
-         user_sports_str=', '.join(user_sports)  
-        
-         user_pic=request.FILES["profile_picture"]
-        
-         member_reg_obj=Member(member_id=user_id,password=user_password,name=user_name,phone=user_phone,email=user_email,gender=user_gender,city=user_city,address=user_address,sports=user_sports_str,profile_picture=user_pic)#creating Member class object
-         member_reg_obj.save()#ORM map with Member table fields
-         messages.success(request,"Thanku for Registration now you are our member😎😎")
-         #return render(request,'club_app/html/member_registration.html')
-        #  return redirect("member_registration")#it is logical name of the view
-         return redirect("member_login") #member_login is a logical name which defines in urls.py file
+    all_coaches = [
+        {"name": "Arjun Sharma",      "sport": "Cricket"},
+        {"name": "Sanjay Pandey",     "sport": "Cricket"},
+        {"name": "Rohit Verma",       "sport": "Football"},
+        {"name": "Priya Nair",        "sport": "Badminton"},
+        {"name": "Anjali Dubey",      "sport": "Badminton"},
+        {"name": "Suresh Patel",      "sport": "Basketball"},
+        {"name": "Meena Rajput",      "sport": "Swimming"},
+        {"name": "Pooja Saxena",      "sport": "Swimming"},
+        {"name": "Vikram Singh",      "sport": "Boxing"},
+        {"name": "Amit Tiwari",       "sport": "Hockey"},
+        {"name": "Sneha Gupta",       "sport": "Tennis"},
+        {"name": "Deepak Yadav",      "sport": "Athletics"},
+        {"name": "Kavita Mishra",     "sport": "Volleyball"},
+        {"name": "Rahul Chauhan",     "sport": "Table Tennis"},
+        {"name": "Nikhil Srivastava", "sport": "Kabaddi"},
+    ]
+
+    if request.method == "GET":
+        return render(request, 'club_app/member/member_registration.html', {'coaches': all_coaches})
+
+    if request.method == "POST":
+        user_id         = request.POST["id"]
+        user_password   = request.POST["password"]
+        user_name       = request.POST["name"]
+        user_phone      = request.POST["phone"]
+        user_email      = request.POST["email"]
+        user_gender     = request.POST["gender"]
+        user_city       = request.POST["city"]
+        user_address    = request.POST["address"]
+        user_sports     = request.POST.getlist('sports')
+        user_sports_str = ', '.join(user_sports)
+        user_pic        = request.FILES["profile_picture"]
+        transaction     = request.POST.get("transaction_id", "")
+
+        member_reg_obj = Member(
+            member_id=user_id,
+            password=user_password,
+            name=user_name,
+            phone=user_phone,
+            email=user_email,
+            gender=user_gender,
+            city=user_city,
+            address=user_address,
+            sports=user_sports_str,
+            profile_picture=user_pic,
+        )
+        member_reg_obj.save()
+
+        # ✅ Save sports to session for coach filtering
+        request.session['member_sports'] = user_sports
+        request.session['member_id']     = user_id       # save id for coach assignment later
+        request.session.modified = True
+
+        messages.success(request, "Thanku for Registration now you are our member😎😎")
+        return redirect('coach_details')
+
         
 
         

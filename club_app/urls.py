@@ -22,7 +22,17 @@ urlpatterns=[
 
     path("basketball/",views.basketball,name="basketball"),
 
+    path("tennis/",views.tennis,name="tennis"),
+
+    path("volleyball/",views.volleyball,name="volleyball"),
+    path("swimming/",             views.swimming,                   name="swimming"),
+    path("athletics/",            views.athletics,                  name="athletics"),
+    path("kabaddi/",              views.kabaddi,                    name="kabaddi"),
+    path("hockey/",               views.hockey,                     name="hockey"),
+
     path("coach/",views.coach_details,name="coach_details"),
+
+    path("coach_career/", views.coach_career, name="coach_career"),
 
     path("member_registration/",member_views.member_registration,name="member_registration"),
 
