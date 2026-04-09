@@ -62,7 +62,7 @@ def kabaddi(request):
     return render(request, 'club_app/html/kabaddi.html')
 
 def athletics(request):
-    return render(request, 'club_app/html/athletics.html')
+    return render(request, 'club_app/html/atheletics.html')
 
 
 def member_registration(request):
