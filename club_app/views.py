@@ -5,6 +5,32 @@ from .forms import UserForm
 from django.db.models import Q
 
 
+# ── 15 hardcoded coaches (defined once, reused everywhere) ──
+HARDCODED_COACHES = [
+    {"coach_id": "C001", "name": "Arjun Sharma",      "email": "arjun.sharma@sportsclub.in",  "phone": "9876543201", "city": "Lucknow",   "experience": "12 Years", "area_of_intrest": "Cricket",      "gender": "male",   "address": "Lucknow, UP",   "about_coach": "Expert cricket coach",  "password": "coach123"},
+    {"coach_id": "C002", "name": "Rohit Verma",       "email": "rohit.verma@sportsclub.in",   "phone": "9876543202", "city": "Kanpur",    "experience": "9 Years",  "area_of_intrest": "Football",     "gender": "male",   "address": "Kanpur, UP",    "about_coach": "Football specialist",   "password": "coach123"},
+    {"coach_id": "C003", "name": "Priya Nair",        "email": "priya.nair@sportsclub.in",    "phone": "9876543203", "city": "Varanasi",  "experience": "7 Years",  "area_of_intrest": "Badminton",    "gender": "female", "address": "Varanasi, UP",  "about_coach": "Badminton coach",       "password": "coach123"},
+    {"coach_id": "C004", "name": "Suresh Patel",      "email": "suresh.patel@sportsclub.in",  "phone": "9876543204", "city": "Gorakhpur", "experience": "15 Years", "area_of_intrest": "Basketball",   "gender": "male",   "address": "Gorakhpur, UP", "about_coach": "Basketball expert",     "password": "coach123"},
+    {"coach_id": "C005", "name": "Meena Rajput",      "email": "meena.rajput@sportsclub.in",  "phone": "9876543205", "city": "Lucknow",   "experience": "10 Years", "area_of_intrest": "Swimming",     "gender": "female", "address": "Lucknow, UP",   "about_coach": "Swimming coach",        "password": "coach123"},
+    {"coach_id": "C006", "name": "Vikram Singh",      "email": "vikram.singh@sportsclub.in",  "phone": "9876543206", "city": "Hardoi",    "experience": "11 Years", "area_of_intrest": "Boxing",       "gender": "male",   "address": "Hardoi, UP",    "about_coach": "Boxing trainer",        "password": "coach123"},
+    {"coach_id": "C007", "name": "Amit Tiwari",       "email": "amit.tiwari@sportsclub.in",   "phone": "9876543207", "city": "Kanpur",    "experience": "8 Years",  "area_of_intrest": "Hockey",       "gender": "male",   "address": "Kanpur, UP",    "about_coach": "Hockey specialist",     "password": "coach123"},
+    {"coach_id": "C008", "name": "Sneha Gupta",       "email": "sneha.gupta@sportsclub.in",   "phone": "9876543208", "city": "Varanasi",  "experience": "6 Years",  "area_of_intrest": "Tennis",       "gender": "female", "address": "Varanasi, UP",  "about_coach": "Tennis coach",          "password": "coach123"},
+    {"coach_id": "C009", "name": "Deepak Yadav",      "email": "deepak.yadav@sportsclub.in",  "phone": "9876543209", "city": "Lucknow",   "experience": "14 Years", "area_of_intrest": "Athletics",    "gender": "male",   "address": "Lucknow, UP",   "about_coach": "Athletics trainer",     "password": "coach123"},
+    {"coach_id": "C010", "name": "Kavita Mishra",     "email": "kavita.mishra@sportsclub.in", "phone": "9876543210", "city": "Gorakhpur", "experience": "5 Years",  "area_of_intrest": "Volleyball",   "gender": "female", "address": "Gorakhpur, UP", "about_coach": "Volleyball coach",      "password": "coach123"},
+    {"coach_id": "C011", "name": "Rahul Chauhan",     "email": "rahul.chauhan@sportsclub.in", "phone": "9876543211", "city": "Lucknow",   "experience": "13 Years", "area_of_intrest": "Table Tennis", "gender": "male",   "address": "Lucknow, UP",   "about_coach": "Table Tennis expert",   "password": "coach123"},
+    {"coach_id": "C012", "name": "Nikhil Srivastava", "email": "nikhil.sri@sportsclub.in",    "phone": "9876543212", "city": "Kanpur",    "experience": "10 Years", "area_of_intrest": "Kabaddi",      "gender": "male",   "address": "Kanpur, UP",    "about_coach": "Kabaddi coach",         "password": "coach123"},
+    {"coach_id": "C013", "name": "Anjali Dubey",      "email": "anjali.dubey@sportsclub.in",  "phone": "9876543213", "city": "Varanasi",  "experience": "8 Years",  "area_of_intrest": "Badminton",    "gender": "female", "address": "Varanasi, UP",  "about_coach": "Badminton trainer",     "password": "coach123"},
+    {"coach_id": "C014", "name": "Sanjay Pandey",     "email": "sanjay.pandey@sportsclub.in", "phone": "9876543214", "city": "Hardoi",    "experience": "16 Years", "area_of_intrest": "Cricket",      "gender": "male",   "address": "Hardoi, UP",    "about_coach": "Senior cricket coach",  "password": "coach123"},
+    {"coach_id": "C015", "name": "Pooja Saxena",      "email": "pooja.saxena@sportsclub.in",  "phone": "9876543215", "city": "Lucknow",   "experience": "7 Years",  "area_of_intrest": "Swimming",     "gender": "female", "address": "Lucknow, UP",   "about_coach": "Swimming specialist",   "password": "coach123"},
+]
+
+
+def seed_coaches():
+    """Insert hardcoded coaches into DB if they don't exist yet."""
+    for c in HARDCODED_COACHES:
+        Coach.objects.get_or_create(coach_id=c["coach_id"], defaults=c)
+
+
 def home(request):
     notice_list = Notice.objects.all()
     event_list  = Event.objects.all()
@@ -66,11 +92,13 @@ def athletics(request):
 
 
 def member_registration(request):
-    # ── Pull coach names from DB for live filter on registration form ──
-    all_coaches    = list(Coach.objects.values('name', 'area_of_intrest'))
+    # ── Seed DB with 15 coaches if not already there ──
+    seed_coaches()
+
+    # ── Pull all coaches from DB for the registration form pills ──
     coaches_for_js = [
-        {"name": c["name"], "sport": c["area_of_intrest"]}
-        for c in all_coaches
+        {"name": c.name, "sport": c.area_of_intrest}
+        for c in Coach.objects.all()
     ]
 
     if request.method == "POST":
@@ -84,7 +112,12 @@ def member_registration(request):
         address     = request.POST.get("address")
         sports      = request.POST.getlist("sports")
         profile_pic = request.FILES.get("profile_picture")
-        transaction = request.POST.get("transaction_id")
+        coach       = request.POST.get("selected_coach", "")
+
+        print("=== REGISTRATION DEBUG ===")
+        print("ALL POST DATA:", request.POST)
+        print("COACH VALUE FROM FORM:", coach)
+        print("==========================")
 
         member_obj = Member(
             member_id       = member_id,
@@ -97,16 +130,12 @@ def member_registration(request):
             address         = address,
             sports          = ', '.join(sports),
             profile_picture = profile_pic,
-            transaction_id  = transaction,
+            coach           = coach,
         )
         member_obj.save()
 
-        request.session['member_sports'] = sports
-        request.session['member_id']     = member_id
-        request.session.modified         = True
-
         messages.success(request, f"Welcome {name}! Registration successful 🎉")
-        return redirect('coach_details')
+        return redirect('member_login')
 
     return render(request, 'club_app/html/member_registration.html', {
         'coaches': coaches_for_js
@@ -114,30 +143,8 @@ def member_registration(request):
 
 
 def coach_details(request):
-
-    # ── Always ensure hardcoded coaches exist in DB ──
-    hardcoded = [
-        {"coach_id": "C001", "name": "Arjun Sharma",      "email": "arjun.sharma@sportsclub.in",  "phone": "9876543201", "city": "Lucknow",   "experience": "12 Years", "area_of_intrest": "Cricket",      "gender": "male",   "address": "Lucknow, UP",   "about_coach": "Expert cricket coach",  "password": "coach123"},
-        {"coach_id": "C002", "name": "Rohit Verma",       "email": "rohit.verma@sportsclub.in",   "phone": "9876543202", "city": "Kanpur",    "experience": "9 Years",  "area_of_intrest": "Football",     "gender": "male",   "address": "Kanpur, UP",    "about_coach": "Football specialist",   "password": "coach123"},
-        {"coach_id": "C003", "name": "Priya Nair",        "email": "priya.nair@sportsclub.in",    "phone": "9876543203", "city": "Varanasi",  "experience": "7 Years",  "area_of_intrest": "Badminton",    "gender": "female", "address": "Varanasi, UP",  "about_coach": "Badminton coach",       "password": "coach123"},
-        {"coach_id": "C004", "name": "Suresh Patel",      "email": "suresh.patel@sportsclub.in",  "phone": "9876543204", "city": "Gorakhpur", "experience": "15 Years", "area_of_intrest": "Basketball",   "gender": "male",   "address": "Gorakhpur, UP", "about_coach": "Basketball expert",     "password": "coach123"},
-        {"coach_id": "C005", "name": "Meena Rajput",      "email": "meena.rajput@sportsclub.in",  "phone": "9876543205", "city": "Lucknow",   "experience": "10 Years", "area_of_intrest": "Swimming",     "gender": "female", "address": "Lucknow, UP",   "about_coach": "Swimming coach",        "password": "coach123"},
-        {"coach_id": "C006", "name": "Vikram Singh",      "email": "vikram.singh@sportsclub.in",  "phone": "9876543206", "city": "Hardoi",    "experience": "11 Years", "area_of_intrest": "Boxing",       "gender": "male",   "address": "Hardoi, UP",    "about_coach": "Boxing trainer",        "password": "coach123"},
-        {"coach_id": "C007", "name": "Amit Tiwari",       "email": "amit.tiwari@sportsclub.in",   "phone": "9876543207", "city": "Kanpur",    "experience": "8 Years",  "area_of_intrest": "Hockey",       "gender": "male",   "address": "Kanpur, UP",    "about_coach": "Hockey specialist",     "password": "coach123"},
-        {"coach_id": "C008", "name": "Sneha Gupta",       "email": "sneha.gupta@sportsclub.in",   "phone": "9876543208", "city": "Varanasi",  "experience": "6 Years",  "area_of_intrest": "Tennis",       "gender": "female", "address": "Varanasi, UP",  "about_coach": "Tennis coach",          "password": "coach123"},
-        {"coach_id": "C009", "name": "Deepak Yadav",      "email": "deepak.yadav@sportsclub.in",  "phone": "9876543209", "city": "Lucknow",   "experience": "14 Years", "area_of_intrest": "Athletics",    "gender": "male",   "address": "Lucknow, UP",   "about_coach": "Athletics trainer",     "password": "coach123"},
-        {"coach_id": "C010", "name": "Kavita Mishra",     "email": "kavita.mishra@sportsclub.in", "phone": "9876543210", "city": "Gorakhpur", "experience": "5 Years",  "area_of_intrest": "Volleyball",   "gender": "female", "address": "Gorakhpur, UP", "about_coach": "Volleyball coach",      "password": "coach123"},
-        {"coach_id": "C011", "name": "Rahul Chauhan",     "email": "rahul.chauhan@sportsclub.in", "phone": "9876543211", "city": "Lucknow",   "experience": "13 Years", "area_of_intrest": "Table Tennis", "gender": "male",   "address": "Lucknow, UP",   "about_coach": "Table Tennis expert",   "password": "coach123"},
-        {"coach_id": "C012", "name": "Nikhil Srivastava", "email": "nikhil.sri@sportsclub.in",    "phone": "9876543212", "city": "Kanpur",    "experience": "10 Years", "area_of_intrest": "Kabaddi",      "gender": "male",   "address": "Kanpur, UP",    "about_coach": "Kabaddi coach",         "password": "coach123"},
-        {"coach_id": "C013", "name": "Anjali Dubey",      "email": "anjali.dubey@sportsclub.in",  "phone": "9876543213", "city": "Varanasi",  "experience": "8 Years",  "area_of_intrest": "Badminton",    "gender": "female", "address": "Varanasi, UP",  "about_coach": "Badminton trainer",     "password": "coach123"},
-        {"coach_id": "C014", "name": "Sanjay Pandey",     "email": "sanjay.pandey@sportsclub.in", "phone": "9876543214", "city": "Hardoi",    "experience": "16 Years", "area_of_intrest": "Cricket",      "gender": "male",   "address": "Hardoi, UP",    "about_coach": "Senior cricket coach",  "password": "coach123"},
-        {"coach_id": "C015", "name": "Pooja Saxena",      "email": "pooja.saxena@sportsclub.in",  "phone": "9876543215", "city": "Lucknow",   "experience": "7 Years",  "area_of_intrest": "Swimming",     "gender": "female", "address": "Lucknow, UP",   "about_coach": "Swimming specialist",   "password": "coach123"},
-    ]
-
-    # ✅ get_or_create runs every time — adds hardcoded if missing, skips if already exists
-    # ✅ newly registered coaches (C016, C017...) are NOT affected since their coach_id won't match
-    for c in hardcoded:
-        Coach.objects.get_or_create(coach_id=c["coach_id"], defaults=c)
+    # ── Seed DB with 15 coaches if not already there ──
+    seed_coaches()
 
     # ── Handle coach selection POST ──
     if request.method == "POST":
@@ -148,13 +155,13 @@ def coach_details(request):
             messages.success(request, f"✅ Coach {selected_coach} assigned successfully!")
         return redirect('member_login')
 
-    # ── GET: fetch ALL coaches from DB (hardcoded + newly registered) ──
+    # ── GET: fetch ALL coaches from DB ──
     member_sports = request.session.get('member_sports', [])
 
     if member_sports:
         coach_list = Coach.objects.filter(area_of_intrest__in=member_sports)
     else:
-        coach_list = Coach.objects.all()   # ✅ shows everyone
+        coach_list = Coach.objects.all()
 
     filtered_coaches = [
         {
@@ -177,7 +184,6 @@ def coach_details(request):
 
 def coach_career(request):
     if request.method == "GET":
-        # ✅ render the coach registration template, NOT career.html
         return render(request, 'club_app/html/coach_career.html')
 
     if request.method == "POST":
@@ -207,7 +213,6 @@ def reviews(request):
 
 
 def career(request):
-    # ── This is for User/Staff job applications (UserForm), NOT coaches ──
     if request.method == "GET":
         user_forms = UserForm()
         context    = {"form": user_forms}

@@ -104,6 +104,7 @@
             min-height: unset !important;
             line-height: 1.5 !important;
             transition: border-color 0.2s, box-shadow 0.2s;
+            width: 100%;
         }
 
         .mb-3 { margin-bottom: 14px !important; }
@@ -284,6 +285,18 @@
             border: 1px solid rgba(200,169,110,0.25);
             border-radius: 10px;
             padding: 8px 14px;
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        .coach-pill:hover {
+            border-color: rgba(200,169,110,0.6);
+            background: rgba(200,169,110,0.13);
+        }
+
+        .coach-pill.selected {
+            border-color: #c8a96e;
+            background: rgba(200,169,110,0.22);
         }
 
         .coach-pill-name {
@@ -298,6 +311,125 @@
             margin-top: 2px;
             text-transform: uppercase;
             letter-spacing: 0.06em;
+        }
+
+        .coach-select-hint {
+            font-size: 11px;
+            color: #555;
+            margin-top: 8px;
+            text-align: center;
+            letter-spacing: 0.04em;
+        }
+
+        /* ── Password specific ── */
+        .pwd-input-wrap {
+            position: relative;
+        }
+
+        .pwd-input-wrap .form-control {
+            padding-right: 44px !important;
+        }
+
+        .pwd-toggle {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #555;
+            font-size: 16px;
+            user-select: none;
+            transition: color 0.2s;
+            background: none;
+            border: none;
+            padding: 0;
+            line-height: 1;
+        }
+
+        .pwd-toggle:hover { color: #c8a96e; }
+
+        .strength-bars {
+            display: flex;
+            gap: 5px;
+            margin-top: 8px;
+        }
+
+        .strength-bar {
+            height: 4px;
+            flex: 1;
+            border-radius: 4px;
+            background: #222;
+            transition: background 0.35s ease;
+        }
+
+        .strength-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-top: 5px;
+            min-height: 16px;
+            transition: color 0.3s;
+        }
+
+        .pwd-rules {
+            list-style: none;
+            margin-top: 10px;
+            padding: 10px 14px;
+            background: #0a0a0a;
+            border: 1px solid rgba(200,169,110,0.1);
+            border-radius: 9px;
+            display: none;
+        }
+
+        .pwd-rules.visible { display: block; }
+
+        .pwd-rule {
+            font-size: 12px;
+            color: #555;
+            letter-spacing: 0.03em;
+            padding: 3px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.25s;
+        }
+
+        .pwd-rule .rule-icon {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 1.5px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            flex-shrink: 0;
+            transition: all 0.25s;
+        }
+
+        .pwd-rule.pass { color: #4caf82; }
+
+        .pwd-rule.pass .rule-icon {
+            background: #4caf82;
+            border-color: #4caf82;
+            color: #0d0d0d;
+        }
+
+        .pwd-rule.fail .rule-icon {
+            border-color: #c0392b;
+            color: #c0392b;
+        }
+
+        .match-msg {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            margin-top: 6px;
+            min-height: 16px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         @media (max-width: 768px) {
@@ -323,17 +455,76 @@
         <h2>Member Registration Form</h2>
         <h6>Provide your Details here</h6>
 
-        <form method="post" action="/member_registration/" enctype="multipart/form-data">
+        <form method="post" action="/member_registration/" enctype="multipart/form-data" id="reg-form">
             {% csrf_token %}
+
+            <!-- Hidden field to store selected coach -->
+            <input type="hidden" name="selected_coach" id="selected_coach" value="">
 
             <div class="mb-3">
                 <label for="id">ID</label>
                 <input type="text" name="id" class="form-control" id="id" placeholder="Enter your ID" required>
             </div>
 
+            <!-- ── Password ── -->
             <div class="mb-3">
                 <label for="password">Password</label>
-                <input type="password" name="password" class="form-control" id="password" placeholder="Enter Password" required minlength="6">
+                <div class="pwd-input-wrap">
+                    <input type="password" name="password" class="form-control"
+                           id="password" placeholder="Enter Password"
+                           required minlength="8"
+                           oninput="checkPassword(this.value)">
+                    <button type="button" class="pwd-toggle" onclick="togglePwd('password', this)" title="Show / hide">
+                        &#128065;
+                    </button>
+                </div>
+
+                <!-- Strength bars -->
+                <div class="strength-bars">
+                    <div class="strength-bar" id="bar1"></div>
+                    <div class="strength-bar" id="bar2"></div>
+                    <div class="strength-bar" id="bar3"></div>
+                    <div class="strength-bar" id="bar4"></div>
+                </div>
+                <div class="strength-label" id="strength-label"></div>
+
+                <!-- Rules checklist -->
+                <ul class="pwd-rules" id="pwd-rules">
+                    <li class="pwd-rule" id="rule-len">
+                        <span class="rule-icon">✕</span>
+                        At least 8 characters
+                    </li>
+                    <li class="pwd-rule" id="rule-upper">
+                        <span class="rule-icon">✕</span>
+                        At least one uppercase letter (A–Z)
+                    </li>
+                    <li class="pwd-rule" id="rule-lower">
+                        <span class="rule-icon">✕</span>
+                        At least one lowercase letter (a–z)
+                    </li>
+                    <li class="pwd-rule" id="rule-num">
+                        <span class="rule-icon">✕</span>
+                        At least one number (0–9)
+                    </li>
+                    <li class="pwd-rule" id="rule-sym">
+                        <span class="rule-icon">✕</span>
+                        At least one special character (!@#$%^&amp;*...)
+                    </li>
+                </ul>
+            </div>
+
+            <!-- ── Confirm Password ── -->
+            <div class="mb-3">
+                <label for="confirm_password">Confirm Password</label>
+                <div class="pwd-input-wrap">
+                    <input type="password" name="confirm_password" class="form-control"
+                           id="confirm_password" placeholder="Re-enter Password"
+                           required oninput="checkMatch()">
+                    <button type="button" class="pwd-toggle" onclick="togglePwd('confirm_password', this)" title="Show / hide">
+                        &#128065;
+                    </button>
+                </div>
+                <div class="match-msg" id="match-msg"></div>
             </div>
 
             <div class="form-divider"></div>
@@ -345,7 +536,10 @@
 
             <div class="mb-3">
                 <label for="phone">Phone Number</label>
-                <input type="tel" name="phone" class="form-control" id="phone" placeholder="Enter your 10-digit number" required pattern="[0-9]{10}" title="Enter a 10-digit phone number">
+                <input type="tel" name="phone" class="form-control" id="phone"
+                       placeholder="Enter your 10-digit number"
+                       required pattern="[0-9]{10}"
+                       title="Enter a 10-digit phone number">
             </div>
 
             <div class="mb-3">
@@ -383,7 +577,8 @@
 
             <div class="mb-3">
                 <label for="address">Your Address</label>
-                <textarea class="form-control" id="address" rows="3" name="address" placeholder="Your Address" required></textarea>
+                <textarea class="form-control" id="address" rows="3" name="address"
+                          placeholder="Your Address" required></textarea>
             </div>
 
             <div class="form-divider"></div>
@@ -447,30 +642,28 @@
 
             <!-- ── Coach Filter Section ── -->
             <div class="mb-3">
-                <label>Coaches for Your Sport(s)</label>
+                <label>Coaches for Your Sport(s) <span style="color:#555; font-size:10px; text-transform:none; letter-spacing:0;">(click a coach to select)</span></label>
 
                 <div id="coach-placeholder" style="
-                    font-size: 13px;
-                    color: #444;
+                    font-size: 13px; color: #444;
                     background: #0d0d0d;
                     border: 1px dashed rgba(200,169,110,0.2);
                     border-radius: 9px;
-                    padding: 14px;
-                    text-align: center;">
+                    padding: 14px; text-align: center;">
                     Select a sport above to see available coaches
                 </div>
 
                 <div id="coach-list"></div>
+                <div class="coach-select-hint" id="coach-hint" style="display:none;">
+                    👆 Click a coach card to select them
+                </div>
 
                 <div id="coach-empty" style="
-                    display: none;
-                    font-size: 13px;
-                    color: #555;
+                    display: none; font-size: 13px; color: #555;
                     background: #0d0d0d;
                     border: 1px dashed rgba(200,169,110,0.15);
                     border-radius: 9px;
-                    padding: 14px;
-                    text-align: center;">
+                    padding: 14px; text-align: center;">
                     No coach assigned for selected sport(s) yet
                 </div>
             </div>
@@ -480,16 +673,15 @@
             <!-- ── Profile Photo ── -->
             <div class="mb-3">
                 <label for="profile_picture">Profile Photo</label>
-                <input type="file" name="profile_picture" class="form-control" id="profile_picture" required accept="image/*" onchange="previewImage(event)">
+                <input type="file" name="profile_picture" class="form-control"
+                       id="profile_picture" required accept="image/*"
+                       onchange="previewImage(event)">
                 <img id="profile_preview" src="" alt="Profile Picture Preview" style="display:none;">
             </div>
 
-            <!-- ── Transaction ID ── -->
-           
-
             <!-- ── Buttons ── -->
             <div class="btn-group">
-                <button type="reset" class="btn-reset">Reset</button>
+                <button type="reset" class="btn-reset" onclick="resetForm()">Reset</button>
                 <button type="submit" class="btn-submit">Submit</button>
             </div>
 
@@ -499,13 +691,13 @@
     {{ coaches|json_script:"coaches-data" }}
 
     <script>
-        // ── Image preview ──
+        /* ── Image preview ── */
         function previewImage(event) {
-            const input = event.target;
+            const input   = event.target;
             const preview = document.getElementById("profile_preview");
             if (input.files && input.files[0]) {
                 const reader = new FileReader();
-                reader.onload = function(e) {
+                reader.onload = e => {
                     preview.src = e.target.result;
                     preview.style.display = "block";
                 };
@@ -513,23 +705,35 @@
             }
         }
 
-        // ── Coach filter ──
+        /* ── Coach filter ── */
         const coachDataEl = document.getElementById('coaches-data');
         const allCoaches  = coachDataEl ? JSON.parse(coachDataEl.textContent) : [];
 
-        function updateCoaches() {
-            const checked = Array.from(
-                document.querySelectorAll('input[name="sports"]:checked')
-            ).map(el => el.value);
+        /* ── Select a coach pill ── */
+        function selectCoach(name, el) {
+            // Deselect all pills
+            document.querySelectorAll('.coach-pill').forEach(p => p.classList.remove('selected'));
+            // Highlight the clicked one
+            el.classList.add('selected');
+            // Save to hidden input
+            document.getElementById('selected_coach').value = name;
+        }
 
+        function updateCoaches() {
+            const checked     = Array.from(document.querySelectorAll('input[name="sports"]:checked')).map(el => el.value);
             const placeholder = document.getElementById('coach-placeholder');
             const coachList   = document.getElementById('coach-list');
             const coachEmpty  = document.getElementById('coach-empty');
+            const coachHint   = document.getElementById('coach-hint');
+
+            // Reset selected coach when sports change
+            document.getElementById('selected_coach').value = '';
 
             if (checked.length === 0) {
                 placeholder.style.display = 'block';
                 coachList.style.display   = 'none';
                 coachEmpty.style.display  = 'none';
+                coachHint.style.display   = 'none';
                 coachList.innerHTML       = '';
                 return;
             }
@@ -540,19 +744,21 @@
             if (matched.length === 0) {
                 coachList.style.display  = 'none';
                 coachEmpty.style.display = 'block';
+                coachHint.style.display  = 'none';
                 coachList.innerHTML      = '';
                 return;
             }
 
-            coachEmpty.style.display = 'none';
-            coachList.style.display  = 'flex';
-            coachList.style.flexWrap = 'wrap';
-            coachList.style.gap      = '10px';
+            coachEmpty.style.display  = 'none';
+            coachList.style.display   = 'flex';
+            coachList.style.flexWrap  = 'wrap';
+            coachList.style.gap       = '10px';
             coachList.style.marginTop = '8px';
+            coachHint.style.display   = 'block';
 
             coachList.innerHTML = matched.map(c => `
-                <div class="coach-pill">
-                    <div class="coach-pill-name">👤 ${c.name}</div>
+                <div class="coach-pill" onclick="selectCoach('${c.name}', this)">
+                    <div class="coach-pill-name">&#128100; ${c.name}</div>
                     <div class="coach-pill-sport">${c.sport}</div>
                 </div>
             `).join('');
@@ -561,6 +767,134 @@
         document.querySelectorAll('input[name="sports"]').forEach(cb => {
             cb.addEventListener('change', updateCoaches);
         });
+
+        /* ══════════════════════════════
+           PASSWORD VALIDATION
+        ══════════════════════════════ */
+        const strengthColors = ['#c0392b', '#e67e22', '#f1c40f', '#4caf82'];
+        const strengthLabels = ['', 'Weak', 'Fair', 'Good', 'Strong'];
+
+        const rules = [
+            { id: 'rule-len',   test: v => v.length >= 8 },
+            { id: 'rule-upper', test: v => /[A-Z]/.test(v) },
+            { id: 'rule-lower', test: v => /[a-z]/.test(v) },
+            { id: 'rule-num',   test: v => /[0-9]/.test(v) },
+            { id: 'rule-sym',   test: v => /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(v) },
+        ];
+
+        function checkPassword(val) {
+            const rulesBox = document.getElementById('pwd-rules');
+
+            if (val.length === 0) {
+                rulesBox.classList.remove('visible');
+                resetBars();
+                document.getElementById('strength-label').textContent = '';
+                checkMatch();
+                return;
+            }
+
+            rulesBox.classList.add('visible');
+
+            let passed = 0;
+            rules.forEach(rule => {
+                const ok = rule.test(val);
+                const li = document.getElementById(rule.id);
+                const icon = li.querySelector('.rule-icon');
+                if (ok) {
+                    li.classList.add('pass');
+                    li.classList.remove('fail');
+                    icon.textContent = '✓';
+                    passed++;
+                } else {
+                    li.classList.remove('pass');
+                    li.classList.add('fail');
+                    icon.textContent = '✕';
+                }
+            });
+
+            // Update bars
+            const color = strengthColors[Math.min(passed - 1, 3)];
+            for (let i = 1; i <= 4; i++) {
+                document.getElementById('bar' + i).style.background =
+                    i <= passed ? color : '#222';
+            }
+
+            // Strength label
+            const lbl = document.getElementById('strength-label');
+            lbl.textContent = strengthLabels[Math.min(passed, 4)];
+            lbl.style.color  = passed > 0 ? color : '#555';
+
+            checkMatch();
+        }
+
+        function resetBars() {
+            for (let i = 1; i <= 4; i++) {
+                document.getElementById('bar' + i).style.background = '#222';
+            }
+        }
+
+        /* ── Confirm password match ── */
+        function checkMatch() {
+            const pwd  = document.getElementById('password').value;
+            const conf = document.getElementById('confirm_password').value;
+            const msg  = document.getElementById('match-msg');
+
+            if (!conf) { msg.innerHTML = ''; return; }
+
+            if (pwd === conf) {
+                msg.innerHTML = '<span style="color:#4caf82">&#10003;</span> <span style="color:#4caf82">Passwords match</span>';
+            } else {
+                msg.innerHTML = '<span style="color:#c0392b">&#10007;</span> <span style="color:#c0392b">Passwords do not match</span>';
+            }
+        }
+
+        /* ── Show / hide password ── */
+        function togglePwd(fieldId, btn) {
+            const input = document.getElementById(fieldId);
+            if (input.type === 'password') {
+                input.type  = 'text';
+                btn.style.color = '#c8a96e';
+            } else {
+                input.type  = 'password';
+                btn.style.color = '#555';
+            }
+        }
+
+        /* ── Block submit if passwords don't match or rules not met ── */
+        document.getElementById('reg-form').addEventListener('submit', function(e) {
+            const pwd  = document.getElementById('password').value;
+            const conf = document.getElementById('confirm_password').value;
+
+            const allPassed = rules.every(rule => rule.test(pwd));
+
+            if (!allPassed) {
+                e.preventDefault();
+                document.getElementById('pwd-rules').classList.add('visible');
+                document.getElementById('password').focus();
+                return;
+            }
+
+            if (pwd !== conf) {
+                e.preventDefault();
+                document.getElementById('match-msg').innerHTML =
+                    '<span style="color:#c0392b">&#10007;</span> <span style="color:#c0392b">Passwords do not match</span>';
+                document.getElementById('confirm_password').focus();
+            }
+        });
+
+        /* ── Reset clears password UI and coach selection too ── */
+        function resetForm() {
+            resetBars();
+            document.getElementById('strength-label').textContent = '';
+            document.getElementById('match-msg').innerHTML = '';
+            document.getElementById('pwd-rules').classList.remove('visible');
+            document.getElementById('profile_preview').style.display = 'none';
+            document.getElementById('selected_coach').value = '';
+            document.getElementById('coach-list').innerHTML = '';
+            document.getElementById('coach-list').style.display = 'none';
+            document.getElementById('coach-placeholder').style.display = 'block';
+            document.getElementById('coach-hint').style.display = 'none';
+        }
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

@@ -17,20 +17,13 @@ class Event_admin(admin.ModelAdmin):
 
 
 class Coach_admin(admin.ModelAdmin):
-    # ✅ all fields that actually exist in the merged Coach model
     list_display   = ['name', 'email', 'phone', 'city', 'area_of_intrest', 'experience']
     search_fields  = ('name', 'city', 'area_of_intrest')
     list_filter    = ('city', 'area_of_intrest')
 
 
-def verify_payment(modeladmin, request, queryset):
-    queryset.update(payment=True)
-verify_payment.short_description = "✅ Mark payment as verified"
-
-
 class MemberAdmin(admin.ModelAdmin):
-    list_display = ['name', 'email', 'phone', 'transaction_id', 'payment', 'coach', 'sports']
-    actions      = [verify_payment]
+    list_display = ['name', 'email', 'phone', 'coach', 'sports']
 
 
 admin.site.register(Event,      Event_admin)
