@@ -2,7 +2,7 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.utils import timezone 
-from .models import Feedback,Member,Query_Doubt
+from .models import Feedback,Member,Query_Doubt,Coach
 
 
 from .forms import UserQuery
@@ -137,65 +137,92 @@ def member_registration(request):
     if request.method == "GET":
         return render(request, 'club_app/member/member_registration.html', {'coaches': all_coaches})
 
-    if request.method == "POST":
-        user_id         = request.POST.get("id")
-        user_password   = request.POST.get("password")
-        user_name       = request.POST.get("name")
-        user_phone      = request.POST.get("phone")
-        user_email      = request.POST.get("email")
-        user_gender     = request.POST.get("gender")
-        user_city       = request.POST.get("city")
-        user_address    = request.POST.get("address")
-        user_sports     = request.POST.getlist('sports')
-        user_sports_str = ', '.join(user_sports)
-        user_pic        = request.FILES.get("profile_picture")
-        coach           = request.POST.get("selected_coach", "")  # ← reads selected coach
+    
+            # In member_views.py — replace the member_registration POST block with this:
 
-        print("=== REGISTRATION DEBUG ===")
-        print("ALL POST DATA:", request.POST)
-        print("COACH VALUE FROM FORM:", coach)
-        print("==========================")
+    if request.method == "POST":
+        user_id               = request.POST.get("id")
+        user_password         = request.POST.get("password")
+        user_name             = request.POST.get("name")
+        user_phone            = request.POST.get("phone")
+        user_email            = request.POST.get("email")
+        user_gender           = request.POST.get("gender")
+        user_city             = request.POST.get("city")
+        user_address          = request.POST.get("address")
+        user_sports           = request.POST.getlist('sports')
+        user_sports_str       = ', '.join(user_sports)
+        user_pic              = request.FILES.get("profile_picture")
+        coach                 = request.POST.get("selected_coach", "")
+        subscription_duration = request.POST.get("subscription_duration", "")
+        subscription_amount   = request.POST.get("subscription_amount", 0)
 
         member_reg_obj = Member(
-            member_id       = user_id,
-            password        = user_password,
-            name            = user_name,
-            phone           = user_phone,
-            email           = user_email,
-            gender          = user_gender,
-            city            = user_city,
-            address         = user_address,
-            sports          = user_sports_str,
-            profile_picture = user_pic,
-            coach           = coach,           # ← saves coach to DB
+            member_id             = user_id,
+            password              = user_password,
+            name                  = user_name,
+            phone                 = user_phone,
+            email                 = user_email,
+            gender                = user_gender,
+            city                  = user_city,
+            address               = user_address,
+            sports                = user_sports_str,
+            profile_picture       = user_pic,
+            coach                 = coach,
+            subscription_duration = subscription_duration,
+            subscription_amount   = int(subscription_amount) if subscription_amount else 0,
         )
         member_reg_obj.save()
 
         messages.success(request, f"Welcome {user_name}! Registration successful 🎉")
-        return redirect('member_login')        # ← goes to login, not coach_details
+        return redirect('member_login')
+
+               # ← goes to login, not coach_details
 
 
 def member_edit_profile(request):
-   if request.method=="GET" :
-     if "session_key" not in request.session.keys(): 
-      return redirect("member_login")
-     else:
-          id=request.session["session_key"]
-          member_obj=Member.objects.get(member_id=id)
-          context={"member_key": member_obj}
-          return render(request,'club_app/member/member_edit_profile.html',context)
-     
-   if request.method=="POST":
-         user_email=request.POST["email"]
-         user_phone=request.POST["phone"]
-         user_city=request.POST["city"]
-         user_address=request.POST["address"]
-         id=request.session["session_key"]
-         Member.objects.filter(member_id=id).update( 
-            email=user_email,
-            phone=user_phone,
-            city=user_city,
-            address=user_address
-         )
-         messages.success(request,"Profile updated sucessfully👍")
-         return redirect('member_edit_profile')
+    if request.method == "GET":
+        if "session_key" not in request.session:
+            return redirect("member_login")
+        id         = request.session["session_key"]
+        member_obj = Member.objects.get(member_id=id)
+
+        # Pass all coaches for the sport filter
+        coaches_for_js = [
+            {"name": c.name, "sport": c.area_of_intrest}
+            for c in Coach.objects.all()
+        ]
+
+        context = {
+            "member_key": member_obj,
+            "coaches"   : coaches_for_js,
+        }
+        return render(request, 'club_app/member/member_edit_profile.html', context)
+
+    if request.method == "POST":
+        id = request.session["session_key"]
+
+        update_fields = {
+            "name"   : request.POST.get("name"),
+            "email"  : request.POST.get("email"),
+            "phone"  : request.POST.get("phone"),
+            "gender" : request.POST.get("gender"),
+            "city"   : request.POST.get("city"),
+            "address": request.POST.get("address"),
+            "sports" : ', '.join(request.POST.getlist("sports")),
+            "coach"  : request.POST.get("selected_coach", ""),
+        }
+
+        new_password = request.POST.get("password", "").strip()
+        if new_password:
+            update_fields["password"] = new_password
+
+        Member.objects.filter(member_id=id).update(**update_fields)
+
+        new_pic = request.FILES.get("profile_picture")
+        if new_pic:
+            member_obj = Member.objects.get(member_id=id)
+            member_obj.profile_picture = new_pic
+            member_obj.save()
+
+        messages.success(request, "Profile updated successfully 👍")
+        return redirect('member_edit_profile')

@@ -1,0 +1,48 @@
+{% extends 'club_app/coach/coach_base.html' %}
+{% load static %}
+{% block title %}Member Detail{% endblock %}
+{% block style %}
+    .page-wrap{max-width:700px;margin:0 auto;}
+    .back-link{display:inline-flex;align-items:center;gap:8px;color:#c8a96e;font-size:13px;font-weight:600;text-decoration:none;margin-bottom:24px;transition:color .2s;}
+    .back-link:hover{color:#e8c98a;}
+    .profile-top{display:flex;align-items:center;gap:24px;background:#111;border:1px solid rgba(200,169,110,.2);border-top:3px solid #c8a96e;border-radius:16px;padding:24px 28px;margin-bottom:24px;box-shadow:0 16px 48px rgba(0,0,0,.5);}
+    .profile-avatar{width:90px;height:90px;border-radius:50%;object-fit:cover;border:3px solid #c8a96e;flex-shrink:0;}
+    .profile-avatar-placeholder{width:90px;height:90px;border-radius:50%;background:rgba(200,169,110,.1);border:3px solid rgba(200,169,110,.3);display:flex;align-items:center;justify-content:center;color:#c8a96e;font-size:32px;flex-shrink:0;}
+    .profile-name{font-size:20px;font-weight:800;color:#e8e0d5;margin-bottom:4px;}
+    .profile-id{font-size:11px;color:#555;letter-spacing:.08em;text-transform:uppercase;}
+    .info-card{background:#111;border:1px solid rgba(200,169,110,.2);border-top:3px solid #c8a96e;border-radius:16px;padding:28px 32px;box-shadow:0 16px 48px rgba(0,0,0,.5);}
+    .section-heading{font-size:10px;font-weight:600;letter-spacing:.18em;color:#c8a96e;text-transform:uppercase;margin-bottom:18px;padding-bottom:10px;border-bottom:1px solid rgba(200,169,110,.1);}
+    .info-row{display:flex;align-items:baseline;gap:12px;padding:9px 0;}
+    .info-row+.info-row{border-top:1px solid rgba(200,169,110,.07);}
+    .info-label{font-size:10px;font-weight:600;letter-spacing:.12em;color:#c8a96e;text-transform:uppercase;flex:0 0 100px;}
+    .info-value{font-size:14px;font-weight:500;color:#e8e0d5;flex:1;}
+    .sport-badge{display:inline-block;background:rgba(200,169,110,.12);border:1px solid rgba(200,169,110,.3);color:#c8a96e;font-size:12px;font-weight:600;padding:4px 14px;border-radius:20px;text-transform:uppercase;}
+{% endblock %}
+{% block content %}
+<div class="page-wrap">
+    <a href="{% url 'coach_dashboard' %}" class="back-link"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+
+    <div class="profile-top">
+        {% if member.profile_picture %}
+            <img src="/media/{{ member.profile_picture }}" class="profile-avatar" alt="{{ member.name }}">
+        {% else %}
+            <div class="profile-avatar-placeholder"><i class="fas fa-user"></i></div>
+        {% endif %}
+        <div>
+            <div class="profile-name">{{ member.name }}</div>
+            <div class="profile-id">Member ID: {{ member.member_id }}</div>
+        </div>
+    </div>
+
+    <div class="info-card">
+        <div class="section-heading">Member Details</div>
+        <div class="info-row"><span class="info-label">Email</span><span class="info-value">{{ member.email }}</span></div>
+        <div class="info-row"><span class="info-label">Phone</span><span class="info-value">{{ member.phone }}</span></div>
+        <div class="info-row"><span class="info-label">Gender</span><span class="info-value">{{ member.gender }}</span></div>
+        <div class="info-row"><span class="info-label">City</span><span class="info-value">{{ member.city }}</span></div>
+        <div class="info-row"><span class="info-label">Address</span><span class="info-value">{{ member.address }}</span></div>
+        <div class="info-row"><span class="info-label">Sports</span><span class="info-value"><span class="sport-badge">{{ member.sports }}</span></span></div>
+        <div class="info-row"><span class="info-label">Joined</span><span class="info-value">{{ member.date }}</span></div>
+    </div>
+</div>
+{% endblock %}

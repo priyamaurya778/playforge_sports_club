@@ -1,0 +1,40 @@
+{% load static %}
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap');
+  :root { --nav-bg:#0d0d0d;--nav-accent:#c8a96e;--nav-accent-light:#e8c98a;--nav-muted:#888880;--nav-hover-bg:rgba(200,169,110,0.12);--nav-dropdown-bg:#181818;--nav-border:rgba(200,169,110,0.25);--nav-height:62px; }
+  .navbar-pro{background:var(--nav-bg);height:var(--nav-height);padding:0 28px;border-bottom:1px solid var(--nav-border);font-family:'Outfit',sans-serif;position:relative;}
+  .navbar-pro .container-fluid{height:100%;display:flex;align-items:center;}
+  .navbar-pro .navbar-brand-pro{display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,var(--nav-accent),#a07840);color:#0d0d0d;font-size:17px;text-decoration:none;margin-right:24px;flex-shrink:0;transition:transform .2s,box-shadow .2s;box-shadow:0 2px 12px rgba(200,169,110,.25);}
+  .navbar-pro .navbar-brand-pro:hover{transform:translateY(-1px) scale(1.06);}
+  .navbar-pro .collapse.navbar-collapse{display:flex!important;align-items:center;flex:1;justify-content:flex-end;gap:2px;}
+  .navbar-pro .nav-link-pro{color:var(--nav-muted);font-size:13px;font-weight:500;padding:6px 11px;border-radius:7px;text-decoration:none;transition:color .2s,background .2s;white-space:nowrap;}
+  .navbar-pro .nav-link-pro:hover{color:var(--nav-accent-light);background:var(--nav-hover-bg);}
+  .navbar-pro .nav-divider{width:1px;height:16px;background:var(--nav-border);margin:0 8px;flex-shrink:0;}
+  .navbar-pro .nav-link-pill{background:rgba(200,169,110,.1);border:1px solid var(--nav-border);color:var(--nav-accent);font-size:13px;font-weight:600;padding:5px 14px;border-radius:20px;text-decoration:none;transition:background .2s,color .2s;white-space:nowrap;}
+  .navbar-pro .nav-link-pill:hover{background:var(--nav-accent);color:#0d0d0d;}
+  .coach-badge{background:rgba(200,169,110,.15);border:1px solid rgba(200,169,110,.3);border-radius:20px;padding:4px 14px;font-size:11px;font-weight:600;color:#c8a96e;letter-spacing:.05em;text-transform:uppercase;margin-right:6px;}
+  .navbar-pro .navbar-toggler-pro{display:none;background:none;border:1px solid var(--nav-border);border-radius:8px;padding:7px 10px;cursor:pointer;color:var(--nav-accent);margin-left:auto;}
+  @media(max-width:991px){
+    .navbar-pro .navbar-toggler-pro{display:flex;align-items:center;}
+    .navbar-pro .collapse.navbar-collapse{position:absolute;top:var(--nav-height);left:0;right:0;background:var(--nav-dropdown-bg);border-bottom:1px solid var(--nav-border);flex-direction:column;align-items:flex-start;padding:12px 20px 18px;gap:4px;display:none!important;z-index:9000;}
+    .navbar-pro .collapse.navbar-collapse.show{display:flex!important;}
+  }
+</style>
+<nav class="navbar-pro">
+  <div class="container-fluid">
+    <a class="navbar-brand-pro" href="/"><i class="fas fa-home"></i></a>
+    <button class="navbar-toggler-pro" onclick="this.closest('nav').querySelector('.navbar-collapse').classList.toggle('show')">
+      <i class="fas fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse">
+      <span class="coach-badge">🏅 Coach Portal</span>
+      <a class="nav-link-pro" href="{% url 'coach_dashboard' %}">Dashboard</a>
+      <a class="nav-link-pro" href="{% url 'coach_edit_profile' %}">Edit Profile</a>
+      <a class="nav-link-pro" href="{% url 'coach_message_board' %}">Message Board</a>
+      <a class="nav-link-pro" href="{% url 'coach_session_planner' %}">Sessions</a>
+      <a class="nav-link-pro" href="{% url 'coach_announcements' %}">Announcements</a>
+      <div class="nav-divider"></div>
+      <a class="nav-link-pill" href="{% url 'coach_logout' %}">Logout</a>
+    </div>
+  </div>
+</nav>

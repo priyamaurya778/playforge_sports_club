@@ -55,386 +55,183 @@
         }
 
         h2 {
-            font-size: 22px;
-            font-weight: 800;
-            text-align: center;
-            letter-spacing: -0.01em;
+            font-size: 22px; font-weight: 800; text-align: center;
             background: linear-gradient(135deg, #e8c98a 0%, #c8a96e 60%, #a07840 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 4px;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text; margin-bottom: 4px;
         }
 
         h6 {
-            text-align: center;
-            font-size: 12px;
-            font-weight: 400;
-            color: #666;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            margin-bottom: 32px;
+            text-align: center; font-size: 12px; font-weight: 400;
+            color: #666; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 32px;
         }
 
-        .form-divider {
-            height: 1px;
-            background: rgba(200, 169, 110, 0.12);
-            margin: 16px 0;
-        }
+        .form-divider { height: 1px; background: rgba(200,169,110,0.12); margin: 16px 0; }
 
         label {
-            font-size: 11px;
-            font-weight: 600;
-            color: #c8a96e;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            margin-bottom: 7px;
-            display: block;
+            font-size: 11px; font-weight: 600; color: #c8a96e;
+            letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 7px; display: block;
         }
 
         .form-control {
-            background: #0d0d0d !important;
-            border: 1px solid rgba(200, 169, 110, 0.2) !important;
-            border-radius: 9px !important;
-            color: #e8e0d5 !important;
-            font-family: 'Outfit', sans-serif;
-            font-size: 14px;
-            padding: 9px 14px !important;
-            height: auto !important;
-            min-height: unset !important;
-            line-height: 1.5 !important;
-            transition: border-color 0.2s, box-shadow 0.2s;
-            width: 100%;
+            background: #0d0d0d !important; border: 1px solid rgba(200,169,110,0.2) !important;
+            border-radius: 9px !important; color: #e8e0d5 !important;
+            font-family: 'Outfit', sans-serif; font-size: 14px;
+            padding: 9px 14px !important; height: auto !important;
+            min-height: unset !important; line-height: 1.5 !important;
+            transition: border-color 0.2s, box-shadow 0.2s; width: 100%;
         }
 
         .mb-3 { margin-bottom: 14px !important; }
-
         .form-control::placeholder { color: #444 !important; }
-
-        .form-control:focus {
-            border-color: #c8a96e !important;
-            box-shadow: 0 0 0 3px rgba(200, 169, 110, 0.12) !important;
-            outline: none;
-            background: #0f0f0f !important;
-        }
-
+        .form-control:focus { border-color: #c8a96e !important; box-shadow: 0 0 0 3px rgba(200,169,110,0.12) !important; outline: none; background: #0f0f0f !important; }
         select.form-control option { background: #161616; color: #e8e0d5; }
         textarea.form-control { resize: vertical; }
 
         .radio-group { display: flex; gap: 12px; align-items: center; }
-
-        .radio-group label {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: #0d0d0d;
-            border: 1px solid rgba(200,169,110,0.2);
-            border-radius: 8px;
-            padding: 9px 18px;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: 500;
-            color: #888880;
-            letter-spacing: 0.04em;
-            text-transform: none;
-            transition: border-color 0.2s, color 0.2s, background 0.2s;
-            margin-bottom: 0;
-        }
-
+        .radio-group label { display: flex; align-items: center; gap: 8px; background: #0d0d0d; border: 1px solid rgba(200,169,110,0.2); border-radius: 8px; padding: 9px 18px; cursor: pointer; font-size: 13px; font-weight: 500; color: #888880; letter-spacing: 0.04em; text-transform: none; transition: border-color 0.2s, color 0.2s, background 0.2s; margin-bottom: 0; }
         .radio-group label:hover { border-color: rgba(200,169,110,0.5); color: #c8a96e; }
         .radio { display: none; }
-        .radio:checked ~ span { font-weight: 700; color: #c8a96e; }
-        .radio-group label:has(.radio:checked) {
-            border-color: #c8a96e;
-            background: rgba(200,169,110,0.08);
-            color: #c8a96e;
-        }
+        .radio-group label:has(.radio:checked) { border-color: #c8a96e; background: rgba(200,169,110,0.08); color: #c8a96e; }
 
-        #profile_preview {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            display: block;
-            margin: 14px auto 0;
-            border: 2px solid #c8a96e;
-            box-shadow: 0 0 16px rgba(200,169,110,0.25);
-        }
+        #profile_preview { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; display: block; margin: 14px auto 0; border: 2px solid #c8a96e; box-shadow: 0 0 16px rgba(200,169,110,0.25); }
 
-        .btn-group {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-top: 32px;
-        }
+        .btn-group { display: flex; justify-content: center; gap: 12px; margin-top: 32px; }
 
-        .btn-reset {
-            background: transparent;
-            border: 1px solid rgba(200,169,110,0.3);
-            color: #888880;
-            font-family: 'Outfit', sans-serif;
-            font-size: 13px;
-            font-weight: 600;
-            padding: 10px 32px;
-            border-radius: 25px;
-            cursor: pointer;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            transition: border-color 0.2s, color 0.2s, background 0.2s;
-        }
+        .btn-reset { background: transparent; border: 1px solid rgba(200,169,110,0.3); color: #888880; font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 600; padding: 10px 32px; border-radius: 25px; cursor: pointer; letter-spacing: 0.06em; text-transform: uppercase; transition: border-color 0.2s, color 0.2s, background 0.2s; }
+        .btn-reset:hover { border-color: rgba(200,169,110,0.6); color: #c8a96e; background: rgba(200,169,110,0.06); }
 
-        .btn-reset:hover {
-            border-color: rgba(200,169,110,0.6);
-            color: #c8a96e;
-            background: rgba(200,169,110,0.06);
-        }
+        .btn-submit { background: linear-gradient(135deg, #c8a96e, #a07840); border: none; color: #0d0d0d; font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 700; padding: 10px 40px; border-radius: 25px; cursor: pointer; letter-spacing: 0.06em; text-transform: uppercase; transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 18px rgba(200,169,110,0.3); }
+        .btn-submit:hover { opacity: 0.9; transform: translateY(-1px); box-shadow: 0 6px 24px rgba(200,169,110,0.45); }
 
-        .btn-submit {
-            background: linear-gradient(135deg, #c8a96e, #a07840);
-            border: none;
-            color: #0d0d0d;
-            font-family: 'Outfit', sans-serif;
-            font-size: 13px;
-            font-weight: 700;
-            padding: 10px 40px;
-            border-radius: 25px;
-            cursor: pointer;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 4px 18px rgba(200,169,110,0.3);
-        }
+        .sports-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
 
-        .btn-submit:hover {
-            opacity: 0.9;
-            transform: translateY(-1px);
-            box-shadow: 0 6px 24px rgba(200,169,110,0.45);
-        }
+        .sport-check-label { display: flex; align-items: center; gap: 10px; background: #0d0d0d; border: 1px solid rgba(200,169,110,0.2); border-radius: 9px; padding: 10px 14px; cursor: pointer; font-size: 13px; font-weight: 500; color: #888880; transition: border-color 0.2s, color 0.2s, background 0.2s; margin-bottom: 0; text-transform: none; letter-spacing: 0.02em; }
+        .sport-check-label:hover { border-color: rgba(200,169,110,0.5); color: #c8a96e; }
 
-        .sports-grid {
+        .sport-checkbox { appearance: none; -webkit-appearance: none; width: 16px; height: 16px; border-radius: 4px; border: 2px solid rgba(200,169,110,0.3); background: transparent; cursor: pointer; flex-shrink: 0; transition: all 0.2s; position: relative; }
+        .sport-checkbox:checked { background: #c8a96e; border-color: #c8a96e; }
+        .sport-checkbox:checked::after { content: ''; position: absolute; left: 3px; top: 0px; width: 5px; height: 9px; border: 2px solid #0d0d0d; border-top: none; border-left: none; transform: rotate(45deg); }
+        .sport-check-label:has(.sport-checkbox:checked) { border-color: #c8a96e; background: rgba(200,169,110,0.08); color: #c8a96e; }
+
+        /* ── Coach pills ── */
+        #coach-list { display: none; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+        .coach-pill { background: rgba(200,169,110,0.07); border: 1px solid rgba(200,169,110,0.25); border-radius: 10px; padding: 8px 14px; cursor: pointer; transition: border-color 0.2s, background 0.2s; }
+        .coach-pill:hover { border-color: rgba(200,169,110,0.6); background: rgba(200,169,110,0.13); }
+        .coach-pill.selected { border-color: #c8a96e; background: rgba(200,169,110,0.22); }
+        .coach-pill-name { font-size: 13px; font-weight: 600; color: #c8a96e; }
+        .coach-pill-sport { font-size: 11px; color: #555; margin-top: 2px; text-transform: uppercase; letter-spacing: 0.06em; }
+        .coach-select-hint { font-size: 11px; color: #555; margin-top: 8px; text-align: center; }
+
+        /* ── Duration selector ── */
+        .duration-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 10px;
         }
 
-        .sport-check-label {
+        .duration-label {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 10px;
+            justify-content: center;
             background: #0d0d0d;
             border: 1px solid rgba(200,169,110,0.2);
-            border-radius: 9px;
-            padding: 10px 14px;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: 500;
-            color: #888880;
-            transition: border-color 0.2s, color 0.2s, background 0.2s;
-            margin-bottom: 0;
-            text-transform: none;
-            letter-spacing: 0.02em;
-        }
-
-        .sport-check-label:hover { border-color: rgba(200,169,110,0.5); color: #c8a96e; }
-
-        .sport-checkbox {
-            appearance: none;
-            -webkit-appearance: none;
-            width: 16px;
-            height: 16px;
-            border-radius: 4px;
-            border: 2px solid rgba(200,169,110,0.3);
-            background: transparent;
-            cursor: pointer;
-            flex-shrink: 0;
-            transition: all 0.2s;
-            position: relative;
-        }
-
-        .sport-checkbox:checked { background: #c8a96e; border-color: #c8a96e; }
-
-        .sport-checkbox:checked::after {
-            content: '';
-            position: absolute;
-            left: 3px;
-            top: 0px;
-            width: 5px;
-            height: 9px;
-            border: 2px solid #0d0d0d;
-            border-top: none;
-            border-left: none;
-            transform: rotate(45deg);
-        }
-
-        .sport-check-label:has(.sport-checkbox:checked) {
-            border-color: #c8a96e;
-            background: rgba(200,169,110,0.08);
-            color: #c8a96e;
-        }
-
-        /* ── Coach pills ── */
-        #coach-list {
-            display: none;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 4px;
-        }
-
-        .coach-pill {
-            background: rgba(200,169,110,0.07);
-            border: 1px solid rgba(200,169,110,0.25);
             border-radius: 10px;
-            padding: 8px 14px;
+            padding: 14px 10px;
             cursor: pointer;
+            text-align: center;
             transition: border-color 0.2s, background 0.2s;
         }
 
-        .coach-pill:hover {
-            border-color: rgba(200,169,110,0.6);
-            background: rgba(200,169,110,0.13);
-        }
+        .duration-label:hover { border-color: rgba(200,169,110,0.5); }
+        .duration-radio { display: none; }
 
-        .coach-pill.selected {
+        .duration-label:has(.duration-radio:checked) {
             border-color: #c8a96e;
-            background: rgba(200,169,110,0.22);
+            background: rgba(200,169,110,0.08);
         }
 
-        .coach-pill-name {
-            font-size: 13px;
+        .duration-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: #e8e0d5;
+            margin-bottom: 4px;
+        }
+
+        .duration-price {
+            font-size: 12px;
+            color: #c8a96e;
             font-weight: 600;
+        }
+
+        .duration-note {
+            font-size: 10px;
+            color: #555;
+            margin-top: 2px;
+        }
+
+        /* ── Price summary box ── */
+        .price-summary {
+            background: rgba(200,169,110,0.06);
+            border: 1px solid rgba(200,169,110,0.25);
+            border-radius: 12px;
+            padding: 18px 20px;
+            margin-top: 16px;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: #888880;
+            padding: 5px 0;
+        }
+
+        .price-row + .price-row { border-top: 1px solid rgba(200,169,110,0.08); }
+
+        .price-row.total {
+            border-top: 1px solid rgba(200,169,110,0.2) !important;
+            margin-top: 6px;
+            padding-top: 10px;
+            font-size: 16px;
+            font-weight: 700;
             color: #c8a96e;
         }
 
-        .coach-pill-sport {
-            font-size: 11px;
-            color: #555;
-            margin-top: 2px;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-        }
+        .price-row .label { color: #666; }
+        .price-row .value { font-weight: 600; color: #e8e0d5; }
+        .price-row.total .value { color: #c8a96e; font-size: 18px; }
 
-        .coach-select-hint {
-            font-size: 11px;
-            color: #555;
-            margin-top: 8px;
+        .no-selection-msg {
             text-align: center;
-            letter-spacing: 0.04em;
-        }
-
-        /* ── Password specific ── */
-        .pwd-input-wrap {
-            position: relative;
-        }
-
-        .pwd-input-wrap .form-control {
-            padding-right: 44px !important;
-        }
-
-        .pwd-toggle {
-            position: absolute;
-            right: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            color: #555;
-            font-size: 16px;
-            user-select: none;
-            transition: color 0.2s;
-            background: none;
-            border: none;
-            padding: 0;
-            line-height: 1;
-        }
-
-        .pwd-toggle:hover { color: #c8a96e; }
-
-        .strength-bars {
-            display: flex;
-            gap: 5px;
-            margin-top: 8px;
-        }
-
-        .strength-bar {
-            height: 4px;
-            flex: 1;
-            border-radius: 4px;
-            background: #222;
-            transition: background 0.35s ease;
-        }
-
-        .strength-label {
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            margin-top: 5px;
-            min-height: 16px;
-            transition: color 0.3s;
-        }
-
-        .pwd-rules {
-            list-style: none;
-            margin-top: 10px;
-            padding: 10px 14px;
-            background: #0a0a0a;
-            border: 1px solid rgba(200,169,110,0.1);
-            border-radius: 9px;
-            display: none;
-        }
-
-        .pwd-rules.visible { display: block; }
-
-        .pwd-rule {
             font-size: 12px;
-            color: #555;
-            letter-spacing: 0.03em;
-            padding: 3px 0;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: color 0.25s;
+            color: #444;
+            padding: 10px 0;
         }
 
-        .pwd-rule .rule-icon {
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            border: 1.5px solid #333;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 9px;
-            flex-shrink: 0;
-            transition: all 0.25s;
-        }
-
+        /* ── Password ── */
+        .pwd-input-wrap { position: relative; }
+        .pwd-input-wrap .form-control { padding-right: 44px !important; }
+        .pwd-toggle { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #555; font-size: 16px; user-select: none; transition: color 0.2s; background: none; border: none; padding: 0; line-height: 1; }
+        .pwd-toggle:hover { color: #c8a96e; }
+        .strength-bars { display: flex; gap: 5px; margin-top: 8px; }
+        .strength-bar { height: 4px; flex: 1; border-radius: 4px; background: #222; transition: background 0.35s ease; }
+        .strength-label { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 5px; min-height: 16px; transition: color 0.3s; }
+        .pwd-rules { list-style: none; margin-top: 10px; padding: 10px 14px; background: #0a0a0a; border: 1px solid rgba(200,169,110,0.1); border-radius: 9px; display: none; }
+        .pwd-rules.visible { display: block; }
+        .pwd-rule { font-size: 12px; color: #555; letter-spacing: 0.03em; padding: 3px 0; display: flex; align-items: center; gap: 8px; transition: color 0.25s; }
+        .pwd-rule .rule-icon { width: 14px; height: 14px; border-radius: 50%; border: 1.5px solid #333; display: flex; align-items: center; justify-content: center; font-size: 9px; flex-shrink: 0; transition: all 0.25s; }
         .pwd-rule.pass { color: #4caf82; }
-
-        .pwd-rule.pass .rule-icon {
-            background: #4caf82;
-            border-color: #4caf82;
-            color: #0d0d0d;
-        }
-
-        .pwd-rule.fail .rule-icon {
-            border-color: #c0392b;
-            color: #c0392b;
-        }
-
-        .match-msg {
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 0.06em;
-            margin-top: 6px;
-            min-height: 16px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
+        .pwd-rule.pass .rule-icon { background: #4caf82; border-color: #4caf82; color: #0d0d0d; }
+        .pwd-rule.fail .rule-icon { border-color: #c0392b; color: #c0392b; }
+        .match-msg { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; margin-top: 6px; min-height: 16px; display: flex; align-items: center; gap: 6px; }
 
         @media (max-width: 768px) {
             .container { width: 92%; padding: 28px 22px 32px; }
             .alert { width: 92%; }
+            .duration-grid { grid-template-columns: 1fr 1fr; }
         }
     </style>
 </head>
@@ -458,71 +255,43 @@
         <form method="post" action="/member_registration/" enctype="multipart/form-data" id="reg-form">
             {% csrf_token %}
 
-            <!-- Hidden field to store selected coach -->
             <input type="hidden" name="selected_coach" id="selected_coach" value="">
+            <input type="hidden" name="subscription_amount" id="subscription_amount" value="0">
 
             <div class="mb-3">
                 <label for="id">ID</label>
                 <input type="text" name="id" class="form-control" id="id" placeholder="Enter your ID" required>
             </div>
 
-            <!-- ── Password ── -->
+            <!-- Password -->
             <div class="mb-3">
                 <label for="password">Password</label>
                 <div class="pwd-input-wrap">
-                    <input type="password" name="password" class="form-control"
-                           id="password" placeholder="Enter Password"
-                           required minlength="8"
-                           oninput="checkPassword(this.value)">
-                    <button type="button" class="pwd-toggle" onclick="togglePwd('password', this)" title="Show / hide">
-                        &#128065;
-                    </button>
+                    <input type="password" name="password" class="form-control" id="password"
+                           placeholder="Enter Password" required minlength="8" oninput="checkPassword(this.value)">
+                    <button type="button" class="pwd-toggle" onclick="togglePwd('password', this)">&#128065;</button>
                 </div>
-
-                <!-- Strength bars -->
                 <div class="strength-bars">
-                    <div class="strength-bar" id="bar1"></div>
-                    <div class="strength-bar" id="bar2"></div>
-                    <div class="strength-bar" id="bar3"></div>
-                    <div class="strength-bar" id="bar4"></div>
+                    <div class="strength-bar" id="bar1"></div><div class="strength-bar" id="bar2"></div>
+                    <div class="strength-bar" id="bar3"></div><div class="strength-bar" id="bar4"></div>
                 </div>
                 <div class="strength-label" id="strength-label"></div>
-
-                <!-- Rules checklist -->
                 <ul class="pwd-rules" id="pwd-rules">
-                    <li class="pwd-rule" id="rule-len">
-                        <span class="rule-icon">✕</span>
-                        At least 8 characters
-                    </li>
-                    <li class="pwd-rule" id="rule-upper">
-                        <span class="rule-icon">✕</span>
-                        At least one uppercase letter (A–Z)
-                    </li>
-                    <li class="pwd-rule" id="rule-lower">
-                        <span class="rule-icon">✕</span>
-                        At least one lowercase letter (a–z)
-                    </li>
-                    <li class="pwd-rule" id="rule-num">
-                        <span class="rule-icon">✕</span>
-                        At least one number (0–9)
-                    </li>
-                    <li class="pwd-rule" id="rule-sym">
-                        <span class="rule-icon">✕</span>
-                        At least one special character (!@#$%^&amp;*...)
-                    </li>
+                    <li class="pwd-rule" id="rule-len"><span class="rule-icon">✕</span>At least 8 characters</li>
+                    <li class="pwd-rule" id="rule-upper"><span class="rule-icon">✕</span>At least one uppercase letter (A–Z)</li>
+                    <li class="pwd-rule" id="rule-lower"><span class="rule-icon">✕</span>At least one lowercase letter (a–z)</li>
+                    <li class="pwd-rule" id="rule-num"><span class="rule-icon">✕</span>At least one number (0–9)</li>
+                    <li class="pwd-rule" id="rule-sym"><span class="rule-icon">✕</span>At least one special character (!@#$%^&amp;*...)</li>
                 </ul>
             </div>
 
-            <!-- ── Confirm Password ── -->
+            <!-- Confirm Password -->
             <div class="mb-3">
                 <label for="confirm_password">Confirm Password</label>
                 <div class="pwd-input-wrap">
                     <input type="password" name="confirm_password" class="form-control"
-                           id="confirm_password" placeholder="Re-enter Password"
-                           required oninput="checkMatch()">
-                    <button type="button" class="pwd-toggle" onclick="togglePwd('confirm_password', this)" title="Show / hide">
-                        &#128065;
-                    </button>
+                           id="confirm_password" placeholder="Re-enter Password" required oninput="checkMatch()">
+                    <button type="button" class="pwd-toggle" onclick="togglePwd('confirm_password', this)">&#128065;</button>
                 </div>
                 <div class="match-msg" id="match-msg"></div>
             </div>
@@ -537,9 +306,7 @@
             <div class="mb-3">
                 <label for="phone">Phone Number</label>
                 <input type="tel" name="phone" class="form-control" id="phone"
-                       placeholder="Enter your 10-digit number"
-                       required pattern="[0-9]{10}"
-                       title="Enter a 10-digit phone number">
+                       placeholder="Enter your 10-digit number" required pattern="[0-9]{10}">
             </div>
 
             <div class="mb-3">
@@ -552,14 +319,8 @@
             <div class="mb-3">
                 <label>Your Gender</label>
                 <div class="radio-group">
-                    <label for="male">
-                        <input class="radio" type="radio" name="gender" id="male" value="male" required>
-                        <span>Male</span>
-                    </label>
-                    <label for="female">
-                        <input class="radio" type="radio" name="gender" id="female" value="female">
-                        <span>Female</span>
-                    </label>
+                    <label for="male"><input class="radio" type="radio" name="gender" id="male" value="male" required><span>Male</span></label>
+                    <label for="female"><input class="radio" type="radio" name="gender" id="female" value="female"><span>Female</span></label>
                 </div>
             </div>
 
@@ -577,109 +338,111 @@
 
             <div class="mb-3">
                 <label for="address">Your Address</label>
-                <textarea class="form-control" id="address" rows="3" name="address"
-                          placeholder="Your Address" required></textarea>
+                <textarea class="form-control" id="address" rows="3" name="address" placeholder="Your Address" required></textarea>
             </div>
 
             <div class="form-divider"></div>
 
-            <!-- ── Sports ── -->
+            <!-- Sports -->
             <div class="mb-3">
                 <label>Select Your Sport(s)</label>
                 <div class="sports-grid">
-                    <label class="sport-check-label">
-                        <input type="checkbox" name="sports" value="Cricket" class="sport-checkbox">
-                        <span class="sport-check-text">🏏 Cricket</span>
-                    </label>
-                    <label class="sport-check-label">
-                        <input type="checkbox" name="sports" value="Football" class="sport-checkbox">
-                        <span class="sport-check-text">⚽ Football</span>
-                    </label>
-                    <label class="sport-check-label">
-                        <input type="checkbox" name="sports" value="Badminton" class="sport-checkbox">
-                        <span class="sport-check-text">🏸 Badminton</span>
-                    </label>
-                    <label class="sport-check-label">
-                        <input type="checkbox" name="sports" value="Basketball" class="sport-checkbox">
-                        <span class="sport-check-text">🏀 Basketball</span>
-                    </label>
-                    <label class="sport-check-label">
-                        <input type="checkbox" name="sports" value="Tennis" class="sport-checkbox">
-                        <span class="sport-check-text">🎾 Tennis</span>
-                    </label>
-                    <label class="sport-check-label">
-                        <input type="checkbox" name="sports" value="Table Tennis" class="sport-checkbox">
-                        <span class="sport-check-text">🏓 Table Tennis</span>
-                    </label>
-                    <label class="sport-check-label">
-                        <input type="checkbox" name="sports" value="Volleyball" class="sport-checkbox">
-                        <span class="sport-check-text">🏐 Volleyball</span>
-                    </label>
-                    <label class="sport-check-label">
-                        <input type="checkbox" name="sports" value="Swimming" class="sport-checkbox">
-                        <span class="sport-check-text">🏊 Swimming</span>
-                    </label>
-                    <label class="sport-check-label">
-                        <input type="checkbox" name="sports" value="Athletics" class="sport-checkbox">
-                        <span class="sport-check-text">🏃 Athletics</span>
-                    </label>
-                    <label class="sport-check-label">
-                        <input type="checkbox" name="sports" value="Kabaddi" class="sport-checkbox">
-                        <span class="sport-check-text">🤼 Kabaddi</span>
-                    </label>
-                    <label class="sport-check-label">
-                        <input type="checkbox" name="sports" value="Hockey" class="sport-checkbox">
-                        <span class="sport-check-text">🏑 Hockey</span>
-                    </label>
-                    <label class="sport-check-label">
-                        <input type="checkbox" name="sports" value="Boxing" class="sport-checkbox">
-                        <span class="sport-check-text">🥊 Boxing</span>
-                    </label>
+                    <label class="sport-check-label"><input type="checkbox" name="sports" value="Cricket" class="sport-checkbox"><span>🏏 Cricket</span></label>
+                    <label class="sport-check-label"><input type="checkbox" name="sports" value="Football" class="sport-checkbox"><span>⚽ Football</span></label>
+                    <label class="sport-check-label"><input type="checkbox" name="sports" value="Badminton" class="sport-checkbox"><span>🏸 Badminton</span></label>
+                    <label class="sport-check-label"><input type="checkbox" name="sports" value="Basketball" class="sport-checkbox"><span>🏀 Basketball</span></label>
+                    <label class="sport-check-label"><input type="checkbox" name="sports" value="Tennis" class="sport-checkbox"><span>🎾 Tennis</span></label>
+                    <label class="sport-check-label"><input type="checkbox" name="sports" value="Table Tennis" class="sport-checkbox"><span>🏓 Table Tennis</span></label>
+                    <label class="sport-check-label"><input type="checkbox" name="sports" value="Volleyball" class="sport-checkbox"><span>🏐 Volleyball</span></label>
+                    <label class="sport-check-label"><input type="checkbox" name="sports" value="Swimming" class="sport-checkbox"><span>🏊 Swimming</span></label>
+                    <label class="sport-check-label"><input type="checkbox" name="sports" value="Athletics" class="sport-checkbox"><span>🏃 Athletics</span></label>
+                    <label class="sport-check-label"><input type="checkbox" name="sports" value="Kabaddi" class="sport-checkbox"><span>🤼 Kabaddi</span></label>
+                    <label class="sport-check-label"><input type="checkbox" name="sports" value="Hockey" class="sport-checkbox"><span>🏑 Hockey</span></label>
+                    <label class="sport-check-label"><input type="checkbox" name="sports" value="Boxing" class="sport-checkbox"><span>🥊 Boxing</span></label>
                 </div>
             </div>
 
             <div class="form-divider"></div>
 
-            <!-- ── Coach Filter Section ── -->
+            <!-- ── Subscription Duration ── -->
             <div class="mb-3">
-                <label>Coaches for Your Sport(s) <span style="color:#555; font-size:10px; text-transform:none; letter-spacing:0;">(click a coach to select)</span></label>
+                <label>Subscription Duration <span style="color:#555;font-size:10px;text-transform:none;">(price per sport)</span></label>
+                <div class="duration-grid">
+                    <label class="duration-label">
+                        <input class="duration-radio" type="radio" name="subscription_duration" value="1 Month" data-price="800" required>
+                        <div class="duration-name">1 Month</div>
+                        <div class="duration-price">₹800 / sport</div>
+                        <div class="duration-note">Short term</div>
+                    </label>
+                    <label class="duration-label">
+                        <input class="duration-radio" type="radio" name="subscription_duration" value="3 Months" data-price="2000">
+                        <div class="duration-name">3 Months</div>
+                        <div class="duration-price">₹2,000 / sport</div>
+                        <div class="duration-note">Save 17%</div>
+                    </label>
+                    <label class="duration-label">
+                        <input class="duration-radio" type="radio" name="subscription_duration" value="6 Months" data-price="3500">
+                        <div class="duration-name">6 Months</div>
+                        <div class="duration-price">₹3,500 / sport</div>
+                        <div class="duration-note">Save 27%</div>
+                    </label>
+                    <label class="duration-label">
+                        <input class="duration-radio" type="radio" name="subscription_duration" value="1 Year" data-price="6000">
+                        <div class="duration-name">1 Year</div>
+                        <div class="duration-price">₹6,000 / sport</div>
+                        <div class="duration-note">Best value</div>
+                    </label>
+                </div>
+            </div>
 
-                <div id="coach-placeholder" style="
-                    font-size: 13px; color: #444;
-                    background: #0d0d0d;
-                    border: 1px dashed rgba(200,169,110,0.2);
-                    border-radius: 9px;
-                    padding: 14px; text-align: center;">
+            <!-- ── Price Summary ── -->
+            <div class="price-summary" id="price-summary">
+                <div class="no-selection-msg" id="no-selection-msg">
+                    Select sport(s) and a duration to see your total
+                </div>
+                <div id="price-breakdown" style="display:none;">
+                    <div class="price-row">
+                        <span class="label">Sports selected</span>
+                        <span class="value" id="summary-sports">0</span>
+                    </div>
+                    <div class="price-row">
+                        <span class="label">Duration</span>
+                        <span class="value" id="summary-duration">—</span>
+                    </div>
+                    <div class="price-row">
+                        <span class="label">Price per sport</span>
+                        <span class="value" id="summary-price-per">—</span>
+                    </div>
+                    <div class="price-row total">
+                        <span class="label">Total Amount</span>
+                        <span class="value" id="summary-total">₹0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-divider"></div>
+
+            <!-- Coach -->
+            <div class="mb-3">
+                <label>Coaches for Your Sport(s) <span style="color:#555;font-size:10px;text-transform:none;">(click to select)</span></label>
+                <div id="coach-placeholder" style="font-size:13px;color:#444;background:#0d0d0d;border:1px dashed rgba(200,169,110,0.2);border-radius:9px;padding:14px;text-align:center;">
                     Select a sport above to see available coaches
                 </div>
-
                 <div id="coach-list"></div>
-                <div class="coach-select-hint" id="coach-hint" style="display:none;">
-                    👆 Click a coach card to select them
-                </div>
-
-                <div id="coach-empty" style="
-                    display: none; font-size: 13px; color: #555;
-                    background: #0d0d0d;
-                    border: 1px dashed rgba(200,169,110,0.15);
-                    border-radius: 9px;
-                    padding: 14px; text-align: center;">
-                    No coach assigned for selected sport(s) yet
-                </div>
+                <div class="coach-select-hint" id="coach-hint" style="display:none;">👆 Click coaches to select — you can select multiple</div>
+                <div id="coach-empty" style="display:none;font-size:13px;color:#555;background:#0d0d0d;border:1px dashed rgba(200,169,110,0.15);border-radius:9px;padding:14px;text-align:center;">No coach found for selected sport(s)</div>
             </div>
 
             <div class="form-divider"></div>
 
-            <!-- ── Profile Photo ── -->
+            <!-- Profile Photo -->
             <div class="mb-3">
                 <label for="profile_picture">Profile Photo</label>
                 <input type="file" name="profile_picture" class="form-control"
-                       id="profile_picture" required accept="image/*"
-                       onchange="previewImage(event)">
+                       id="profile_picture" required accept="image/*" onchange="previewImage(event)">
                 <img id="profile_preview" src="" alt="Profile Picture Preview" style="display:none;">
             </div>
 
-            <!-- ── Buttons ── -->
             <div class="btn-group">
                 <button type="reset" class="btn-reset" onclick="resetForm()">Reset</button>
                 <button type="submit" class="btn-submit">Submit</button>
@@ -691,89 +454,126 @@
     {{ coaches|json_script:"coaches-data" }}
 
     <script>
+        /* ── Prices ── */
+        const PRICES = { '1 Month': 800, '3 Months': 2000, '6 Months': 3500, '1 Year': 6000 };
+
+        function updatePriceSummary() {
+            const sportsCount = document.querySelectorAll('input[name="sports"]:checked').length;
+            const durationEl  = document.querySelector('input[name="subscription_duration"]:checked');
+            const noMsg       = document.getElementById('no-selection-msg');
+            const breakdown   = document.getElementById('price-breakdown');
+
+            if (sportsCount === 0 || !durationEl) {
+                noMsg.style.display     = 'block';
+                breakdown.style.display = 'none';
+                document.getElementById('subscription_amount').value = 0;
+                return;
+            }
+
+            const duration   = durationEl.value;
+            const pricePerSport = PRICES[duration];
+            const total      = sportsCount * pricePerSport;
+
+            document.getElementById('summary-sports').textContent    = sportsCount + (sportsCount === 1 ? ' sport' : ' sports');
+            document.getElementById('summary-duration').textContent  = duration;
+            document.getElementById('summary-price-per').textContent = '₹' + pricePerSport.toLocaleString('en-IN');
+            document.getElementById('summary-total').textContent     = '₹' + total.toLocaleString('en-IN');
+            document.getElementById('subscription_amount').value     = total;
+
+            noMsg.style.display     = 'none';
+            breakdown.style.display = 'block';
+        }
+
+        document.querySelectorAll('input[name="sports"]').forEach(cb => {
+            cb.addEventListener('change', () => { updateCoaches(); updatePriceSummary(); });
+        });
+
+        document.querySelectorAll('input[name="subscription_duration"]').forEach(r => {
+            r.addEventListener('change', updatePriceSummary);
+        });
+
         /* ── Image preview ── */
         function previewImage(event) {
-            const input   = event.target;
             const preview = document.getElementById("profile_preview");
-            if (input.files && input.files[0]) {
+            if (event.target.files && event.target.files[0]) {
                 const reader = new FileReader();
-                reader.onload = e => {
-                    preview.src = e.target.result;
-                    preview.style.display = "block";
-                };
-                reader.readAsDataURL(input.files[0]);
+                reader.onload = e => { preview.src = e.target.result; preview.style.display = "block"; };
+                reader.readAsDataURL(event.target.files[0]);
             }
         }
 
         /* ── Coach filter ── */
-        const coachDataEl = document.getElementById('coaches-data');
-        const allCoaches  = coachDataEl ? JSON.parse(coachDataEl.textContent) : [];
+        const allCoaches = JSON.parse(document.getElementById('coaches-data').textContent);
 
-        /* ── Select a coach pill ── */
-        function selectCoach(name, el) {
-            // Deselect all pills
-            document.querySelectorAll('.coach-pill').forEach(p => p.classList.remove('selected'));
-            // Highlight the clicked one
-            el.classList.add('selected');
-            // Save to hidden input
-            document.getElementById('selected_coach').value = name;
-        }
+        // Replace the selectCoach function with this:
+function selectCoach(name, el) {
+    el.classList.toggle('selected');
 
-        function updateCoaches() {
-            const checked     = Array.from(document.querySelectorAll('input[name="sports"]:checked')).map(el => el.value);
-            const placeholder = document.getElementById('coach-placeholder');
-            const coachList   = document.getElementById('coach-list');
-            const coachEmpty  = document.getElementById('coach-empty');
-            const coachHint   = document.getElementById('coach-hint');
+    // Collect all currently selected coaches
+    const selected = Array.from(document.querySelectorAll('.coach-pill.selected'))
+                         .map(p => p.dataset.name);
+    document.getElementById('selected_coach').value = selected.join(', ');
+}
 
-            // Reset selected coach when sports change
-            document.getElementById('selected_coach').value = '';
 
-            if (checked.length === 0) {
-                placeholder.style.display = 'block';
-                coachList.style.display   = 'none';
-                coachEmpty.style.display  = 'none';
-                coachHint.style.display   = 'none';
-                coachList.innerHTML       = '';
-                return;
-            }
 
-            const matched = allCoaches.filter(c => checked.includes(c.sport));
-            placeholder.style.display = 'none';
+function updateCoaches() {
+    const checked     = Array.from(document.querySelectorAll('input[name="sports"]:checked')).map(el => el.value);
+    const placeholder = document.getElementById('coach-placeholder');
+    const coachList   = document.getElementById('coach-list');
+    const coachEmpty  = document.getElementById('coach-empty');
+    const coachHint   = document.getElementById('coach-hint');
 
-            if (matched.length === 0) {
-                coachList.style.display  = 'none';
-                coachEmpty.style.display = 'block';
-                coachHint.style.display  = 'none';
-                coachList.innerHTML      = '';
-                return;
-            }
+    // Remember currently selected coach names before re-rendering
+    const alreadySelected = Array.from(document.querySelectorAll('.coach-pill.selected'))
+                                 .map(p => p.dataset.name);
 
-            coachEmpty.style.display  = 'none';
-            coachList.style.display   = 'flex';
-            coachList.style.flexWrap  = 'wrap';
-            coachList.style.gap       = '10px';
-            coachList.style.marginTop = '8px';
-            coachHint.style.display   = 'block';
+    if (checked.length === 0) {
+        placeholder.style.display = 'block';
+        coachList.style.display   = 'none';
+        coachEmpty.style.display  = 'none';
+        coachHint.style.display   = 'none';
+        coachList.innerHTML       = '';
+        document.getElementById('selected_coach').value = '';
+        return;
+    }
 
-            coachList.innerHTML = matched.map(c => `
-                <div class="coach-pill" onclick="selectCoach('${c.name}', this)">
-                    <div class="coach-pill-name">&#128100; ${c.name}</div>
-                    <div class="coach-pill-sport">${c.sport}</div>
-                </div>
-            `).join('');
-        }
+    const matched = allCoaches.filter(c => checked.includes(c.sport));
+    placeholder.style.display = 'none';
 
-        document.querySelectorAll('input[name="sports"]').forEach(cb => {
-            cb.addEventListener('change', updateCoaches);
-        });
+    if (matched.length === 0) {
+        coachList.style.display  = 'none';
+        coachEmpty.style.display = 'block';
+        coachHint.style.display  = 'none';
+        coachList.innerHTML      = '';
+        document.getElementById('selected_coach').value = '';
+        return;
+    }
 
-        /* ══════════════════════════════
-           PASSWORD VALIDATION
-        ══════════════════════════════ */
+    coachEmpty.style.display  = 'none';
+    coachList.style.display   = 'flex';
+    coachList.style.flexWrap  = 'wrap';
+    coachList.style.gap       = '10px';
+    coachList.style.marginTop = '8px';
+    coachHint.style.display   = 'block';
+
+    coachList.innerHTML = matched.map(c => `
+        <div class="coach-pill ${alreadySelected.includes(c.name) ? 'selected' : ''}"
+             data-name="${c.name}" onclick="selectCoach('${c.name}', this)">
+            <div class="coach-pill-name">&#128100; ${c.name}</div>
+            <div class="coach-pill-sport">${c.sport}</div>
+        </div>
+    `).join('');
+
+    // Restore hidden input with still-valid selected coaches
+    const stillSelected = matched
+        .filter(c => alreadySelected.includes(c.name))
+        .map(c => c.name);
+    document.getElementById('selected_coach').value = stillSelected.join(', ');
+}
+        /* ── Password validation ── */
         const strengthColors = ['#c0392b', '#e67e22', '#f1c40f', '#4caf82'];
         const strengthLabels = ['', 'Weak', 'Fair', 'Good', 'Strong'];
-
         const rules = [
             { id: 'rule-len',   test: v => v.length >= 8 },
             { id: 'rule-upper', test: v => /[A-Z]/.test(v) },
@@ -784,105 +584,54 @@
 
         function checkPassword(val) {
             const rulesBox = document.getElementById('pwd-rules');
-
-            if (val.length === 0) {
-                rulesBox.classList.remove('visible');
-                resetBars();
-                document.getElementById('strength-label').textContent = '';
-                checkMatch();
-                return;
-            }
-
+            if (val.length === 0) { rulesBox.classList.remove('visible'); resetBars(); document.getElementById('strength-label').textContent = ''; checkMatch(); return; }
             rulesBox.classList.add('visible');
-
             let passed = 0;
             rules.forEach(rule => {
-                const ok = rule.test(val);
-                const li = document.getElementById(rule.id);
-                const icon = li.querySelector('.rule-icon');
-                if (ok) {
-                    li.classList.add('pass');
-                    li.classList.remove('fail');
-                    icon.textContent = '✓';
-                    passed++;
-                } else {
-                    li.classList.remove('pass');
-                    li.classList.add('fail');
-                    icon.textContent = '✕';
-                }
+                const ok = rule.test(val), li = document.getElementById(rule.id), icon = li.querySelector('.rule-icon');
+                if (ok) { li.classList.add('pass'); li.classList.remove('fail'); icon.textContent = '✓'; passed++; }
+                else    { li.classList.remove('pass'); li.classList.add('fail'); icon.textContent = '✕'; }
             });
-
-            // Update bars
             const color = strengthColors[Math.min(passed - 1, 3)];
-            for (let i = 1; i <= 4; i++) {
-                document.getElementById('bar' + i).style.background =
-                    i <= passed ? color : '#222';
-            }
-
-            // Strength label
+            for (let i = 1; i <= 4; i++) document.getElementById('bar' + i).style.background = i <= passed ? color : '#222';
             const lbl = document.getElementById('strength-label');
             lbl.textContent = strengthLabels[Math.min(passed, 4)];
-            lbl.style.color  = passed > 0 ? color : '#555';
-
+            lbl.style.color = passed > 0 ? color : '#555';
             checkMatch();
         }
 
-        function resetBars() {
-            for (let i = 1; i <= 4; i++) {
-                document.getElementById('bar' + i).style.background = '#222';
-            }
-        }
+        function resetBars() { for (let i = 1; i <= 4; i++) document.getElementById('bar' + i).style.background = '#222'; }
 
-        /* ── Confirm password match ── */
         function checkMatch() {
-            const pwd  = document.getElementById('password').value;
-            const conf = document.getElementById('confirm_password').value;
-            const msg  = document.getElementById('match-msg');
-
+            const pwd = document.getElementById('password').value, conf = document.getElementById('confirm_password').value, msg = document.getElementById('match-msg');
             if (!conf) { msg.innerHTML = ''; return; }
-
-            if (pwd === conf) {
-                msg.innerHTML = '<span style="color:#4caf82">&#10003;</span> <span style="color:#4caf82">Passwords match</span>';
-            } else {
-                msg.innerHTML = '<span style="color:#c0392b">&#10007;</span> <span style="color:#c0392b">Passwords do not match</span>';
-            }
+            msg.innerHTML = pwd === conf
+                ? '<span style="color:#4caf82">&#10003;</span> <span style="color:#4caf82">Passwords match</span>'
+                : '<span style="color:#c0392b">&#10007;</span> <span style="color:#c0392b">Passwords do not match</span>';
         }
 
-        /* ── Show / hide password ── */
         function togglePwd(fieldId, btn) {
             const input = document.getElementById(fieldId);
-            if (input.type === 'password') {
-                input.type  = 'text';
-                btn.style.color = '#c8a96e';
-            } else {
-                input.type  = 'password';
-                btn.style.color = '#555';
-            }
+            input.type = input.type === 'password' ? 'text' : 'password';
+            btn.style.color = input.type === 'text' ? '#c8a96e' : '#555';
         }
 
-        /* ── Block submit if passwords don't match or rules not met ── */
         document.getElementById('reg-form').addEventListener('submit', function(e) {
             const pwd  = document.getElementById('password').value;
             const conf = document.getElementById('confirm_password').value;
-
-            const allPassed = rules.every(rule => rule.test(pwd));
-
-            if (!allPassed) {
+            if (!rules.every(rule => rule.test(pwd))) {
                 e.preventDefault();
                 document.getElementById('pwd-rules').classList.add('visible');
                 document.getElementById('password').focus();
                 return;
             }
-
             if (pwd !== conf) {
                 e.preventDefault();
-                document.getElementById('match-msg').innerHTML =
-                    '<span style="color:#c0392b">&#10007;</span> <span style="color:#c0392b">Passwords do not match</span>';
+                document.getElementById('match-msg').innerHTML = '<span style="color:#c0392b">&#10007;</span> <span style="color:#c0392b">Passwords do not match</span>';
                 document.getElementById('confirm_password').focus();
             }
         });
 
-        /* ── Reset clears password UI and coach selection too ── */
         function resetForm() {
             resetBars();
             document.getElementById('strength-label').textContent = '';
@@ -890,10 +639,13 @@
             document.getElementById('pwd-rules').classList.remove('visible');
             document.getElementById('profile_preview').style.display = 'none';
             document.getElementById('selected_coach').value = '';
+            document.getElementById('subscription_amount').value = '0';
             document.getElementById('coach-list').innerHTML = '';
             document.getElementById('coach-list').style.display = 'none';
             document.getElementById('coach-placeholder').style.display = 'block';
             document.getElementById('coach-hint').style.display = 'none';
+            document.getElementById('no-selection-msg').style.display = 'block';
+            document.getElementById('price-breakdown').style.display = 'none';
         }
     </script>
 

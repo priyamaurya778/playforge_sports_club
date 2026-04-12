@@ -184,7 +184,7 @@ def coach_details(request):
 
 def coach_career(request):
     if request.method == "GET":
-        return render(request, 'club_app/html/coach_career.html')
+        return render(request, 'club_app/html/career.html')
 
     if request.method == "POST":
         coach_obj = Coach(

@@ -1,0 +1,94 @@
+{% extends 'club_app/coach/coach_base.html' %}
+{% load static %}
+{% block title %}Coach Dashboard{% endblock %}
+{% block style %}
+    .dash-wrap{max-width:1000px;margin:0 auto;}
+    .welcome-banner{background:linear-gradient(135deg,rgba(200,169,110,.1),rgba(200,169,110,.03));border:1px solid rgba(200,169,110,.2);border-left:4px solid #c8a96e;border-radius:12px;padding:18px 24px;margin-bottom:32px;display:flex;align-items:center;gap:14px;}
+    .welcome-icon{width:44px;height:44px;border-radius:50%;background:rgba(200,169,110,.15);border:1px solid rgba(200,169,110,.3);display:flex;align-items:center;justify-content:center;color:#c8a96e;font-size:18px;flex-shrink:0;}
+    .welcome-text h4{font-size:16px;font-weight:700;color:#e8e0d5;margin:0 0 3px;}
+    .welcome-text p{font-size:12px;color:#555;margin:0;}
+    .two-col{display:grid;grid-template-columns:280px 1fr;gap:24px;align-items:start;}
+    .profile-card{background:#111;border:1px solid rgba(200,169,110,.2);border-top:3px solid #c8a96e;border-radius:16px;overflow:hidden;box-shadow:0 20px 52px rgba(0,0,0,.5);}
+    .profile-card img{width:100%;height:260px;object-fit:cover;display:block;}
+    .profile-card-footer{padding:14px 16px;background:#161616;border-top:1px solid rgba(200,169,110,.12);text-align:center;font-size:11px;font-weight:600;color:#c8a96e;letter-spacing:.12em;text-transform:uppercase;}
+    .info-card{background:#111;border:1px solid rgba(200,169,110,.2);border-top:3px solid #c8a96e;border-radius:16px;padding:28px 32px;box-shadow:0 20px 52px rgba(0,0,0,.5);margin-bottom:24px;}
+    .section-heading{font-size:10px;font-weight:600;letter-spacing:.18em;color:#c8a96e;text-transform:uppercase;margin-bottom:18px;padding-bottom:10px;border-bottom:1px solid rgba(200,169,110,.1);}
+    .info-row{display:flex;align-items:baseline;gap:12px;padding:9px 0;}
+    .info-row+.info-row{border-top:1px solid rgba(200,169,110,.07);}
+    .info-label{font-size:10px;font-weight:600;letter-spacing:.12em;color:#c8a96e;text-transform:uppercase;flex:0 0 100px;}
+    .info-value{font-size:14px;font-weight:500;color:#e8e0d5;flex:1;}
+    .sport-badge{display:inline-block;background:rgba(200,169,110,.12);border:1px solid rgba(200,169,110,.3);color:#c8a96e;font-size:12px;font-weight:600;padding:4px 14px;border-radius:20px;text-transform:uppercase;}
+    .members-card{background:#111;border:1px solid rgba(200,169,110,.2);border-top:3px solid #c8a96e;border-radius:16px;padding:28px 32px;box-shadow:0 20px 52px rgba(0,0,0,.5);}
+    .member-count{display:inline-block;background:rgba(200,169,110,.12);border:1px solid rgba(200,169,110,.25);color:#c8a96e;font-size:11px;font-weight:700;padding:2px 10px;border-radius:12px;margin-left:8px;}
+    .member-row{display:flex;align-items:center;gap:16px;padding:12px 0;border-bottom:1px solid rgba(200,169,110,.07);text-decoration:none;}
+    .member-row:last-child{border-bottom:none;}
+    .member-avatar{width:42px;height:42px;border-radius:50%;object-fit:cover;border:2px solid rgba(200,169,110,.3);flex-shrink:0;}
+    .member-avatar-placeholder{width:42px;height:42px;border-radius:50%;background:rgba(200,169,110,.1);border:2px solid rgba(200,169,110,.25);display:flex;align-items:center;justify-content:center;color:#c8a96e;font-size:16px;flex-shrink:0;}
+    .member-info{flex:1;}
+    .member-name{font-size:14px;font-weight:600;color:#e8e0d5;margin-bottom:2px;}
+    .member-meta{font-size:12px;color:#555;display:flex;gap:12px;flex-wrap:wrap;}
+    .member-sport-tag{background:rgba(200,169,110,.08);color:#c8a96e;font-size:11px;font-weight:600;padding:3px 10px;border-radius:12px;border:1px solid rgba(200,169,110,.2);}
+    .view-btn{font-size:11px;font-weight:600;color:#c8a96e;background:rgba(200,169,110,.08);border:1px solid rgba(200,169,110,.2);border-radius:12px;padding:4px 12px;text-decoration:none;white-space:nowrap;transition:background .2s;}
+    .view-btn:hover{background:rgba(200,169,110,.18);color:#e8c98a;}
+    .empty-box{text-align:center;padding:40px 20px;color:#444;font-size:14px;}
+    .empty-box span{font-size:36px;display:block;margin-bottom:12px;}
+    @media(max-width:768px){.two-col{grid-template-columns:1fr;}.profile-card{max-width:300px;margin:0 auto;}}
+{% endblock %}
+{% block content %}
+<div class="dash-wrap">
+    <div class="welcome-banner">
+        <div class="welcome-icon"><i class="fas fa-whistle"></i></div>
+        <div class="welcome-text">
+            <h4>Welcome back, {{ coach.name }}!</h4>
+            <p>PlayForge Sports Club — Coach Dashboard</p>
+        </div>
+    </div>
+    <div class="two-col">
+        <div>
+            <div class="profile-card">
+                {% if coach.coach_pic %}
+                    <img src="/media/{{ coach.coach_pic }}" alt="Coach Photo">
+                {% else %}
+                    <img src="https://randomuser.me/api/portraits/{% if coach.gender == 'female' %}women{% else %}men{% endif %}/{{ coach.coach_id|slice:'1:' }}.jpg" alt="Coach Photo">
+                {% endif %}
+                <div class="profile-card-footer">Coach Profile</div>
+            </div>
+        </div>
+        <div>
+            <div class="info-card">
+                <div class="section-heading">Coach Details</div>
+                <div class="info-row"><span class="info-label">Name</span><span class="info-value">{{ coach.name }}</span></div>
+                <div class="info-row"><span class="info-label">Coach ID</span><span class="info-value">{{ coach.coach_id }}</span></div>
+                <div class="info-row"><span class="info-label">Email</span><span class="info-value">{{ coach.email }}</span></div>
+                <div class="info-row"><span class="info-label">Phone</span><span class="info-value">{{ coach.phone }}</span></div>
+                <div class="info-row"><span class="info-label">City</span><span class="info-value">{{ coach.city }}</span></div>
+                <div class="info-row"><span class="info-label">Experience</span><span class="info-value">{{ coach.experience }}</span></div>
+                <div class="info-row"><span class="info-label">Sport</span><span class="info-value"><span class="sport-badge">{{ coach.area_of_intrest }}</span></span></div>
+                <div class="info-row"><span class="info-label">About</span><span class="info-value" style="color:#888880;">{{ coach.about_coach }}</span></div>
+            </div>
+            <div class="members-card">
+                <div class="section-heading">Assigned Members <span class="member-count">{{ members|length }}</span></div>
+                {% if members %}
+                    {% for m in members %}
+                    <a href="{% url 'coach_member_detail' m.member_id %}" class="member-row" style="display:flex;">
+                        {% if m.profile_picture %}
+                            <img src="/media/{{ m.profile_picture }}" class="member-avatar" alt="{{ m.name }}">
+                        {% else %}
+                            <div class="member-avatar-placeholder"><i class="fas fa-user"></i></div>
+                        {% endif %}
+                        <div class="member-info">
+                            <div class="member-name">{{ m.name }}</div>
+                            <div class="member-meta"><span>{{ m.email }}</span><span>{{ m.city }}</span></div>
+                        </div>
+                        <span class="member-sport-tag">{{ m.sports }}</span>
+                        <span class="view-btn">View →</span>
+                    </a>
+                    {% endfor %}
+                {% else %}
+                    <div class="empty-box"><span>👥</span>No members assigned yet.</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

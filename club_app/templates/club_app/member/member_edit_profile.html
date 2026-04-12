@@ -1,133 +1,98 @@
 {% extends 'club_app/member/member_base.html' %}
 {% load static %}
 
-{% block title %}
-  Profile Edit
-{% endblock %}
+{% block title %}Profile Edit{% endblock %}
 
 {% block style %}
-    /* ── Edit profile card ── */
-    .edit-wrap {
-        max-width: 560px;
-        margin: 48px auto 64px;
-        padding: 0 24px;
-    }
+    .edit-wrap { max-width: 620px; margin: 48px auto 64px; padding: 0 24px; }
 
     .edit-heading {
-        font-size: clamp(22px, 3vw, 30px);
-        font-weight: 800;
-        text-align: center;
-        letter-spacing: -0.02em;
-        margin-bottom: 32px;
+        font-size: clamp(22px, 3vw, 30px); font-weight: 800; text-align: center;
+        letter-spacing: -0.02em; margin-bottom: 32px;
         background: linear-gradient(135deg, #e8c98a 0%, #c8a96e 60%, #a07840 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
 
     .form-card {
-        background: #111;
-        border: 1px solid rgba(200, 169, 110, 0.22);
-        border-top: 3px solid #c8a96e;
-        border-radius: 18px;
-        padding: 36px 40px 40px;
-        box-shadow: 0 32px 80px rgba(0,0,0,0.5);
+        background: #111; border: 1px solid rgba(200,169,110,0.22);
+        border-top: 3px solid #c8a96e; border-radius: 18px;
+        padding: 36px 40px 40px; box-shadow: 0 32px 80px rgba(0,0,0,0.5);
     }
 
     .form-section-label {
-        font-size: 10px;
-        font-weight: 600;
-        letter-spacing: 0.18em;
-        color: #c8a96e;
-        text-transform: uppercase;
-        margin-bottom: 20px;
+        font-size: 10px; font-weight: 600; letter-spacing: 0.18em; color: #c8a96e;
+        text-transform: uppercase; margin-bottom: 16px; padding-bottom: 8px;
+        border-bottom: 1px solid rgba(200,169,110,0.1);
     }
 
-    .form-divider {
-        height: 1px;
-        background: rgba(200,169,110,0.12);
-        margin: 20px 0;
-    }
-
-    /* ── Field groups ── */
-    .mb-3 {
-        margin-bottom: 16px !important;
-    }
+    .form-divider { height: 1px; background: rgba(200,169,110,0.12); margin: 20px 0; }
+    .mb-3 { margin-bottom: 14px !important; }
 
     .form-label {
-        display: block;
-        font-size: 10px !important;
-        font-weight: 600 !important;
-        color: #c8a96e !important;
-        letter-spacing: 0.1em !important;
-        text-transform: uppercase !important;
-        margin-bottom: 7px !important;
+        display: block; font-size: 10px !important; font-weight: 600 !important;
+        color: #c8a96e !important; letter-spacing: 0.1em !important;
+        text-transform: uppercase !important; margin-bottom: 7px !important;
     }
 
     .form-control {
-        background: #0d0d0d !important;
-        border: 1px solid rgba(200, 169, 110, 0.2) !important;
-        border-radius: 9px !important;
-        color: #e8e0d5 !important;
-        font-family: 'Outfit', sans-serif !important;
-        font-size: 14px !important;
-        padding: 9px 14px !important;
-        height: auto !important;
-        min-height: unset !important;
-        line-height: 1.5 !important;
-        transition: border-color 0.2s, box-shadow 0.2s;
-        width: 100%;
+        background: #0d0d0d !important; border: 1px solid rgba(200,169,110,0.2) !important;
+        border-radius: 9px !important; color: #e8e0d5 !important;
+        font-family: 'Outfit', sans-serif !important; font-size: 14px !important;
+        padding: 9px 14px !important; height: auto !important; min-height: unset !important;
+        line-height: 1.5 !important; transition: border-color 0.2s, box-shadow 0.2s; width: 100%;
     }
 
     .form-control::placeholder { color: #3a3a3a !important; }
-
-    .form-control:focus {
-        border-color: #c8a96e !important;
-        box-shadow: 0 0 0 3px rgba(200, 169, 110, 0.12) !important;
-        background: #0f0f0f !important;
-        outline: none;
-    }
-
+    .form-control:focus { border-color: #c8a96e !important; box-shadow: 0 0 0 3px rgba(200,169,110,0.12) !important; background: #0f0f0f !important; outline: none; }
+    select.form-control option { background: #161616; color: #e8e0d5; }
     textarea.form-control { resize: vertical; }
 
-    .invalid-feedback {
-        color: #e05555;
-        font-size: 11.5px;
-        margin-top: 5px;
+    .radio-group { display: flex; gap: 12px; align-items: center; }
+    .radio-group label { display: flex; align-items: center; gap: 8px; background: #0d0d0d; border: 1px solid rgba(200,169,110,0.2); border-radius: 8px; padding: 9px 18px; cursor: pointer; font-size: 13px; font-weight: 500; color: #888880; transition: border-color 0.2s, color 0.2s, background 0.2s; margin-bottom: 0; }
+    .radio { display: none; }
+    .radio-group label:has(.radio:checked) { border-color: #c8a96e; background: rgba(200,169,110,0.08); color: #c8a96e; }
+
+    .sports-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+
+    .sport-check-label { display: flex; align-items: center; gap: 10px; background: #0d0d0d; border: 1px solid rgba(200,169,110,0.2); border-radius: 9px; padding: 10px 14px; cursor: pointer; font-size: 13px; font-weight: 500; color: #888880; transition: border-color 0.2s, color 0.2s, background 0.2s; margin-bottom: 0; }
+    .sport-check-label:hover { border-color: rgba(200,169,110,0.5); color: #c8a96e; }
+
+    .sport-checkbox { appearance: none; -webkit-appearance: none; width: 16px; height: 16px; border-radius: 4px; border: 2px solid rgba(200,169,110,0.3); background: transparent; cursor: pointer; flex-shrink: 0; transition: all 0.2s; position: relative; }
+    .sport-checkbox:checked { background: #c8a96e; border-color: #c8a96e; }
+    .sport-checkbox:checked::after { content: ''; position: absolute; left: 3px; top: 0px; width: 5px; height: 9px; border: 2px solid #0d0d0d; border-top: none; border-left: none; transform: rotate(45deg); }
+    .sport-check-label:has(.sport-checkbox:checked) { border-color: #c8a96e; background: rgba(200,169,110,0.08); color: #c8a96e; }
+
+    /* ── Coach pills ── */
+    #coach-list { display: none; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+
+    .coach-pill {
+        background: rgba(200,169,110,0.07); border: 1px solid rgba(200,169,110,0.25);
+        border-radius: 10px; padding: 8px 14px; cursor: pointer;
+        transition: border-color 0.2s, background 0.2s;
     }
 
-    /* ── Update button ── */
-    .submit-wrap {
-        text-align: center;
-        margin-top: 28px;
+    .coach-pill:hover { border-color: rgba(200,169,110,0.6); background: rgba(200,169,110,0.13); }
+    .coach-pill.selected { border-color: #c8a96e; background: rgba(200,169,110,0.22); }
+    .coach-pill-name { font-size: 13px; font-weight: 600; color: #c8a96e; }
+    .coach-pill-sport { font-size: 11px; color: #555; margin-top: 2px; text-transform: uppercase; letter-spacing: 0.06em; }
+    .coach-select-hint { font-size: 11px; color: #555; margin-top: 8px; text-align: center; }
+
+    .current-coach-box {
+        background: rgba(200,169,110,0.07); border: 1px solid rgba(200,169,110,0.25);
+        border-radius: 10px; padding: 10px 16px; margin-bottom: 10px;
+        font-size: 13px; color: #c8a96e; font-weight: 600;
     }
 
-    .btn-update {
-        background: linear-gradient(135deg, #c8a96e, #a07840);
-        border: none;
-        color: #0d0d0d;
-        font-family: 'Outfit', sans-serif;
-        font-size: 13px;
-        font-weight: 700;
-        padding: 11px 0;
-        width: 55%;
-        border-radius: 25px;
-        cursor: pointer;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        box-shadow: 0 4px 18px rgba(200,169,110,0.3);
-        transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
-    }
+    .current-pic { width: 90px; height: 90px; border-radius: 50%; object-fit: cover; border: 2px solid #c8a96e; display: block; margin: 0 auto 12px; box-shadow: 0 0 16px rgba(200,169,110,0.25); }
 
-    .btn-update:hover {
-        opacity: 0.9;
-        transform: translateY(-2px);
-        box-shadow: 0 8px 28px rgba(200,169,110,0.45);
-    }
+    .submit-wrap { text-align: center; margin-top: 28px; }
+    .btn-update { background: linear-gradient(135deg, #c8a96e, #a07840); border: none; color: #0d0d0d; font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 700; padding: 11px 0; width: 55%; border-radius: 25px; cursor: pointer; letter-spacing: 0.08em; text-transform: uppercase; box-shadow: 0 4px 18px rgba(200,169,110,0.3); transition: opacity 0.2s, transform 0.2s; }
+    .btn-update:hover { opacity: 0.9; transform: translateY(-2px); }
 
     @media (max-width: 640px) {
         .edit-wrap { padding: 0 16px; }
         .form-card { padding: 28px 22px 32px; }
+        .sports-grid { grid-template-columns: 1fr; }
     }
 {% endblock %}
 
@@ -146,51 +111,225 @@
     <h2 class="edit-heading">Edit Profile</h2>
 
     <div class="form-card">
-        <form method="post" action="/member_edit_profile/" class="needs-validation" novalidate>
+        <form method="post" action="/member_edit_profile/" enctype="multipart/form-data" novalidate>
             {% csrf_token %}
 
-            <div class="form-section-label">Update Your Details</div>
+            <!-- Hidden: selected coach -->
+            <input type="hidden" name="selected_coach" id="selected_coach" value="{{ member_key.coach }}">
 
+            <!-- ── Account ── -->
+            <div class="form-section-label">Account Details</div>
             <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" name="email" class="form-control" id="email"
-                    placeholder="Enter Your Email Here" required
-                    value="{{ member_key.email }}">
-                <div class="invalid-feedback">Email ID required</div>
+                <label class="form-label">Member ID</label>
+                <input type="text" class="form-control" value="{{ member_key.member_id }}" disabled style="opacity:0.4;cursor:not-allowed;">
             </div>
-
             <div class="mb-3">
-                <label for="phone" class="form-label">Phone Number</label>
-                <input type="text" name="phone" class="form-control" id="phone"
-                    placeholder="Enter Your Number Here" required
-                    value="{{ member_key.phone }}">
-                <div class="invalid-feedback">Phone number required</div>
+                <label class="form-label">New Password <span style="color:#555;font-size:10px;">(leave blank to keep current)</span></label>
+                <input type="password" name="password" class="form-control" placeholder="Enter new password">
             </div>
 
             <div class="form-divider"></div>
 
+            <!-- ── Personal ── -->
+            <div class="form-section-label">Personal Details</div>
             <div class="mb-3">
-                <label for="city" class="form-label">City</label>
-                <input type="text" name="city" class="form-control" id="city"
-                    placeholder="Enter Your City Here" required
-                    value="{{ member_key.city }}">
-                <div class="invalid-feedback">City name required</div>
+                <label class="form-label">Full Name</label>
+                <input type="text" name="name" class="form-control" value="{{ member_key.name }}" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Phone Number</label>
+                <input type="tel" name="phone" class="form-control" value="{{ member_key.phone }}" pattern="[0-9]{10}" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" name="email" class="form-control" value="{{ member_key.email }}" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Gender</label>
+                <div class="radio-group">
+                    <label><input class="radio" type="radio" name="gender" value="male" {% if member_key.gender == 'male' %}checked{% endif %}><span>Male</span></label>
+                    <label><input class="radio" type="radio" name="gender" value="female" {% if member_key.gender == 'female' %}checked{% endif %}><span>Female</span></label>
+                </div>
             </div>
 
+            <div class="form-divider"></div>
+
+            <!-- ── Location ── -->
+            <div class="form-section-label">Location</div>
             <div class="mb-3">
-                <label for="address" class="form-label">Address</label>
-                <textarea class="form-control" id="address" rows="3" name="address"
-                    placeholder="Your Address Here" required>{{ member_key.address }}</textarea>
-                <div class="invalid-feedback">Address required</div>
+                <label class="form-label">City</label>
+                <select name="city" class="form-control" required>
+                    <option value="">Select a City</option>
+                    <option value="Lucknow"   {% if member_key.city == "Lucknow" %}selected{% endif %}>Lucknow</option>
+                    <option value="Gorakhpur" {% if member_key.city == "Gorakhpur" %}selected{% endif %}>Gorakhpur</option>
+                    <option value="Kanpur"    {% if member_key.city == "Kanpur" %}selected{% endif %}>Kanpur</option>
+                    <option value="Hardoi"    {% if member_key.city == "Hardoi" %}selected{% endif %}>Hardoi</option>
+                    <option value="Varanasi"  {% if member_key.city == "Varanasi" %}selected{% endif %}>Varanasi</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Address</label>
+                <textarea name="address" class="form-control" rows="3" required>{{ member_key.address }}</textarea>
+            </div>
+
+            <div class="form-divider"></div>
+
+            <!-- ── Sports ── -->
+            <div class="form-section-label">Sport(s)</div>
+            <div class="sports-grid mb-3">
+                <label class="sport-check-label">
+                    <input type="checkbox" name="sports" value="Cricket" class="sport-checkbox" {% if "Cricket" in member_key.sports %}checked{% endif %}>
+                    <span>🏏 Cricket</span>
+                </label>
+                <label class="sport-check-label">
+                    <input type="checkbox" name="sports" value="Football" class="sport-checkbox" {% if "Football" in member_key.sports %}checked{% endif %}>
+                    <span>⚽ Football</span>
+                </label>
+                <label class="sport-check-label">
+                    <input type="checkbox" name="sports" value="Badminton" class="sport-checkbox" {% if "Badminton" in member_key.sports %}checked{% endif %}>
+                    <span>🏸 Badminton</span>
+                </label>
+                <label class="sport-check-label">
+                    <input type="checkbox" name="sports" value="Basketball" class="sport-checkbox" {% if "Basketball" in member_key.sports %}checked{% endif %}>
+                    <span>🏀 Basketball</span>
+                </label>
+                <label class="sport-check-label">
+                    <input type="checkbox" name="sports" value="Tennis" class="sport-checkbox" {% if "Tennis" in member_key.sports %}checked{% endif %}>
+                    <span>🎾 Tennis</span>
+                </label>
+                <label class="sport-check-label">
+                    <input type="checkbox" name="sports" value="Table Tennis" class="sport-checkbox" {% if "Table Tennis" in member_key.sports %}checked{% endif %}>
+                    <span>🏓 Table Tennis</span>
+                </label>
+                <label class="sport-check-label">
+                    <input type="checkbox" name="sports" value="Volleyball" class="sport-checkbox" {% if "Volleyball" in member_key.sports %}checked{% endif %}>
+                    <span>🏐 Volleyball</span>
+                </label>
+                <label class="sport-check-label">
+                    <input type="checkbox" name="sports" value="Swimming" class="sport-checkbox" {% if "Swimming" in member_key.sports %}checked{% endif %}>
+                    <span>🏊 Swimming</span>
+                </label>
+                <label class="sport-check-label">
+                    <input type="checkbox" name="sports" value="Athletics" class="sport-checkbox" {% if "Athletics" in member_key.sports %}checked{% endif %}>
+                    <span>🏃 Athletics</span>
+                </label>
+                <label class="sport-check-label">
+                    <input type="checkbox" name="sports" value="Kabaddi" class="sport-checkbox" {% if "Kabaddi" in member_key.sports %}checked{% endif %}>
+                    <span>🤼 Kabaddi</span>
+                </label>
+                <label class="sport-check-label">
+                    <input type="checkbox" name="sports" value="Hockey" class="sport-checkbox" {% if "Hockey" in member_key.sports %}checked{% endif %}>
+                    <span>🏑 Hockey</span>
+                </label>
+                <label class="sport-check-label">
+                    <input type="checkbox" name="sports" value="Boxing" class="sport-checkbox" {% if "Boxing" in member_key.sports %}checked{% endif %}>
+                    <span>🥊 Boxing</span>
+                </label>
+            </div>
+
+            <div class="form-divider"></div>
+
+            <!-- ── Coach Selection ── -->
+            <div class="form-section-label">Coach <span style="color:#555;font-size:10px;text-transform:none;letter-spacing:0;">(click to change)</span></div>
+
+            {% if member_key.coach %}
+            <div class="current-coach-box">
+                👤 Current Coach: {{ member_key.coach }}
+            </div>
+            {% endif %}
+
+            <div id="coach-placeholder" style="font-size:13px;color:#444;background:#0d0d0d;border:1px dashed rgba(200,169,110,0.2);border-radius:9px;padding:14px;text-align:center;">
+                Select a sport above to see available coaches
+            </div>
+
+            <div id="coach-list"></div>
+            <div class="coach-select-hint" id="coach-hint" style="display:none;">👆 Click a coach to select them</div>
+
+            <div id="coach-empty" style="display:none;font-size:13px;color:#555;background:#0d0d0d;border:1px dashed rgba(200,169,110,0.15);border-radius:9px;padding:14px;text-align:center;">
+                No coach found for selected sport(s)
+            </div>
+
+            <div class="form-divider"></div>
+
+            <!-- ── Profile Photo ── -->
+            <div class="form-section-label">Profile Photo</div>
+            {% if member_key.profile_picture %}
+                <img src="/media/{{ member_key.profile_picture }}" class="current-pic" alt="Current Photo">
+            {% endif %}
+            <div class="mb-3">
+                <label class="form-label">Upload New Photo <span style="color:#555;font-size:10px;">(leave blank to keep current)</span></label>
+                <input type="file" name="profile_picture" class="form-control" accept="image/*">
             </div>
 
             <div class="submit-wrap">
                 <button type="submit" class="btn-update">Update Profile</button>
             </div>
-
         </form>
     </div>
 </div>
 
-<script src="{% static 'club_app/JS/validation.js' %}"></script>
+{{ coaches|json_script:"coaches-data" }}
+
+<script>
+    const allCoaches     = JSON.parse(document.getElementById('coaches-data').textContent);
+    const currentCoach   = "{{ member_key.coach }}";
+
+    function selectCoach(name, el) {
+        document.querySelectorAll('.coach-pill').forEach(p => p.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('selected_coach').value = name;
+    }
+
+    function updateCoaches() {
+        const checked     = Array.from(document.querySelectorAll('input[name="sports"]:checked')).map(el => el.value);
+        const placeholder = document.getElementById('coach-placeholder');
+        const coachList   = document.getElementById('coach-list');
+        const coachEmpty  = document.getElementById('coach-empty');
+        const coachHint   = document.getElementById('coach-hint');
+
+        if (checked.length === 0) {
+            placeholder.style.display = 'block';
+            coachList.style.display   = 'none';
+            coachEmpty.style.display  = 'none';
+            coachHint.style.display   = 'none';
+            coachList.innerHTML       = '';
+            return;
+        }
+
+        const matched = allCoaches.filter(c => checked.includes(c.sport));
+        placeholder.style.display = 'none';
+
+        if (matched.length === 0) {
+            coachList.style.display  = 'none';
+            coachEmpty.style.display = 'block';
+            coachHint.style.display  = 'none';
+            coachList.innerHTML      = '';
+            return;
+        }
+
+        coachEmpty.style.display  = 'none';
+        coachList.style.display   = 'flex';
+        coachList.style.flexWrap  = 'wrap';
+        coachList.style.gap       = '10px';
+        coachList.style.marginTop = '8px';
+        coachHint.style.display   = 'block';
+
+        coachList.innerHTML = matched.map(c => `
+            <div class="coach-pill ${c.name === currentCoach ? 'selected' : ''}"
+                 onclick="selectCoach('${c.name}', this)">
+                <div class="coach-pill-name">&#128100; ${c.name}</div>
+                <div class="coach-pill-sport">${c.sport}</div>
+            </div>
+        `).join('');
+    }
+
+    // Run on page load to show coaches for already-checked sports
+    document.addEventListener('DOMContentLoaded', function() {
+        updateCoaches();
+    });
+
+    document.querySelectorAll('input[name="sports"]').forEach(cb => {
+        cb.addEventListener('change', updateCoaches);
+    });
+</script>
 {% endblock %}

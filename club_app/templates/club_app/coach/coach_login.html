@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coach Login</title>
+    {% include 'club_app/common_files/common_css.html' %}
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: #0d0d0d;
+            background-image: url({% static 'club_app/images/stadium.jpg' %});
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #e8e0d5;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: rgba(6, 5, 3, 0.85);
+            z-index: 0;
+        }
+
+        .main-wrap { position: relative; z-index: 1; }
+
+        .alert {
+            width: 50%;
+            margin: 20px auto;
+            border-radius: 10px;
+        }
+
+        .login-layout {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 60px;
+            min-height: calc(100vh - 70px);
+            padding: 40px 40px 60px;
+        }
+
+        .login-image-wrap { flex: 0 0 auto; width: 380px; }
+
+        .login-image-wrap img {
+            width: 100%;
+            height: 460px;
+            object-fit: cover;
+            object-position: top;
+            border-radius: 24px;
+            border: 1px solid rgba(200,169,110,0.3);
+            box-shadow: 0 24px 64px rgba(0,0,0,0.6);
+            display: block;
+        }
+
+        .login-form-wrap { flex: 0 0 auto; width: 400px; }
+
+        .form-card {
+            background: #111;
+            border: 1px solid rgba(200,169,110,0.22);
+            border-top: 3px solid #c8a96e;
+            border-radius: 18px;
+            padding: 40px 40px 44px;
+            box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+        }
+
+        .form-card h1 {
+            font-size: 22px;
+            font-weight: 800;
+            text-align: center;
+            background: linear-gradient(135deg, #e8c98a 0%, #c8a96e 60%, #a07840 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 6px;
+        }
+
+        .form-subtitle {
+            text-align: center;
+            font-size: 11px;
+            color: #555;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 32px;
+        }
+
+        .input-group { margin-bottom: 6px; }
+
+        .input-group-text {
+            background: rgba(200,169,110,0.1) !important;
+            border: 1px solid rgba(200,169,110,0.2) !important;
+            border-right: none !important;
+            color: #c8a96e !important;
+            border-radius: 9px 0 0 9px !important;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .form-control {
+            background: #0d0d0d !important;
+            border: 1px solid rgba(200,169,110,0.2) !important;
+            border-left: none !important;
+            border-radius: 0 9px 9px 0 !important;
+            color: #e8e0d5 !important;
+            font-family: 'Outfit', sans-serif !important;
+            font-size: 14px !important;
+            padding: 10px 14px !important;
+            height: auto !important;
+            line-height: 1.5 !important;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-control::placeholder { color: #3a3a3a !important; }
+
+        .form-control:focus {
+            border-color: #c8a96e !important;
+            box-shadow: 0 0 0 3px rgba(200,169,110,0.12) !important;
+            background: #0f0f0f !important;
+            outline: none;
+        }
+
+        .toggle-pw { cursor: pointer; }
+
+        /* ── Password validation styles ── */
+        .pwd-rules {
+            list-style: none;
+            margin-top: 10px;
+            padding: 10px 14px;
+            background: #0a0a0a;
+            border: 1px solid rgba(200,169,110,0.1);
+            border-radius: 9px;
+            display: none;
+        }
+
+        .pwd-rules.visible { display: block; }
+
+        .pwd-rule {
+            font-size: 12px;
+            color: #555;
+            padding: 3px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.25s;
+        }
+
+        .pwd-rule .rule-icon {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 1.5px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            flex-shrink: 0;
+            transition: all 0.25s;
+        }
+
+        .pwd-rule.pass { color: #4caf82; }
+
+        .pwd-rule.pass .rule-icon {
+            background: #4caf82;
+            border-color: #4caf82;
+            color: #0d0d0d;
+        }
+
+        .pwd-rule.fail .rule-icon {
+            border-color: #c0392b;
+            color: #c0392b;
+        }
+
+        .strength-bars {
+            display: flex;
+            gap: 5px;
+            margin-top: 8px;
+        }
+
+        .strength-bar {
+            height: 4px;
+            flex: 1;
+            border-radius: 4px;
+            background: #222;
+            transition: background 0.35s ease;
+        }
+
+        .strength-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-top: 5px;
+            min-height: 16px;
+        }
+
+        /* ── Submit ── */
+        .submit-wrap { text-align: center; margin-top: 28px; }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #c8a96e, #a07840);
+            border: none;
+            color: #0d0d0d;
+            font-family: 'Outfit', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 11px 0;
+            width: 60%;
+            border-radius: 25px;
+            cursor: pointer;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            box-shadow: 0 4px 18px rgba(200,169,110,0.3);
+            transition: opacity 0.2s, transform 0.2s;
+        }
+
+        .btn-submit:hover { opacity: 0.9; transform: translateY(-2px); }
+
+        .member-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 22px;
+            font-size: 13px;
+            color: #555;
+        }
+
+        .member-link a {
+            color: #c8a96e;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .member-link a:hover { color: #e8c98a; }
+
+        /* login hint text */
+        .login-hint {
+            font-size: 11px;
+            color: #444;
+            text-align: center;
+            margin-top: 10px;
+            letter-spacing: 0.04em;
+        }
+
+        @media (max-width: 900px) {
+            .login-layout {
+                flex-direction: column;
+                gap: 32px;
+                padding: 32px 20px 48px;
+            }
+            .login-image-wrap,
+            .login-form-wrap { width: 100%; max-width: 440px; }
+            .alert { width: 92%; }
+        }
+    </style>
+</head>
+<body>
+<div class="main-wrap">
+    {% include 'club_app/common_files/common_header.html' %}
+
+    {% if messages %}
+        {% for m in messages %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert"
+             style="width:50%;margin:20px auto;">
+            <strong>{{ m }}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="login-layout">
+
+        <div class="login-image-wrap">
+            <img src="{% static 'club_app/images/sports_loginimg.avif' %}" alt="Sports">
+        </div>
+
+        <div class="login-form-wrap">
+            <div class="form-card">
+                <h1>Coach Login</h1>
+                <p class="form-subtitle">Sign in to your coach account</p>
+
+                <form action="/coach_login/" method="post" novalidate id="coach-login-form">
+                    {% csrf_token %}
+
+                    <!-- Coach ID -->
+                    <div class="input-group mt-3">
+                        <label class="input-group-text">
+                            <i class="fas fa-id-badge"></i>
+                        </label>
+                        <input type="text" class="form-control" name="coach_id"
+                               placeholder="Enter your Coach ID" required>
+                    </div>
+
+                    <!-- Password with show/hide -->
+                    <div class="input-group mt-3">
+                        <label class="input-group-text toggle-pw"
+                               onclick="togglePassword()" title="Show/hide">
+                            <i class="fas fa-eye-slash" id="pw-icon"></i>
+                        </label>
+                        <input type="password" id="passwordInput" class="form-control"
+                               name="password" placeholder="Enter your Password"
+                               required oninput="checkLoginPassword(this.value)">
+                    </div>
+
+                    <!-- Strength bars -->
+                    <div class="strength-bars" style="margin-top:10px;">
+                        <div class="strength-bar" id="lbar1"></div>
+                        <div class="strength-bar" id="lbar2"></div>
+                        <div class="strength-bar" id="lbar3"></div>
+                        <div class="strength-bar" id="lbar4"></div>
+                    </div>
+                    <div class="strength-label" id="login-strength-label"></div>
+
+                    <!-- Rules checklist -->
+                    <ul class="pwd-rules" id="login-pwd-rules">
+                        <li class="pwd-rule" id="lrule-len">
+                            <span class="rule-icon">&#10005;</span>At least 8 characters
+                        </li>
+                        <li class="pwd-rule" id="lrule-upper">
+                            <span class="rule-icon">&#10005;</span>At least one uppercase letter (A–Z)
+                        </li>
+                        <li class="pwd-rule" id="lrule-lower">
+                            <span class="rule-icon">&#10005;</span>At least one lowercase letter (a–z)
+                        </li>
+                        <li class="pwd-rule" id="lrule-num">
+                            <span class="rule-icon">&#10005;</span>At least one number (0–9)
+                        </li>
+                        <li class="pwd-rule" id="lrule-sym">
+                            <span class="rule-icon">&#10005;</span>At least one special character (!@#$%...)
+                        </li>
+                    </ul>
+                    <p class="login-hint">Your password must meet all rules above to sign in.</p>
+
+                    <div class="submit-wrap">
+                        <button type="submit" class="btn-submit">Sign In</button>
+                    </div>
+
+                    <div class="member-link">
+                        <span>New coach?</span>
+                        <a href="/career/">Register as Coach <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    /* ── Show / hide password ── */
+    function togglePassword() {
+        const input = document.getElementById('passwordInput');
+        const icon  = document.getElementById('pw-icon');
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.classList.replace('fa-eye-slash', 'fa-eye');
+        } else {
+            input.type = 'password';
+            icon.classList.replace('fa-eye', 'fa-eye-slash');
+        }
+    }
+
+    /* ── Password rules ── */
+    const loginRules = [
+        { id: 'lrule-len',   test: v => v.length >= 8 },
+        { id: 'lrule-upper', test: v => /[A-Z]/.test(v) },
+        { id: 'lrule-lower', test: v => /[a-z]/.test(v) },
+        { id: 'lrule-num',   test: v => /[0-9]/.test(v) },
+        { id: 'lrule-sym',   test: v => /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(v) },
+    ];
+
+    const strengthColors = ['#c0392b', '#e67e22', '#f1c40f', '#4caf82'];
+    const strengthLabels = ['', 'Weak', 'Fair', 'Good', 'Strong'];
+
+    function checkLoginPassword(val) {
+        const rulesBox = document.getElementById('login-pwd-rules');
+
+        if (val.length === 0) {
+            rulesBox.classList.remove('visible');
+            for (let i = 1; i <= 4; i++) {
+                document.getElementById('lbar' + i).style.background = '#222';
+            }
+            document.getElementById('login-strength-label').textContent = '';
+            return;
+        }
+
+        rulesBox.classList.add('visible');
+
+        let passed = 0;
+        loginRules.forEach(rule => {
+            const ok   = rule.test(val);
+            const li   = document.getElementById(rule.id);
+            const icon = li.querySelector('.rule-icon');
+            if (ok) {
+                li.classList.add('pass');
+                li.classList.remove('fail');
+                icon.textContent = '✓';
+                passed++;
+            } else {
+                li.classList.remove('pass');
+                li.classList.add('fail');
+                icon.textContent = '✕';
+            }
+        });
+
+        const color = strengthColors[Math.min(passed - 1, 3)];
+        for (let i = 1; i <= 4; i++) {
+            document.getElementById('lbar' + i).style.background =
+                i <= passed ? color : '#222';
+        }
+
+        const lbl = document.getElementById('login-strength-label');
+        lbl.textContent = strengthLabels[Math.min(passed, 4)];
+        lbl.style.color  = passed > 0 ? color : '#555';
+    }
+
+    /* ── Block submit if password rules not met ── */
+    document.getElementById('coach-login-form').addEventListener('submit', function(e) {
+        const pwd       = document.getElementById('passwordInput').value;
+        const allPassed = loginRules.every(rule => rule.test(pwd));
+        if (!allPassed) {
+            e.preventDefault();
+            document.getElementById('login-pwd-rules').classList.add('visible');
+            document.getElementById('passwordInput').focus();
+        }
+    });
+</script>
+</body>
+</html>
