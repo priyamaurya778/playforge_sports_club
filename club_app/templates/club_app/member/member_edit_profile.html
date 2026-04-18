@@ -115,7 +115,7 @@
             {% csrf_token %}
 
             <!-- Hidden: selected coach -->
-            <input type="hidden" name="selected_coach" id="selected_coach" value="{{ member_key.coach }}">
+           
 
             <!-- ── Account ── -->
             <div class="form-section-label">Account Details</div>
@@ -230,14 +230,7 @@
             <div class="form-divider"></div>
 
             <!-- ── Coach Selection ── -->
-            <div class="form-section-label">Coach <span style="color:#555;font-size:10px;text-transform:none;letter-spacing:0;">(click to change)</span></div>
-
-            {% if member_key.coach %}
-            <div class="current-coach-box">
-                👤 Current Coach: {{ member_key.coach }}
-            </div>
-            {% endif %}
-
+     
             <div id="coach-placeholder" style="font-size:13px;color:#444;background:#0d0d0d;border:1px dashed rgba(200,169,110,0.2);border-radius:9px;padding:14px;text-align:center;">
                 Select a sport above to see available coaches
             </div>

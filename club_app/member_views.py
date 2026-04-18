@@ -10,13 +10,24 @@ from django.db.models import Q
 
 
 def member_home(request):
-   if "session_key" not in request.session.keys():
-      return redirect("member_login")
-   
-   id=request.session["session_key"]
-   member_obj=Member.objects.get(member_id=id)
-   context={"member_key":member_obj}
-   return render(request,'club_app/member/member_dashboard.html',context)
+    if "session_key" not in request.session.keys():
+        return redirect("member_login")
+
+    id         = request.session["session_key"]
+    member_obj = Member.objects.get(member_id=id)
+
+    sports_list     = [s.strip() for s in (member_obj.sports or '').split(',') if s.strip()]
+    related_coaches = Coach.objects.filter(area_of_intrest__in=sports_list)
+
+    # Parse selected coach names into a list
+    selected_coaches = [c.strip() for c in (member_obj.coach or '').split(',') if c.strip()]
+
+    context = {
+        "member_key"      : member_obj,
+        "my_coaches"      : related_coaches,
+        "selected_coaches": selected_coaches,
+    }
+    return render(request, 'club_app/member/member_dashboard.html', context)
 
 
 
@@ -87,7 +98,6 @@ def feedback(request):
 
         
 def member_login(request):
-
     if request.method == "GET":
         return render(request, 'club_app/member/member_login.html')
 
@@ -96,23 +106,17 @@ def member_login(request):
         mem_pass = request.POST["password"]
 
         member_list = Member.objects.filter(member_id=mem_id, password=mem_pass)
-        size = len(member_list)
 
-        if size == 1:
+        if len(member_list) == 1:
             request.session["session_key"] = mem_id
             request.session["role"] = "Member"
-            member_obj = member_list[0]
-            print("COACH VALUE:", member_obj.coach)
-
-            context = {
-                "member_key": member_obj
-            }
-            return render(request, 'club_app/member/member_dashboard.html', context)
+            return redirect("member_home")   # ← redirect, don't render directly
 
         else:
             messages.error(request, "Invalid user ID or password")
             return redirect("member_login")
-          
+
+      
 
 def member_registration(request):
     # ── Hardcoded coach list for the registration form ──
@@ -180,44 +184,35 @@ def member_registration(request):
 
 
 def member_edit_profile(request):
-    if request.method == "GET":
-        if "session_key" not in request.session:
-            return redirect("member_login")
-        id         = request.session["session_key"]
-        member_obj = Member.objects.get(member_id=id)
-
-        # Pass all coaches for the sport filter
-        coaches_for_js = [
-            {"name": c.name, "sport": c.area_of_intrest}
-            for c in Coach.objects.all()
-        ]
-
-        context = {
-            "member_key": member_obj,
-            "coaches"   : coaches_for_js,
-        }
-        return render(request, 'club_app/member/member_edit_profile.html', context)
+    if "session_key" not in request.session:
+        return redirect("member_login")
 
     if request.method == "POST":
         id = request.session["session_key"]
 
         update_fields = {
-            "name"   : request.POST.get("name"),
-            "email"  : request.POST.get("email"),
-            "phone"  : request.POST.get("phone"),
-            "gender" : request.POST.get("gender"),
-            "city"   : request.POST.get("city"),
+            "name": request.POST.get("name"),
+            "email": request.POST.get("email"),
+            "phone": request.POST.get("phone"),
+            "gender": request.POST.get("gender"),
+            "city": request.POST.get("city"),
             "address": request.POST.get("address"),
-            "sports" : ', '.join(request.POST.getlist("sports")),
-            "coach"  : request.POST.get("selected_coach", ""),
+            "sports": ', '.join(request.POST.getlist("sports")),
         }
 
+        # Only update coach if selected
+        new_coach = request.POST.get("selected_coach", "").strip()
+        if new_coach:
+            update_fields["coach"] = new_coach
+
+        # Update password only if provided
         new_password = request.POST.get("password", "").strip()
         if new_password:
             update_fields["password"] = new_password
 
         Member.objects.filter(member_id=id).update(**update_fields)
 
+        # Handle profile picture
         new_pic = request.FILES.get("profile_picture")
         if new_pic:
             member_obj = Member.objects.get(member_id=id)
@@ -226,3 +221,7 @@ def member_edit_profile(request):
 
         messages.success(request, "Profile updated successfully 👍")
         return redirect('member_edit_profile')
+
+    # GET request (show form)
+    member_obj = Member.objects.get(member_id=request.session["session_key"])
+    return render(request, "club_app/member/member_edit_profile.html", {"member": member_obj})
